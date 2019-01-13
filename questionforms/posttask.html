@@ -1,0 +1,40 @@
+<!DOCTYPE>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./questions.css"/>
+	<script src="./questions.js"></script>
+  </head>
+  
+  <body>
+  
+    <b>Afronden zoektaak</b><br><br>
+	
+	<form onsubmit="return loadNext(event, 0, 2)">
+		Wat was het antwoord op de zoektaak?<br>
+		<input type="text" name="antwoordtaak"><br>
+		Hoe tevreden ben je met je antwoord?<br>
+		<div>
+			Weinig tevreden
+			<input type="radio" id="tevreden0" name="tevreden" value="0">
+			<input type="radio" id="tevreden1" name="tevreden" value="1">
+			<input type="radio" id="tevreden2" name="tevreden" value="2">
+			<input type="radio" id="tevreden3" name="tevreden" value="3">
+			<input type="radio" id="tevreden4" name="tevreden" value="4">
+			Veel tevreden
+		</div><br>		
+		<input type="submit" value="Invoeren">
+
+	</form>
+
+    
+  </body>
+
+</html>
+
+
+
+
+

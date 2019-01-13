@@ -1,0 +1,25 @@
+{
+  "description": "Script for performing/logging search tasks",
+  "manifest_version": 2,
+  "name": "weblogger",
+  "version": "1.0",
+
+  "permissions": [
+    "webRequest",
+    "<all_urls>",
+	"tabs",
+	"storage",
+	"alarms",
+	"unlimitedStorage"
+  ],
+  
+  "sidebar_action": {
+    "default_icon": "icons/star.png",
+    "default_title" : "Annotator",
+    "default_panel": "sidebar/panel.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

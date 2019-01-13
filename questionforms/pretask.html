@@ -1,0 +1,41 @@
+<!DOCTYPE>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./questions.css"/>
+	<script src="./questions.js"></script>
+  </head>
+  
+  <body>
+  
+    <b>Intro nieuwe zoektaak</b><br><br>
+	
+	U krijgt zo 15 minuten de tijd om de volgende zoekvraag te beantwoorden met Google. Je mag alle zoekmachines en websites gebruiken die nuttig vind.<br>
+	
+	<form onsubmit="return loadNext(event, 0, 1)">
+		Bent u bekend met dit onderwerp?<br>
+		
+		<div>
+			Weinig bekend
+			<input type="radio" id="hoogte0" name="hoogte" value="0">
+			<input type="radio" id="hoogte1" name="hoogte" value="1">
+			<input type="radio" id="hoogte2" name="hoogte" value="2">
+			<input type="radio" id="hoogte3" name="hoogte" value="3">
+			<input type="radio" id="hoogte4" name="hoogte" value="4">
+			Erg bekend
+		</div><br>		
+		<input type="submit" value="Invoeren">
+
+	</form>
+
+    
+  </body>
+
+</html>
+
+
+
+
+
