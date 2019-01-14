@@ -26,13 +26,46 @@ function restartAlarm(nextUrl) {
 //  });
 }
 
+//When addon is reinstalled, navigate to last open page
+function initAlarm(){
+	console.log('init alarm')
+	browser.alarms.clearAll();
+	browser.alarms.create("resume", {delayInMinutes: 0.1})
+}
+
+function storeLogs(){
+	let contentToStore = {};
+	contentToStore['logs'] = logs;
+	browser.storage.local.set(contentToStore);
+}
+
 //On alarm, show the page action on the current tab
+//Cases: starting the app, time limit task is over
 browser.alarms.onAlarm.addListener((alarm) => {
   //var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
   //gettingActiveTab.then((tabs) => {
   //  browser.pageAction.show(tabs[0].id);
   //});
-  browser.tabs.update({url: alarm.name});
+  
+  //Called when extension is installed/session is resumed
+  if(alarm.name == "resume"){
+	 tmpTask = { "curStage":logs.sessions[0].curStage,
+				 "curTask":logs.sessions[0].curTask,
+				 "type":"load",
+				 "content":""
+	 }
+	 loadNextPhase(tmpTask)
+//     browser.tabs.update({url:"./questionforms/intro.html"});
+  } 
+  else{
+	//note: only every called when the next stage is in the same task, so we never have to increment that
+	logs.sessions[0].curStage += 1
+	storeLogs();
+	browser.tabs.update({url: alarm.name});
+  }
+//  if(logs.sessions[0].curStage > 2)
+  
+    
   //This is where pre task goes to task
 });
 
@@ -43,33 +76,129 @@ On page action click, navigate the corresponding tab to the cat gifs.
  // browser.tabs.update({url: CATGIFS});
 //});
 
-
+function closeOtherTabs(){
+	browser.tabs.query({})
+    .then((tabs) => {
+		console.log('these tabs')
+		console.log(tabs)
+		tabs.forEach(function (tab) {
+			if(tab.active == false){
+				browser.tabs.remove(tab.id)
+				console.log(tab.id)
+			}
+		})
+})}
 
 //load next task, also used for logging.. should rename
 function loadNextPhase(task){
 	//first determine type: loading next page/stage, or logging event?
 	
+	//If there are other windows open with the extension/questionnaires when navigating, close the previous ones
+	//deprecated
+//	if(task.type == "prev" || task.type == "next"){
+		//for(tab in tabs){
+		//	console.log(tab)
+		//	if(tab.active == false){
+		//		browser.tabs.remove(tab.id);
+		//	}}
+	//})
+	//	contentToStore[''+Date.now()] = tabs[0].url;
+		//console.log(contentToStore)
+		//browser.storage.local.set(contentToStore);
+	//})
+//	}
+		
 	
 	//console.log('loadtask')
 	//console.log(task)
+//	console.log('message received')
 	if (task.type == "prev"){
+	console.log(task.type)
+	console.log(logs.sessions[0].curTask)
+	console.log(logs.sessions[0].curStage)
 		//TODO get current stage and task
 		//update logs
-		task.curStage = logs.sessions[0].curStage - 1
-		task.curTask = logs.sessions[0].curTask
-		if(task.curStage < 0){
-			task.curStage = 2
-			task.curTask -= 1
+		//if not already already at the start
+		if(!(logs.sessions[0].curTask < 0 && logs.sessions[0].curStage < 1)){
+			task.curStage = logs.sessions[0].curStage - 1
+			task.curTask = logs.sessions[0].curTask
+		
+			//clear alarms previously set
+			browser.alarms.clearAll();
+				
+			//if this was the first stage in the poststudy, go to last stage of a task
+			if(task.curStage < 0){
+				if(task.curTask == 1){
+					task.curStage = 2
+					task.curTask -= 1
+				}
+				//if it was the first stage in the first task, go to last stage of prestudy
+				else if(task.curTask == 0){
+					task.curStage = 1
+					task.curTask -= 1
+				}
+			}
+			
+			//If we go back enough stages, we get to the previous task
+			//(should be unused now) If we are before the pre-study(-1), don't go back further
+			
+			
+			/*if(task.curStage < 0 && !(task.curTask == -1)){
+				task.curTask -= 1
+				//prestudy task has only 2 stages
+				if(task.curTask == 0){
+					task.curStage = 1
+				}
+				//other tasks have 3 stages
+				else{
+					task.curStage = 2
+				}
+			}*/
+			task.type = "load"
+			console.log(task.type)
+	console.log(task.curTask)
+	console.log(task.curStage)
 		}
-		task.type = "load"
 //		logs.sessions[0].loglines.push(Date.now() + " Task " + curTask + " Stage " + curStage)
 //		let contentToStore = {};
 //		contentToStore['logs'] = logs;
 //		browser.storage.local.set(contentToStore);
 	}
-	
+	if (task.type == "next"){
+	console.log(task.type)
+	console.log(logs.sessions[0].curTask)
+	console.log(logs.sessions[0].curStage)
+		//if not the final page
+		if(!(logs.sessions[0].curTask == 1)){
+			//increase the search stage
+			task.curStage = logs.sessions[0].curStage + 1
+			task.curTask = logs.sessions[0].curTask
+			
+			//clear alarms previously set
+			browser.alarms.clearAll();
+			
+			//if this was the final stage of the prestudy, next task
+			if(task.curTask == -1 && task.curStage > 1){
+				task.curTask += 1
+				task.curStage = 0
+			}
+			//if the final stage of a search task, next task
+			else if(task.curStage > 2){
+				task.curTask += 1
+				task.curStage = 0
+			}
+			task.type = "load"
+			console.log(task.type)
+			console.log(task.curTask)
+			console.log(task.curStage)
+		}
+	}
 	if(task.type == "load"){
+		//focus on window with the questions
+		closeOtherTabs();
+		
 		//update logs
+		
 		logs.sessions[0].curStage = task.curStage
 		logs.sessions[0].curTask = task.curTask
 		logs.sessions[0].loglines.push(Date.now() + " Task " + task.curTask + " Stage " + task.curStage)
@@ -79,8 +208,20 @@ function loadNextPhase(task){
 		
 		//load prestudy
 		if(task.curTask == -1){
-			console.log('loading prestudy')
-			browser.tabs.update({url: "./questionforms/prestudy.html"});
+			if(task.curStage == 0){
+				console.log('loading intro')
+				browser.tabs.update({url: "./questionforms/intro.html"});
+			}
+			else if(task.curStage == 1){
+				console.log('loading prestudy')
+				browser.tabs.update({url: "./questionforms/prestudy.html"});
+			}
+			else{ alert('unknown state') }
+		}
+		//test if done
+		else if(task.curTask == 1){
+			console.log('start post study')
+			browser.tabs.update({url: "./questionforms/poststudy.html"});
 		}
 		else if(task.curStage == 0){
 			//TODO check if there are more tasks left to do
@@ -93,10 +234,13 @@ function loadNextPhase(task){
 			browser.tabs.update({url: "http://uu.nl/"});
 			restartAlarm("./questionforms/posttask.html");
 		}
+		//menu navigation can get here instead of by the alarm
 		else if(task.curStage == 2){
-			console.log('start post study')
-			browser.tabs.update({url: "./questionforms/poststudy.html"});
+			console.log('post task')
+			browser.tabs.update({url: "./questionforms/posttask.html"});
 		}
+			
+		
 		
 		
 		
@@ -177,9 +321,11 @@ function onInstalledNotification(details) {
 				"loglines": [Date.now() + " Logs for session 0 with participant 0"]
 				}]
 			}
+			storeLogs();
 		}
 		else{
 			logs = results.logs
+			logs.sessions[0].loglines.push("Resuming logs at task " + logs.sessions[0].curTask + " stage " + logs.sessions[0].curStage)
 		}
 	})
 			
@@ -191,8 +337,8 @@ function onInstalledNotification(details) {
 //	partid = 0
 	
 	//Start the intro. TODO open in a new tab instead of refreshing the current one after 6 sec?
-	restartAlarm("./questionforms/intro.html");
-	
+	//restartAlarm("./questionforms/intro.html");
+	initAlarm();
 	
 	
 	
@@ -203,6 +349,7 @@ function onInstalledNotification(details) {
 	console.log('succes')
 	console.log(contentToStore)*/
 }
+
 /*
 //define numrules logged if it does not already exist
 if (typeof browser.storage.local.get('loginfo') == 'undefined') {

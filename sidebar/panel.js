@@ -44,8 +44,8 @@ function updateContent() {
   let contentToStore = {};
    browser.tabs.query({windowId: myWindowId, active: true})
     .then((tabs) => {
-		browser.runtime.sendMessage({"curTask":0, "curStage":0, "type": "log", "content":Date.now() + " " + tabs[0].url})
-		
+		browser.runtime.sendMessage({"curTask":0, "curStage":0, "type": "log", "content":Date.now() + " " + tabs[0].id + " " + tabs[0].index + " " + tabs[0].url})//tabs[0].id
+		console.log(tabs[0].id)
 		
 //		contentToStore[''+Date.now()] = tabs[0].url;
 //		console.log(contentToStore)
