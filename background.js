@@ -49,8 +49,8 @@ browser.alarms.onAlarm.addListener((alarm) => {
   
   //Called when extension is installed/session is resumed
   if(alarm.name == "resume"){
-	 tmpTask = { "curStage":logs.sessions[0].curStage,
-				 "curTask":logs.sessions[0].curTask,
+	 tmpTask = { "curStage":logs.sessions[logs.curSession].curStage,
+				 "curTask":logs.sessions[logs.curSession].curTask,
 				 "type":"load",
 				 "content":""
 	 }
@@ -59,7 +59,7 @@ browser.alarms.onAlarm.addListener((alarm) => {
   } 
   else{
 	//note: only every called when the next stage is in the same task, so we never have to increment that
-	logs.sessions[0].curStage += 1
+	logs.sessions[logs.curSession].curStage += 1
 	storeLogs();
 	browser.tabs.update({url: alarm.name});
   }
@@ -87,7 +87,41 @@ function closeOtherTabs(){
 				console.log(tab.id)
 			}
 		})
-})}
+	}
+)}
+
+
+var searchtasks = ['U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
+'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen politiek gezien aangekaart, en wat is hier de status van?']
+var searchtaskshort = ['Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
+'Hoe wordt er gelobbyd voor een grotere supermarkt op de Uithof?'
+]
+
+//update toolbar and pre forms
+function setTask(taskid){
+	console.log('setting task!')
+	stask = ""
+	staskshort = ""
+	if(taskid > 0 && taskid < 1){
+		stask = searchtasks[taskid]
+		staskshort = searchtaskshort[taskid]
+	}
+		
+	//in case of edge cases where user
+	 browser.tabs.query({}).then((tabs) => {
+		 console.log('tabs')
+		 console.log(tabs)
+	for (let tab of browser.tabs) {
+		browser.tabs.sendMessage(
+		tab.id,
+		{"type": "setTask", "searchtask": searchtasks[taskid], "searchtaskshort": searchtaskshort[taskid]}
+		)/*.then(response => {
+		console.log("Message from the content script:");
+		console.log(response.response);
+		}).catch(onError);*/
+	 }
+	 })
+}
 
 //load next task, also used for logging.. should rename
 function loadNextPhase(task){
@@ -107,21 +141,28 @@ function loadNextPhase(task){
 		//browser.storage.local.set(contentToStore);
 	//})
 //	}
+
+
+
+
+	//OLD If a toolbar button was pressed before the session started -> go to setup page
+	//if (task.type == "prev" || task.type == "next" && inSession == 0)
 		
-	
-	//console.log('loadtask')
-	//console.log(task)
+	if(task.type == "setTask"){
+		console.log('background message settask')
+		console.log(task)
+	}
 //	console.log('message received')
 	if (task.type == "prev"){
 	console.log(task.type)
-	console.log(logs.sessions[0].curTask)
-	console.log(logs.sessions[0].curStage)
+	console.log(logs.sessions[logs.curSession].curTask)
+	console.log(logs.sessions[logs.curSession].curStage)
 		//TODO get current stage and task
 		//update logs
 		//if not already already at the start
-		if(!(logs.sessions[0].curTask < 0 && logs.sessions[0].curStage < 1)){
-			task.curStage = logs.sessions[0].curStage - 1
-			task.curTask = logs.sessions[0].curTask
+		if(!(logs.sessions[logs.curSession].curTask < 0 && logs.sessions[logs.curSession].curStage < 1)){
+			task.curStage = logs.sessions[logs.curSession].curStage - 1
+			task.curTask = logs.sessions[logs.curSession].curTask
 		
 			//clear alarms previously set
 			browser.alarms.clearAll();
@@ -166,13 +207,13 @@ function loadNextPhase(task){
 	}
 	if (task.type == "next"){
 	console.log(task.type)
-	console.log(logs.sessions[0].curTask)
-	console.log(logs.sessions[0].curStage)
+	console.log(logs.sessions[logs.curSession].curTask)
+	console.log(logs.sessions[logs.curSession].curStage)
 		//if not the final page
-		if(!(logs.sessions[0].curTask == 1)){
+		if(!(logs.sessions[logs.curSession].curTask == 1)){
 			//increase the search stage
-			task.curStage = logs.sessions[0].curStage + 1
-			task.curTask = logs.sessions[0].curTask
+			task.curStage = logs.sessions[logs.curSession].curStage + 1
+			task.curTask = logs.sessions[logs.curSession].curTask
 			
 			//clear alarms previously set
 			browser.alarms.clearAll();
@@ -197,11 +238,14 @@ function loadNextPhase(task){
 		//focus on window with the questions
 		closeOtherTabs();
 		
+		//make sure the task is updated
+		setTask(task.curTask)
+		
 		//update logs
 		
-		logs.sessions[0].curStage = task.curStage
-		logs.sessions[0].curTask = task.curTask
-		logs.sessions[0].loglines.push(Date.now() + " Task " + task.curTask + " Stage " + task.curStage)
+		logs.sessions[logs.curSession].curStage = task.curStage
+		logs.sessions[logs.curSession].curTask = task.curTask
+		logs.sessions[logs.curSession].loglines.push(Date.now() + " Task " + task.curTask + " Stage " + task.curStage)
 		let contentToStore = {};
 		contentToStore['logs'] = logs;
 		browser.storage.local.set(contentToStore);
@@ -228,6 +272,7 @@ function loadNextPhase(task){
 			console.log('start pre task')
 			browser.tabs.update({url: "./questionforms/pretask.html"});
 			//todo tell the task to the toolbar rather than via post
+		//last is optional
 		}
 		else if(task.curStage == 1){
 			console.log('start task')
@@ -247,8 +292,14 @@ function loadNextPhase(task){
 	}
 	else if(task.type == "log"){
 		//Multiple http requests with the same URL, only log the first
-		if(task.content.split(" ", 2)[1] != logs.sessions[0].loglines[logs.sessions[0].loglines.length - 1].split(" ", 2)[1]){
-			logs.sessions[0].loglines.push(task.content)
+		if(task.content.split(" ", 4)[3] != logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3]){
+			console.log('current')
+			console.log(task.content)
+			console.log('previous')
+			console.log(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1])
+		
+		
+			logs.sessions[logs.curSession].loglines.push(task.content)
 			//console.log(logs)
 			//update stored logs
 			let contentToStore = {};
@@ -266,7 +317,20 @@ function loadNextPhase(task){
 			
 		}
 	}
-
+	else if(task.type == "nextsession"){
+		logs.curSession += 1;
+		//create this new session
+		logs.sessions.push({
+			"participantid": logs.curSession,
+			"curTask": -1,
+			"curStage": 0,
+			"loglines": [Date.now() + " Logs for session 0 with participant 0"]
+			})
+		//not currently used/properly implemented
+//		logs.curParticipant = task.curParticipant; 
+		//TODO add warning that cursession is at invalid value
+	}
+	
 		
 }
 
@@ -308,24 +372,25 @@ function searchtask1(e){
 
 function onInstalledNotification(details) {
 	//TODO see if it already exists
-	console.log('getttt')
+	console.log('checking if there are already logs stored')
 	let gett = browser.storage.local.get();
 	gett.then((results) => { 
 		if(typeof results.logs === "undefined"){
 			console.log('initialising logs')
 			logs = {
 				"sessions": [{
-				"participantid": 0,
-				"curTask": -1,
-				"curStage": 0,
-				"loglines": [Date.now() + " Logs for session 0 with participant 0"]
-				}]
+					"participantid": 0,
+					"curTask": -1,
+					"curStage": 0,
+					"loglines": [Date.now() + " Logs for session 0 with participant 0"]
+				}],
+				"curSession": 0
 			}
 			storeLogs();
 		}
 		else{
 			logs = results.logs
-			logs.sessions[0].loglines.push("Resuming logs at task " + logs.sessions[0].curTask + " stage " + logs.sessions[0].curStage)
+			logs.sessions[logs.curSession].loglines.push("Resuming logs at task " + logs.sessions[logs.curSession].curTask + " stage " + logs.sessions[logs.curSession].curStage)
 		}
 	})
 			
@@ -360,6 +425,5 @@ if (typeof browser.storage.local.get('loginfo') == 'undefined') {
 
     browser.storage.local.set(loginfo);
 }*/
-
-
+	
 browser.runtime.onInstalled.addListener(onInstalledNotification);

@@ -13,7 +13,10 @@
     <b>Afronden zoektaak</b><br><br>
 	
 	<form onsubmit="return loadNext(event, 1, 0)">
-		Wat was het antwoord op de zoektaak?<br>
+		Wat was het antwoord op de zoektaak?<br><br>
+		
+		<div id="taskdisplay"><br><br>
+		
 		<input type="text" name="antwoordtaak"><br>
 		Hoe tevreden ben je met je antwoord?<br>
 		<div>
@@ -24,7 +27,17 @@
 			<input type="radio" id="tevreden3" name="tevreden" value="3">
 			<input type="radio" id="tevreden4" name="tevreden" value="4">
 			Veel tevreden
-		</div><br>		
+		</div><br>	
+		Alles samen genomen, hoe moeilijk was de taak?<br>
+		<div>
+			Erg makkelijk
+			<input type="radio" id="tevreden0" name="tevreden" value="0">
+			<input type="radio" id="tevreden1" name="tevreden" value="1">
+			<input type="radio" id="tevreden2" name="tevreden" value="2">
+			<input type="radio" id="tevreden3" name="tevreden" value="3">
+			<input type="radio" id="tevreden4" name="tevreden" value="4">
+			Erg moeilijk
+		</div><br>			
 		<input type="submit" value="Invoeren">
 
 	</form>

@@ -5,6 +5,8 @@ function loadNext(e, taskId, phase){
 	//set toolbar stuffs	
 }
 
+
+
 function downloadLogs() {
 //Get the logs to make them downloadable
 	browser.storage.local.get().then((logs) => {
@@ -30,3 +32,23 @@ function downloadLogs() {
 
 // Start file download.
 //download("hello.txt","This is the content of my file :)");
+
+/*function getTask(task){
+	console.log('received message in questions!')
+	console.log(task)
+	if(task.type == "setTask"){
+		//set div to searchtask
+		document.getElementById("taskdisplay").innerHTML = task.searchtask
+//		console.log(task.searchtask)
+		//task.searchtask task.searchtaskshort
+	}
+}*/
+
+//read storage
+function getTask(){
+	let retrieveLogs = browser.storage.local.get();
+	retrieveLogs.then((results) => { console.log(results) })
+}
+
+
+browser.runtime.onMessage.addListener(getTask);

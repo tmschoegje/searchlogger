@@ -44,8 +44,10 @@ function updateContent() {
   let contentToStore = {};
    browser.tabs.query({windowId: myWindowId, active: true})
     .then((tabs) => {
+		//console.log('gonna log');
+		//console.log(tabs[0].url);
+		//console.log(tabs)
 		browser.runtime.sendMessage({"curTask":0, "curStage":0, "type": "log", "content":Date.now() + " " + tabs[0].id + " " + tabs[0].index + " " + tabs[0].url})//tabs[0].id
-		console.log(tabs[0].id)
 		
 //		contentToStore[''+Date.now()] = tabs[0].url;
 //		console.log(contentToStore)
@@ -81,6 +83,24 @@ function next(e){
 		console.log('next in toolbar')
 	}
 }
+/*function start(e){
+	e.preventDefault();
+	//hide the start button, unhide the next/prev buttons
+	console.log('starting experiment')
+	browser.runtime.sendMessage({"curTask":-4,"curStage":-4, "type": "start", "content": ""})
+}*/
+document.addEventListener ("keydown", function (zEvent) {
+    if (zEvent.ctrlKey && zEvent.altKey  &&  zEvent.code === "KeyO") {
+		if(confirm("Are you sure you want to start a new session? Not meant for experiment participants.")) {
+		//sessid = prompt('Session id')
+		//partid = prompt('Participant id')
+		//TODO auto increment session/part id once finished
+			browser.runtime.sendMessage({"curTask":-5, "curStage":-5, "type": "nextsession", "content": ""})
+		}
+    }
+} );
+
+
 
 /*
 Update content when a new tab becomes active.
@@ -91,6 +111,17 @@ browser.tabs.onActivated.addListener(updateContent);
 Update content when a new page is loaded into a tab.
 */
 browser.tabs.onUpdated.addListener(updateContent);
+
+function getTask(task){
+	if(task.type == "setTask"){
+		//set div to searchtask
+		document.getElementById("taskdisplay").innerHTML = task.searchtask
+//		console.log(task.searchtask)
+		//task.searchtask task.searchtaskshort
+	}
+}
+
+browser.runtime.onMessage.addListener(getTask);
 
 /*
 When the sidebar loads, get the ID of its window,
