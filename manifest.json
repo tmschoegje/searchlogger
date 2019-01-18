@@ -14,9 +14,13 @@
   ],
   
   "sidebar_action": {
-    "default_icon": "icons/star.png",
+    "default_icon": "icons/star-empty-38.png",
     "default_title" : "Search task toolbar",
     "default_panel": "sidebar/panel.html"
+  },
+  "browser_action": {
+    "default_icon": "icons/star-empty-38.png",
+    "default_title": "Bookmark it!"
   },
 
   "background": {

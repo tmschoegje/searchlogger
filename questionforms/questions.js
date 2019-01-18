@@ -1,10 +1,16 @@
 function loadNext(e, taskId, phase){
 	e.preventDefault();
-	browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": ""})
+	browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
 	console.log('other submit')
 	//set toolbar stuffs	
 }
 
+function loadNextTaskless(e, phase){
+	e.preventDefault();
+	browser.runtime.sendMessage({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
+	console.log('other submit')
+	//set toolbar stuffs
+}
 
 
 function downloadLogs() {
@@ -33,22 +39,47 @@ function downloadLogs() {
 // Start file download.
 //download("hello.txt","This is the content of my file :)");
 
-/*function getTask(task){
-	console.log('received message in questions!')
-	console.log(task)
+function getTask1(task){
 	if(task.type == "setTask"){
+		//console.log('getTask in questions')
+		//console.log(task)
+		//console.log(task.searchtask)
 		//set div to searchtask
-		document.getElementById("taskdisplay").innerHTML = task.searchtask
+		display = document.getElementById("taskdisplay")
+		console.log(display)
+		if(display == null){
+			//console.log('why though')
+		}
+		else{
+			display.innerHTML = task.searchtask
+		}
 //		console.log(task.searchtask)
 		//task.searchtask task.searchtaskshort
 	}
-}*/
+}
 
 //read storage
 function getTask(){
-	let retrieveLogs = browser.storage.local.get();
-	retrieveLogs.then((results) => { console.log(results) })
+//	console.log('reading storage questions')
+	let retrieveLogs = browser.storage.local.get().then((results) => {
+//		console.log(results.logs)
+//		console.log(results.logs.sessions[results.logs.curSession].curTaskFull);
+//		console.log(results.logs.sessions[results.logs.curSession].curTaskShort);
+	//set div to searchtask
+		display = document.getElementById("taskdisplay")
+//		console.log(display)
+		if(display == null){
+//			console.log('why though')
+		}
+		else{
+//			console.log('setting the things')
+			display.innerHTML = results.logs.sessions[results.logs.curSession].curTaskFull
+		}	
+	})
 }
 
-
+// window.addEventListener("load", function(event) {
+ //   getTask();
+//  });
 browser.runtime.onMessage.addListener(getTask);
+//browser.runtime.onMessage.addListener(getTask);

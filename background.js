@@ -1,3 +1,17 @@
+//first one is the training task, keep this in mind when doing the randomisation
+var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. Gebruik de toolbar om terug te gaan naar de zoekmachine als dat nodig is. Als u een fout heeft gemaakt in uw antwoorden kan u deze gebruiken om een stap in het experiment opnieuw te doen (gebruikt als u een vraag wilt corrigeren), of aangeven dat u klaar bent voor de volgende zoektaak. Gebruik de toolbar hiernaast om aan te geven dat een pagina of document informatief was voor uw doel.',
+'U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
+'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen politiek gezien aangekaart, en wat is hier de status van?',
+'U bent als zijnde student op aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vind dat studenten betaalbaar kunnen wonen. Heeft de Gemeente recent besluiten genomen die invloed kunnen hebben op wanneer u verhuist?',
+'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam permanent te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wil besteden?']
+var searchtaskshort = ['Markeer een pagina als informatief en begin de volgende taak!',
+'Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
+'Hoe wordt er gelobbyd voor een grotere supermarkt op de Uithof?',
+'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
+'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
+]
+numsearchtasks = 5
+
 //verbose logging for debugging/reference. panel.js logs url on updated tabs
 function logURL(requestDetails) {
   //console.log("Loading: " + requestDetails.url);
@@ -11,6 +25,89 @@ browser.webRequest.onBeforeRequest.addListener(
 //parameters for 
 var DELAY = 0.1; //in minutes
 var CATGIFS = "./questionforms/prestudy.html"//http://chilloutandwatchsomecatgifs.com/";
+
+//start bookmark code
+/*
+var currentTab;
+var currentBookmark;
+currentUrl = ""
+
+ * Updates the browserAction icon to reflect whether the current page
+ * is already bookmarked.
+ 
+function updateIcon() {
+  browser.sidebarAction.setIcon({
+    path: currentBookmark ? {
+      19: "icons/star-filled-19.png",
+      38: "icons/star-filled-38.png"
+    } : {
+      19: "icons/star-empty-19.png",
+      38: "icons/star-empty-38.png"
+    },
+    tabId: currentTab.id
+  });
+  browser.browserAction.setTitle({
+    // Screen readers can see the title
+    title: currentBookmark ? 'Unbookmark it!' : 'Bookmark it!',
+    tabId: currentTab.id
+  }); 
+}
+
+
+ * Add or remove the bookmark on the current page.
+ 
+function toggleBookmark() {
+  currentTab = tabs[0];
+  if (currentUrl != "") {
+    //browser.bookmarks.remove(currentBookmark.id);
+	console.log('removing bookmark') // TODO store in logs
+	currentUrl = ""
+	alert('remove')
+  } else {
+    console.log('adding bookmark') // TODO store in logs
+	currentUrl = currentTab.url
+	//browser.bookmarks.create({title: currentTab.title, url: currentTab.url});
+  }
+}
+
+/*
+ * Switches currentTab and currentBookmark to reflect the currently active tab
+ 
+function updateActiveTab(tabs) {
+
+  function isSupportedProtocol(urlString) {
+    var supportedProtocols = ["https:", "http:", "ftp:", "file:"];
+    var url = document.createElement('a');
+    url.href = urlString;
+    return supportedProtocols.indexOf(url.protocol) != -1;
+  }
+
+  function updateTab(tabs) {
+    if (tabs[0]) {
+      currentTab = tabs[0];
+	if(currentTab.url == ""
+	  
+    //  if (isSupportedProtocol(currentTab.url)) {
+        var searching = browser.bookmarks.search({url: currentTab.url});
+        searching.then((bookmarks) => {
+          currentBookmark = bookmarks[0];
+          updateIcon();
+        });
+    //  } else {
+     //   console.log(`Bookmark it! does not support the '${currentTab.url}' URL.`)
+      //}
+    }
+  }
+
+  var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
+  gettingActiveTab.then(updateTab);
+}*/
+
+//browser.sidebarAction.onClicked.addListener(toggleBookmark);
+
+//end bookmark code
+
+
 
 //restartAlarm: clear all alarms, then set a new alarm for the given tab.
 //Called when options are closed
@@ -58,10 +155,17 @@ browser.alarms.onAlarm.addListener((alarm) => {
 //     browser.tabs.update({url:"./questionforms/intro.html"});
   } 
   else{
+	
+	  
+	  
 	//note: only every called when the next stage is in the same task, so we never have to increment that
-	logs.sessions[logs.curSession].curStage += 1
-	storeLogs();
-	browser.tabs.update({url: alarm.name});
+	//note: update of logs is kinda unnecessary here since onchanges 
+	let getlgs = browser.storage.local.get('logs');
+	getlgs.then((logs) => { 
+		logs.sessions[logs.curSession].curStage += 1
+		setTask(logs.sessions[logs.curSession].curTask);
+		browser.tabs.update({url: alarm.name});
+	})
   }
 //  if(logs.sessions[0].curStage > 2)
   
@@ -79,8 +183,8 @@ On page action click, navigate the corresponding tab to the cat gifs.
 function closeOtherTabs(){
 	browser.tabs.query({})
     .then((tabs) => {
-		console.log('these tabs')
-		console.log(tabs)
+//		console.log('these tabs')
+//		console.log(tabs)
 		tabs.forEach(function (tab) {
 			if(tab.active == false){
 				browser.tabs.remove(tab.id)
@@ -91,36 +195,62 @@ function closeOtherTabs(){
 )}
 
 
-var searchtasks = ['U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
-'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen politiek gezien aangekaart, en wat is hier de status van?']
-var searchtaskshort = ['Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
-'Hoe wordt er gelobbyd voor een grotere supermarkt op de Uithof?'
-]
 
-//update toolbar and pre forms
-function setTask(taskid){
-	console.log('setting task!')
-	stask = ""
-	staskshort = ""
-	if(taskid > 0 && taskid < 1){
-		stask = searchtasks[taskid]
-		staskshort = searchtaskshort[taskid]
-	}
-		
-	//in case of edge cases where user
-	 browser.tabs.query({}).then((tabs) => {
-		 console.log('tabs')
-		 console.log(tabs)
-	for (let tab of browser.tabs) {
+
+function setSuccessfull(tabs) {
+	console.log('setting')
+	//console.log('tabs')
+		 //console.log(tabs)
+	for (let tab of tabs) {
 		browser.tabs.sendMessage(
 		tab.id,
-		{"type": "setTask", "searchtask": searchtasks[taskid], "searchtaskshort": searchtaskshort[taskid]}
-		)/*.then(response => {
+		{
+			"type": "setTask", 
+			"searchtask": logs.sessions[logs.curSession].curTaskFull, 
+			"searchtaskshort": logs.sessions[logs.curSession].curTaskShort
+		})/*.then(response => {
 		console.log("Message from the content script:");
 		console.log(response.response);
 		}).catch(onError);*/
-	 }
-	 })
+	}
+}
+
+function handleError(error) {
+  console.log('Error: ${error}');
+}
+
+
+//update toolbar and pre forms
+function setTask(taskid){
+//	console.log('setting task!!!!!')
+	stask = ""
+	staskshort = ""
+	//If we are currently in a task, set the contents
+	if(taskid >= 0 && taskid < numsearchtasks){
+		stask = searchtasks[taskid]
+		staskshort = searchtaskshort[taskid]
+	}
+/*	console.log(stask)
+	console.log(staskshort)
+	console.log(searchtasks)
+	console.log(taskid)
+	console.log(searchtasks[0])*/
+		
+	//in case of edge cases where user
+//	browser.tabs.query({}).then(setSuccessfull, handleError)
+
+	//currently uses localstorage to avoid racing errors with message, also better for resuming session..
+	logs.sessions[logs.curSession].curTaskFull = stask
+	logs.sessions[logs.curSession].curTaskShort = staskshort
+	
+/*	let contentToStore = {};
+    contentToStore["searchtask"] = stask;
+	contentToStore["searchtaskshort"] = staskshort;
+    browser.storage.local.set(contentToStore);
+	console.log('set tasks')
+//	console.log(contentToStore)*/
+	storeLogs();
+	
 }
 
 //load next task, also used for logging.. should rename
@@ -151,12 +281,19 @@ function loadNextPhase(task){
 	if(task.type == "setTask"){
 		console.log('background message settask')
 		console.log(task)
+		alert('not supposed to happen')
+	}
+	//if we want to load but don't know the current task
+	//note: could probably be replaced by calling the "next"
+	if(task.type == "loadTaskless"){
+		//task.curTask = logs.sessions[logs.curSession].curTask + 1
+		task.type = "next"
 	}
 //	console.log('message received')
 	if (task.type == "prev"){
-	console.log(task.type)
-	console.log(logs.sessions[logs.curSession].curTask)
-	console.log(logs.sessions[logs.curSession].curStage)
+		//console.log(task.type)
+		//console.log(logs.sessions[logs.curSession].curTask)
+		//console.log(logs.sessions[logs.curSession].curStage)
 		//TODO get current stage and task
 		//update logs
 		//if not already already at the start
@@ -196,9 +333,9 @@ function loadNextPhase(task){
 				}
 			}*/
 			task.type = "load"
-			console.log(task.type)
-	console.log(task.curTask)
-	console.log(task.curStage)
+			//console.log(task.type)
+			//console.log(task.curTask)
+			//console.log(task.curStage)
 		}
 //		logs.sessions[0].loglines.push(Date.now() + " Task " + curTask + " Stage " + curStage)
 //		let contentToStore = {};
@@ -206,11 +343,11 @@ function loadNextPhase(task){
 //		browser.storage.local.set(contentToStore);
 	}
 	if (task.type == "next"){
-	console.log(task.type)
-	console.log(logs.sessions[logs.curSession].curTask)
-	console.log(logs.sessions[logs.curSession].curStage)
+		//console.log(task.type)
+		//console.log(logs.sessions[logs.curSession].curTask)
+		//console.log(logs.sessions[logs.curSession].curStage)
 		//if not the final page
-		if(!(logs.sessions[logs.curSession].curTask == 1)){
+		if(!(logs.sessions[logs.curSession].curTask >= numsearchtasks)){
 			//increase the search stage
 			task.curStage = logs.sessions[logs.curSession].curStage + 1
 			task.curTask = logs.sessions[logs.curSession].curTask
@@ -229,17 +366,20 @@ function loadNextPhase(task){
 				task.curStage = 0
 			}
 			task.type = "load"
-			console.log(task.type)
-			console.log(task.curTask)
-			console.log(task.curStage)
+			//console.log(task.type)
+			//console.log(task.curTask)
+			//console.log(task.curStage)
 		}
 	}
 	if(task.type == "load"){
 		//focus on window with the questions
 		closeOtherTabs();
 		
-		//make sure the task is updated
+		
+		
+		//make sure the task is updated in toolbar and questions 
 		setTask(task.curTask)
+
 		
 		//update logs
 		
@@ -263,7 +403,7 @@ function loadNextPhase(task){
 			else{ alert('unknown state') }
 		}
 		//test if done
-		else if(task.curTask == 1){
+		else if(task.curTask == numsearchtasks){
 			console.log('start post study')
 			browser.tabs.update({url: "./questionforms/poststudy.html"});
 		}
@@ -293,10 +433,10 @@ function loadNextPhase(task){
 	else if(task.type == "log"){
 		//Multiple http requests with the same URL, only log the first
 		if(task.content.split(" ", 4)[3] != logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3]){
-			console.log('current')
+/*			console.log('current')
 			console.log(task.content)
 			console.log('previous')
-			console.log(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1])
+			console.log(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1])*/
 		
 		
 			logs.sessions[logs.curSession].loglines.push(task.content)
@@ -324,7 +464,8 @@ function loadNextPhase(task){
 			"participantid": logs.curSession,
 			"curTask": -1,
 			"curStage": 0,
-			"loglines": [Date.now() + " Logs for session 0 with participant 0"]
+			"loglines": [Date.now() + " Logs for session 0 with participant 0"],
+			"bookmarks": {'dummy2':'test2'}
 			})
 		//not currently used/properly implemented
 //		logs.curParticipant = task.curParticipant; 
@@ -382,9 +523,14 @@ function onInstalledNotification(details) {
 					"participantid": 0,
 					"curTask": -1,
 					"curStage": 0,
-					"loglines": [Date.now() + " Logs for session 0 with participant 0"]
+					"loglines": [Date.now() + " Logs for session 0 with participant 0"],
+					"bookmarks": {'dummy':'test'}
 				}],
-				"curSession": 0
+				"curSession": 0,
+				"searchtasks": searchtasks,
+				"searchtaskshort": searchtaskshort,
+				"curTaskFull": "",
+				"curTaskShort": ""
 			}
 			storeLogs();
 		}
@@ -414,6 +560,18 @@ function onInstalledNotification(details) {
 	console.log('succes')
 	console.log(contentToStore)*/
 }
+
+
+//update our logs if another script makes changes
+function updateLogs(){
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		logs = results.logs
+	})
+}
+
+
+browser.storage.onChanged.addListener(updateLogs)
 
 /*
 //define numrules logged if it does not already exist

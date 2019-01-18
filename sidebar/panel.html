@@ -12,9 +12,12 @@
   div id = "content"></div>
   <p></p-->
   <!--form onsubmit="startExperiment()"><input type="submit" value="Start experiment"></form-->
-  <div id="taskdisplay"></div>
-  <form onsubmit="prev(event)"><input type="submit" value="Terug / Corrigeer"></form>
-  <form onsubmit="next(event)"><input type="submit" value="Volgende / Klaar"></form>
+  <div class="nav">Zoektaak:</div>
+  <i><p id="toolbartaskdisplay"></p></i> <p>
+  <div id="bookmark" onclick="toggleBookmark()"><img id="icon" src="../icons/star-empty-19.png" /><br> Markeer als nuttige pagina</div>
+<p>  
+  <form onsubmit="prev(event)"><input type="submit" value="Opnieuw/corrigeer" class="nav"></form>
+  <form onsubmit="next(event)"><input type="submit" value="Klaar met taak" class="nav"></form>
   <script src="panel.js"></script>
 </body>
 
