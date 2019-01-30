@@ -142,15 +142,13 @@ function storeLogs(){
 }
 
 function storeQuestions(questions){
-	console.log('init q')
-	console.log(questions)
 	let contentToStore = {};
 	contentToStore['questions'] = questions;
 	browser.storage.local.set(contentToStore);
 }
 
-//On alarm, show the page action on the current tab
 //Cases: starting the app, time limit task is over
+//is this still the case?
 browser.alarms.onAlarm.addListener((alarm) => {
   //var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
   //gettingActiveTab.then((tabs) => {
@@ -166,16 +164,17 @@ browser.alarms.onAlarm.addListener((alarm) => {
 	 }
 	 loadNextPhase(tmpTask)
 //     browser.tabs.update({url:"./questionforms/intro.html"});
-  } 
+  }
+  //go to next task
   else{
-	
-	  
-	  
-	//note: only every called when the next stage is in the same task, so we never have to increment that
+	//note: only every called when the next stage is in the same task, so we never have to increment the task
 	//note: update of logs is kinda unnecessary here since onchanges 
-	let getlgs = browser.storage.local.get('logs');
-	getlgs.then((logs) => { 
-		logs.sessions[logs.curSession].curStage += 1
+	console.log('ALARM GOING OFF')
+	console.log(alarm.name)
+	let getlgs = browser.storage.local.get();
+	getlgs.then((results) => { 
+		logs = results.logs
+		logs.sessions[logs.curSession].curStage = logs.sessions[logs.curSession].curStage + 1
 		setTask(logs.sessions[logs.curSession].curTask);
 		browser.tabs.update({url: alarm.name});
 	})
