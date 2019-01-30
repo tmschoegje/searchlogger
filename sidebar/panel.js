@@ -20,6 +20,36 @@ window.addEventListener("mouseout", () => {
     browser.storage.local.set(contentToStore);
   });
 });*/
+var numsearchtasks = 5
+var PRESTUDY = -1
+var POSTSTUDY = numsearchtasks
+var PRETASK = 0
+var TASKTASK = 1
+var POSTTASK = 2
+
+
+//if user has to fill in questions, ask them to fill out questions instead
+function greyOutButton(){
+	//get logs 
+	browser.storage.local.get().then((results) => {
+		logs = results.logs
+		session = logs.sessions[logs.curSession]
+		
+		//If prestudy or poststudy
+		if(session.curTask == PRESTUDY || session.curTask == POSTSTUDY){
+			document.getElementById("nextButton").disabled = true;
+		}
+		//if pretask or posttask
+		else if(session.curStage == PRETASK || session.curStage == POSTTASK){
+			document.getElementById("nextButton").disabled = true;
+		}
+		//restore button to normal
+		else{
+			document.getElementById("nextButton").disabled = false;
+		}
+	})
+}
+
 
 /*
 Update the sidebar's content.
@@ -28,6 +58,7 @@ Update the sidebar's content.
 3) Put it in the content box.
 */
 function updateContent() {
+	greyOutButton()
 	bookmarkUpdate();
 	
 	//unset confirm button
@@ -125,9 +156,10 @@ function confirmNext(e){
 		console.log('next in toolbar')
 }
 
+
+
 function next(e){
-	e.preventDefault();
-	
+	e.preventDefault();	
 	var confirmbutton = document.getElementById("confirmbutton")
 	confirmbutton.style.visibility = "visible"
 	var confirmtext = document.getElementById("confirmtext")

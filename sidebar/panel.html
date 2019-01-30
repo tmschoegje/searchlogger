@@ -17,7 +17,7 @@
   <div id="bookmark" onclick="toggleBookmark()"><img id="icon" src="../icons/star-empty-19.png" /><br> Markeer als nuttige pagina</div>
 <p>  
   <form onsubmit="prev(event)"><input type="submit" value="Opnieuw/corrigeer" class="nav"></form>
-  <form onsubmit="next(event)"><input type="submit" value="Klaar met taak" class="nav"></form>
+  <form onsubmit="next(event)"><input id="nextButton" type="submit" value="Klaar met taak" class="nav"></form>
   <div id="confirmbutton" style="visibility:hidden"><p id="confirmtext"></p><form id ="confirmform" onsubmit="confirmPrev(event)"><input type="submit" value="Bevestig" class="nav"></form><form onsubmit="cancelConfirm(event)"><input type="submit" value="Annuleer" class="nav"></form></div>
   <script src="panel.js"></script>
 </body>
