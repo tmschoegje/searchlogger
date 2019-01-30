@@ -26,6 +26,8 @@ browser.webRequest.onBeforeRequest.addListener(
 var DELAY = 0.1; //in minutes
 var CATGIFS = "./questionforms/prestudy.html"//http://chilloutandwatchsomecatgifs.com/";
 
+
+
 //start bookmark code
 /*
 var currentTab;
@@ -130,9 +132,20 @@ function initAlarm(){
 	browser.alarms.create("resume", {delayInMinutes: 0.1})
 }
 
+//race issue: storing answers occurs concurrently with logging a load/stage update.
+//currently fixed
+//should be refactored so that the background, content (questions) and panel scripts use different parts of localmemory instead of everythign in the logs structure
 function storeLogs(){
 	let contentToStore = {};
 	contentToStore['logs'] = logs;
+	browser.storage.local.set(contentToStore);
+}
+
+function storeQuestions(questions){
+	console.log('init q')
+	console.log(questions)
+	let contentToStore = {};
+	contentToStore['questions'] = questions;
 	browser.storage.local.set(contentToStore);
 }
 
@@ -302,7 +315,7 @@ function loadNextPhase(task){
 			task.curTask = logs.sessions[logs.curSession].curTask
 		
 			//clear alarms previously set
-			browser.alarms.clearAll();
+			//browser.alarms.clearAll();
 				
 			//if this was the first stage in the poststudy, go to last stage of a task
 			if(task.curStage < 0){
@@ -353,7 +366,7 @@ function loadNextPhase(task){
 			task.curTask = logs.sessions[logs.curSession].curTask
 			
 			//clear alarms previously set
-			browser.alarms.clearAll();
+			//browser.alarms.clearAll();
 			
 			//if this was the final stage of the prestudy, next task
 			if(task.curTask == -1 && task.curStage > 1){
@@ -372,10 +385,12 @@ function loadNextPhase(task){
 		}
 	}
 	if(task.type == "load"){
+		console.log('TRYING TO LOAD')
 		//focus on window with the questions
 		closeOtherTabs();
 		
-		
+		//cancel alarms
+		browser.alarms.clearAll();
 		
 		//make sure the task is updated in toolbar and questions 
 		setTask(task.curTask)
@@ -386,9 +401,7 @@ function loadNextPhase(task){
 		logs.sessions[logs.curSession].curStage = task.curStage
 		logs.sessions[logs.curSession].curTask = task.curTask
 		logs.sessions[logs.curSession].loglines.push(Date.now() + " Task " + task.curTask + " Stage " + task.curStage)
-		let contentToStore = {};
-		contentToStore['logs'] = logs;
-		browser.storage.local.set(contentToStore);
+		storeLogs();
 		
 		//load prestudy
 		if(task.curTask == -1){
@@ -443,10 +456,7 @@ function loadNextPhase(task){
 			//console.log(logs)
 			//update stored logs
 			let contentToStore = {};
-			contentToStore['logs'] = logs;
-//		console.log(contentToStore)
-			browser.storage.local.set(contentToStore);
-			
+			storeLogs();
 			
 			//example of retrieving logs
 			//console.log('this one')			
@@ -524,7 +534,7 @@ function onInstalledNotification(details) {
 					"curTask": -1,
 					"curStage": 0,
 					"loglines": [Date.now() + " Logs for session 0 with participant 0"],
-					"bookmarks": {'dummy':'test'}
+					"bookmarks": {}
 				}],
 				"curSession": 0,
 				"searchtasks": searchtasks,
@@ -532,11 +542,44 @@ function onInstalledNotification(details) {
 				"curTaskFull": "",
 				"curTaskShort": ""
 			}
+			
+			questions = {
+				"sessions": [{
+					"consent":"",
+					"sex":"",
+					"age":"",
+					"citizentime":"",
+					"nieuws":"",
+					"betrokken":"",
+					"taskquestions":[{
+						"hoogte": "",
+						"userantwoord": "",
+						"tevreden":"",
+						"seq":""
+					}]
+				}]
+			}
+			
+			console.log('okay')
+			console.log(questions)
+			console.log(questions.sessions[0])
+			console.log(questions.sessions[0].taskquestions)
+			for(i = 0; i < numsearchtasks - 1; i++){
+				questions.sessions[0].taskquestions.push({
+					"hoogte": "",
+					"userantwoord": "",
+					"tevreden":"",
+					"seq":""
+				})
+			}
+			console.log(questions)
+			storeQuestions(questions);
 			storeLogs();
 		}
 		else{
 			logs = results.logs
 			logs.sessions[logs.curSession].loglines.push("Resuming logs at task " + logs.sessions[logs.curSession].curTask + " stage " + logs.sessions[logs.curSession].curStage)
+			questions = results.questions
 		}
 	})
 			
@@ -567,6 +610,8 @@ function updateLogs(){
 	let gett = browser.storage.local.get();
 	gett.then((results) => {
 		logs = results.logs
+		//console.log('onChange')
+		//console.log(questions)
 	})
 }
 

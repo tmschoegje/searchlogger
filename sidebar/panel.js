@@ -29,6 +29,10 @@ Update the sidebar's content.
 */
 function updateContent() {
 	bookmarkUpdate();
+	
+	//unset confirm button
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "hidden"
 
   /*browser.tabs.query({windowId: myWindowId, active: true})
     .then((tabs) => {
@@ -71,19 +75,70 @@ function loadNext(e, taskId, phase){
 	console.log('other submit')
 	//set toolbar stuffs	
 }
+
+/*function confirmClick(){
+	var confirmbutton = document.getElementById("confirmbutton")
+	if(confirmbutton.style.visibility == "visible"){
+		confirmbutton.style.visibility = "hidden"
+		//load next/prev
+	}
+}*/
+
+function confirmPrev(e){
+	e.preventDefault()
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "hidden"
+	
+	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "prev", "content": ""})
+	console.log('back in toolbar')
+}
+
+function cancelConfirm(e){
+	e.preventDefault(e)
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "hidden"
+}
+
 function prev(e){
 	e.preventDefault();
-	if(confirm("Weet u zeker dat u terug wilt om een fout te corrigeren?") == true) {
+	
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "visible"
+	var confirmtext = document.getElementById("confirmtext")
+	confirmtext.innerHTML = "Weet u zeker dat u terug wilt gaan?"
+	var confirmtext = document.getElementById("confirmform")
+	confirmtext.setAttribute("onclick", "confirmPrev(event)")
+
+
+	/*if(confirm("Weet u zeker dat u terug wilt om een fout te corrigeren?") == true) {
 		browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "prev", "content": ""})
 		console.log('back in toolbar')
-	}
+	}*/
 }
+
+function confirmNext(e){
+	e.preventDefault()
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "hidden"
+	
+	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "next", "content": ""})
+		console.log('next in toolbar')
+}
+
 function next(e){
 	e.preventDefault();
-	if(confirm("Weet u zeker dat u klaar bent om door te gaan?") == true) {
+	
+	var confirmbutton = document.getElementById("confirmbutton")
+	confirmbutton.style.visibility = "visible"
+	var confirmtext = document.getElementById("confirmtext")
+	confirmtext.innerHTML = "Weet u zeker dat u door wilt gaan?"
+	var confirmtext = document.getElementById("confirmform")
+	confirmtext.setAttribute("onsubmit", "confirmNext(event)")
+	
+/*	if(confirm("Weet u zeker dat u klaar bent om door te gaan?") == true) {
 		browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "next", "content": ""})
 		console.log('next in toolbar')
-	}
+	}*/
 }
 /*function start(e){
 	e.preventDefault();
@@ -163,9 +218,9 @@ function startKeyLogs(){
 
 //called whenever the toolbar needs to be updated (tab switch etc)
 function bookmarkUpdate(){
-	console.log()
-	console.log()
-	console.log('updating toolbar')
+	//console.log()
+	//console.log()
+	//console.log('updating toolbar')
 	//get url
 	browser.tabs.query({windowId: myWindowId, active: true})
 	.then((tabs) => {
@@ -198,20 +253,30 @@ function bookmarkUpdate(){
 	})
 }
 
+function updateLogs(){
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		logs = results.logs
+		console.log('updated questions')
+		console.log(questions.sessions[0])
+	})
+}
+
 function logStorageChange(changes, area) {
   console.log("Change in storage area: " + area);
  
   var changedItems = Object.keys(changes);
  
-  for (var item of changedItems) {
+/*  for (var item of changedItems) {
     console.log(item + " has changed:");
     console.log("Old value: ");
     console.log(changes[item].oldValue);
     console.log("New value: ");
     console.log(changes[item].newValue);
-  }
+  }*/
 }
-browser.storage.onChanged.addListener(logStorageChange)
+
+//browser.storage.onChanged.addListener(logStorageChange)
 
 function storeLogs(logs){
 	console.log('writing logs\n')
@@ -226,7 +291,7 @@ function storeLogs(logs){
 curpage = ""
 //mark the page as useful with the icon, switch the icon on or off. called onclick
 function toggleBookmark(){
-	//console.log('he clicked the thing!')
+	console.log('he clicked the thing!')
 	icon = document.getElementById("icon")
 	
 	//get url

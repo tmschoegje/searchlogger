@@ -1,14 +1,162 @@
+function validateInput(input, type){
+	//If this variable was not set, it cannot be wrong
+	if (typeof input === 'undefined')
+		return 0
+	else if (type == "text" && input.value.length > 0)
+		return 0
+	else if (type == "number" && input.value.length > 0 && !isNaN(input.value)){
+		return 0
+	}
+	else if (type == "selection" && input.value != "")
+		return 0
+	//If none of these conditions are met, we have an input that violated its conditions
+	return 1
+}
+
+function inputChecker (){
+	errorcount = 0;
+	//console.log(document.forms[0].elements);
+	errorcount += validateInput(document.forms[0].elements.consent, "selection");
+	errorcount += validateInput(document.forms[0].elements.sex, "selection");
+	errorcount += validateInput(document.forms[0].elements.age, "number");
+	errorcount += validateInput(document.forms[0].elements.citizentime, "number");
+	errorcount += validateInput(document.forms[0].elements.nieuws, "selection");
+	errorcount += validateInput(document.forms[0].elements.betrokken, "selection");
+	
+	errorcount += validateInput(document.forms[0].elements.hoogte, "selection");
+	errorcount += validateInput(document.forms[0].elements.userantwoord, "text");
+	errorcount += validateInput(document.forms[0].elements.tevreden, "selection");
+	errorcount += validateInput(document.forms[0].elements.seq, "selection");
+	
+	console.log(errorcount)
+		
+	return errorcount;
+}
+
+var numsearchtasks = 5
+var PRESTUDY = -1
+var POSTSTUDY = numsearchtasks
+var PRETASK = 0
+var TASKTASK = 1
+var POSTTASK = 2
+
+function loadAnswers() {
+	//get logs
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		//console.log(results)
+		console.log('questions LOAD')
+		console.log(results.questions.sessions[0].consent)
+		logs = results.logs
+		questions = results.questions
+		
+		//prestudy
+		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == TASKTASK){
+			document.forms[0].elements.consent.value = questions.sessions[logs.curSession].consent;
+			document.forms[0].elements.sex.value = questions.sessions[logs.curSession].sex;
+			document.forms[0].elements.age.value = questions.sessions[logs.curSession].age;
+			document.forms[0].elements.citizentime.value = questions.sessions[logs.curSession].citizentime;
+			document.forms[0].elements.nieuws.value = questions.sessions[logs.curSession].nieuws;
+			document.forms[0].elements.betrokken.value = questions.sessions[logs.curSession].betrokken;
+		}
+		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
+			document.forms[0].elements.hoogte.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte;
+			document.forms[0].elements.userantwoord.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord;
+		}
+		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
+			document.forms[0].elements.tevreden.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden;
+			 document.forms[0].elements.seq.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq;
+		}
+	})
+}
+
+
+
+//whenever a click of press happens, update the logs
+function storeAnswers() {
+	//get logs
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		logs = results.logs
+		questions = results.questions
+		console.log('storing ansewrs')
+		
+		//prestudy
+		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == TASKTASK){
+			questions.sessions[logs.curSession].consent = document.forms[0].elements.consent.value;
+			questions.sessions[logs.curSession].sex = document.forms[0].elements.sex.value;
+			questions.sessions[logs.curSession].age = document.forms[0].elements.age.value;
+			questions.sessions[logs.curSession].citizentime = document.forms[0].elements.citizentime.value;
+			questions.sessions[logs.curSession].nieuws = document.forms[0].elements.nieuws.value;
+			questions.sessions[logs.curSession].betrokken = document.forms[0].elements.betrokken.value;
+		}
+		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
+			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte = document.forms[0].elements.hoogte.value;
+			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord = document.forms[0].elements.userantwoord.value;
+		}
+		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
+			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden = document.forms[0].elements.tevreden.value;
+			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq = document.forms[0].elements.seq.value;
+		}
+		//store the logs
+		let contentToStore = {};
+		contentToStore['questions'] = questions;
+		browser.storage.local.set(contentToStore);
+		
+		console.log(questions.sessions[0])
+
+		
+		//update bookmark as well..
+		//-> should have made each javascript use its own key in the localstorage to
+		//avoid these race conditions, rather than putting everything into the logs structure.
+		//console.log('questions STORE')
+		//console.log(logs.sessions[0].questions)
+		
+		
+		//updateLogs();
+		
+	})
+}
+
+/*function printLogs(){
+	let contentToStore = {};
+	contentToStore['logs'] = logs;
+	browser.storage.local.set(contentToStore);
+}*/
+//window.onmouseup.addListener(storeAnswers);
+//document.onkeypress.addListener(storeAnswers);
+
+
+//function logger(){
+//	storeAnswers();
+//}
+//timer = setInterval(logger,200);
+//clearInterval(timer)
+
 function loadNext(e, taskId, phase){
 	e.preventDefault();
-	browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
-	console.log('other submit')
-	//set toolbar stuffs	
+	//pass for now..
+	if(false && inputChecker() > 0)
+		alert('Een van de invoeren is onduidelijk! Voer aub alle veld in, waarbij uw leeftijd en woontijd in Utrecht een getal moeten zijn.')
+	else{
+		//storeAnswers({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
+		storeAnswers();
+		browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
+		//console.log('loadnext questions')
+	}
 }
 
 function loadNextTaskless(e, phase){
 	e.preventDefault();
-	browser.runtime.sendMessage({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
-	console.log('other submit')
+	if(inputChecker() > 0)
+		alert('Een van de uw antwoorden is onduidelijk! Voer aub alle veld in, waarbij uw leeftijd en woontijd in Utrecht een getal moeten zijn.')
+	else{
+		//storeAnswers({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
+		storeAnswers();
+		browser.runtime.sendMessage({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
+		//console.log('other submit')
+		
+	}
 	//set toolbar stuffs
 }
 
@@ -36,6 +184,7 @@ function downloadLogs() {
   
 }
 
+window.onload = function () { loadAnswers(); console.log('loading answers!!!'); }
 // Start file download.
 //download("hello.txt","This is the content of my file :)");
 
@@ -57,6 +206,28 @@ function getTask1(task){
 		//task.searchtask task.searchtaskshort
 	}
 }
+
+//update our logs if another script makes changes
+function updateLogs(){
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		logs = results.logs
+//		console.log('stored in questions')
+//		console.log(logs.sessions[0].questions)
+	})
+}
+/*
+//update our logs if another script makes changes
+function updateLogs2(){
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		logs = results.logs
+		console.log('reloaded logs from onChange event')
+		console.log(logs.sessions[0].questions)
+	})
+}*/
+
+//browser.storage.onChanged.addListener(updateLogs2)
 
 //read storage
 function getTask(){

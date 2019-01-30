@@ -9,6 +9,7 @@ body {
   height: 90%;
   font: caption;
   background-color: #F4F7F8;
+  font-size: 120%;
 }
 
 #bookmark, #icon, .nav {
