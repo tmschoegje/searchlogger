@@ -2,10 +2,10 @@ Firefox extension for performing and logging search tasks in an experimental set
 
 Current state: Rough functionality for multiple sessions of hardcoded task orders. Bug: does not load search task descriptions
 
-Backlog  
-* the textual updates
-* log when the user searches a document with (ctrl + f)
-* automatic task order presentation
+Backlog
+* something like a progress bar
+* log keypresses (in particular for when the user searches a document with (ctrl + f)). could also log mouse hovers and scrolling?
+* automatic task order presentation (will instead be done through web server, probably)
 
 
 Installation  

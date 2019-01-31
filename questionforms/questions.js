@@ -4,9 +4,10 @@ function validateInput(input, type){
 		return 0
 	else if (type == "text" && input.value.length > 0)
 		return 0
-	else if (type == "number" && input.value.length > 0 && !isNaN(input.value)){
+	else if (type == "number" && input.value.length > 0 && !isNaN(input.value))
 		return 0
-	}
+	else if (type == "check" && input.checked == true)
+		return 0
 	else if (type == "selection" && input.value != "")
 		return 0
 	//If none of these conditions are met, we have an input that violated its conditions
@@ -16,7 +17,8 @@ function validateInput(input, type){
 function inputChecker (){
 	errorcount = 0;
 	//console.log(document.forms[0].elements);
-	errorcount += validateInput(document.forms[0].elements.consent, "selection");
+	errorcount += validateInput(document.forms[0].elements.consent, "check");
+	
 	errorcount += validateInput(document.forms[0].elements.sex, "selection");
 	errorcount += validateInput(document.forms[0].elements.age, "number");
 	errorcount += validateInput(document.forms[0].elements.citizentime, "number");
@@ -136,7 +138,7 @@ function storeAnswers() {
 function loadNext(e, taskId, phase){
 	e.preventDefault();
 	//pass for now..
-	if(false && inputChecker() > 0)
+	if(inputChecker() > 0)
 		alert('Een van de invoeren is onduidelijk! Voer aub alle veld in, waarbij uw leeftijd en woontijd in Utrecht een getal moeten zijn.')
 	else{
 		//storeAnswers({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
