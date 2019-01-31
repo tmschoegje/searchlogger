@@ -15,7 +15,9 @@
   <div class="nav">Zoektaak:</div>
   <i><p id="toolbartaskdisplay"></p></i>  <p>
   <div id="clock"></div><p>
-  <div id="bookmark" onclick="toggleBookmark()"><img id="icon" src="../icons/star-empty-19.png" /><br> Markeer als nuttige pagina</div>
+  <form class="nav" onsubmit="home(event)">Terug naar de<input type="submit" value="Zoekmachine" class="nav"></form><p>
+  <div class="nav" id="bookmark" onclick="toggleBookmark()"><img id="icon" src="../icons/star-empty-19.png" />
+  Klik/markeer pagina als nuttig</div>
 <p>  
   <form onsubmit="prev(event)"><input type="submit" value="Opnieuw/corrigeer" class="nav"></form>
   <form onsubmit="next(event)"><input id="nextButton" type="submit" value="Klaar met taak" class="nav"></form>

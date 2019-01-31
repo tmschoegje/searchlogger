@@ -617,6 +617,9 @@ function updateLogs(){
 
 browser.storage.onChanged.addListener(updateLogs)
 
+
+//todo log all keypresses so we can keep track of ctrl+f
+
 /*
 //define numrules logged if it does not already exist
 if (typeof browser.storage.local.get('loginfo') == 'undefined') {

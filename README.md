@@ -3,11 +3,7 @@ Firefox extension for performing and logging search tasks in an experimental set
 Current state: Rough functionality for multiple sessions of hardcoded task orders. Bug: does not load search task descriptions
 
 Backlog  
-* update the smaller stuff we discussed on the hcibrowser-based version
-* intro text google/iBabs and toolbar  
-* input checking  
-* toolbar button to mark the page as useful  
-* toolbar clock  
+* the textual updates
 * log when the user searches a document with (ctrl + f)
 * automatic task order presentation
 

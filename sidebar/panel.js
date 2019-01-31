@@ -222,7 +222,10 @@ function setClock(task) {
 //if we read the proper task?
 //set a starttime for the task?
 
-
+function home(e){
+	e.preventDefault();
+	browser.tabs.update({url: "http://www.uu.nl"});
+}
 
 function next(e){
 	e.preventDefault();	
