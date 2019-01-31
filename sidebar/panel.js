@@ -26,9 +26,12 @@ var POSTSTUDY = numsearchtasks
 var PRETASK = 0
 var TASKTASK = 1
 var POSTTASK = 2
+var DELAY = 0.1
 
+firsttime = true
 
 //if user has to fill in questions, ask them to fill out questions instead
+//also, show and start the clock if it's the first time we notice that a task is going on
 function greyOutButton(){
 	//get logs 
 	browser.storage.local.get().then((results) => {
@@ -38,14 +41,31 @@ function greyOutButton(){
 		//If prestudy or poststudy
 		if(session.curTask == PRESTUDY || session.curTask == POSTSTUDY){
 			document.getElementById("nextButton").disabled = true;
+	//		document.getElementById("clock").visibility = "hidden"
 		}
-		//if pretask or posttask
+		//if pretask or posttask, disable teh button. also, stop the timer.
 		else if(session.curStage == PRETASK || session.curStage == POSTTASK){
 			document.getElementById("nextButton").disabled = true;
+	//		console.log('HIDING')
+			document.getElementById("clock").innerHTML = ""
+//			console.log(document.getElementById("clock"))
+			firsttime = true;
+			clearInterval(timer)
 		}
-		//restore button to normal
+		//restore button to normal for regular tasks. start clock
 		else{
+			console.log('showing')
 			document.getElementById("nextButton").disabled = false;
+			
+			//if in task, and this is the first time we get there, start the clock
+			if(firsttime == true)
+			{
+				document.getElementById("clock").visibility = "visible"
+				firsttime = false
+				setClock()
+				//todo stop timer
+			}
+			//ctrl f 
 		}
 	})
 }
@@ -157,6 +177,52 @@ function confirmNext(e){
 }
 
 
+//how many seconds remaining until skipping to end of task
+remaining = DELAY
+timer = null
+
+//Updating the clock every 10 seconds
+function reduceTimer(){
+	remaining = +(remaining - 0.1).toFixed(2)
+	if(remaining < 1){
+		document.getElementById("clock").style.color = "red"
+		document.getElementById("clock").style.fontWeight = "bold"
+	}
+	else{		
+		document.getElementById("clock").style.color = "black"
+		document.getElementById("clock").style.fontWeight = "normal"
+	}
+	document.getElementById("clock").innerHTML = remaining + " minutes remaining"
+}
+
+//called when the 
+function setClock(task) {	
+	//console.log('STARTTTT')
+	//if(task.curTask != PRESTUDY && task.curTask != POSTSTUDY && task.type == "load" && task.curStage != TASKTASK){
+	//	console.log('a good')
+	//var clock = 
+	remaining = DELAY
+	document.getElementById("clock").innerHTML = remaining + " minutes remaining"
+	timer = setInterval(reduceTimer, 1000);
+	//}
+	//in other cases, hide the timer
+	//else if(task.type == "load"){
+	//	console.log('A BADDDD')
+	//	var clock = document.getElementById("clock")
+	//	clock.innerHTML = ""
+	//}
+}
+
+//function setClock2(){
+//	console.log('	--------------------------------------------------------')
+//}
+
+//browser.runtime.onMessage.addListener(setClock2)
+//onmessage
+//if we read the proper task?
+//set a starttime for the task?
+
+
 
 function next(e){
 	e.preventDefault();	
@@ -259,25 +325,25 @@ function bookmarkUpdate(){
 		let retrieveLogs = browser.storage.local.get();
 		retrieveLogs.then((results) => {
 			prefix = logs.sessions[logs.curSession].curTask + " ";
-			console.log(results)
+			//console.log(results)
 			logs = results.logs
-			console.log('reading logs')
+//			console.log('reading logs')
 //			console.log(logs)
 //			console.log(logs.sessions[logs.curSession])
-			console.log(prefix + tabs[0].url)
-			console.log(logs)
-			console.log(logs.sessions[logs.curSession].bookmarks)
-			console.log(logs.sessions[logs.curSession].bookmarks[prefix + tabs[0].url])
+	//		console.log(prefix + tabs[0].url)
+		//	console.log(logs)
+			//console.log(logs.sessions[logs.curSession].bookmarks)
+			//console.log(logs.sessions[logs.curSession].bookmarks[prefix + tabs[0].url])
 			//logs = results.logs
 			//TODO make tabs[0].url
 			//console.log(logs[logs.curSession].bookmarks['curpage'])
 			if(typeof logs.sessions[logs.curSession].bookmarks[prefix + tabs[0].url] === 'undefined' || logs.sessions[logs.curSession].bookmarks[prefix + tabs[0].url] === ""){
-				console.log('it was not set')
+				//console.log('it was not set')
 				//logs.sessions[logs.curSession].bookmarks[tabs[0].url] = ""
 				document.getElementById("icon").setAttribute("src","../icons/star-empty-19.png")
 			}
 			else{
-				console.log('it was set')
+				//console.log('it was set')
 				//logs.sessions[logs.curSession].bookmarks[tabs[0].url] = Date.now()
 				document.getElementById("icon").setAttribute("src","../icons/star-filled-19.png")
 			}

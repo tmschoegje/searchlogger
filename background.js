@@ -200,7 +200,7 @@ function closeOtherTabs(){
 		tabs.forEach(function (tab) {
 			if(tab.active == false){
 				browser.tabs.remove(tab.id)
-				console.log(tab.id)
+			//	console.log(tab.id)
 			}
 		})
 	}
@@ -559,10 +559,10 @@ function onInstalledNotification(details) {
 				}]
 			}
 			
-			console.log('okay')
-			console.log(questions)
-			console.log(questions.sessions[0])
-			console.log(questions.sessions[0].taskquestions)
+		//	console.log('okay')
+		//	console.log(questions)
+		//	console.log(questions.sessions[0])
+		//	console.log(questions.sessions[0].taskquestions)
 			for(i = 0; i < numsearchtasks - 1; i++){
 				questions.sessions[0].taskquestions.push({
 					"hoogte": "",
@@ -571,7 +571,7 @@ function onInstalledNotification(details) {
 					"seq":""
 				})
 			}
-			console.log(questions)
+		//	console.log(questions)
 			storeQuestions(questions);
 			storeLogs();
 		}

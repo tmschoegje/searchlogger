@@ -12,7 +12,7 @@ body {
   font-size: 120%;
 }
 
-#bookmark, #icon, .nav {
+#bookmark, #clock, #icon, .nav {
   display: block;
   margin-left: auto;
   margin-right: auto;

@@ -45,8 +45,8 @@ function loadAnswers() {
 	let gett = browser.storage.local.get();
 	gett.then((results) => {
 		//console.log(results)
-		console.log('questions LOAD')
-		console.log(results.questions.sessions[0].consent)
+		//console.log('questions LOAD')
+		//console.log(results.questions.sessions[0].consent)
 		logs = results.logs
 		questions = results.questions
 		
@@ -216,6 +216,9 @@ function updateLogs(){
 //		console.log(logs.sessions[0].questions)
 	})
 }
+
+//window.addEventListener("click", notifyExtension);
+
 /*
 //update our logs if another script makes changes
 function updateLogs2(){
