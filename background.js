@@ -1,7 +1,8 @@
 //first one is the training task, keep this in mind when doing the randomisation
-var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment en dit type resultaten! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
+var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment en dit resultaten uit de categorie <b>algemeen</b>! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p><b>Algemene documenten</b><p>Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via algemene bronnen, zoals het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Toolbar</b><p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
 'De Uithoflijn is de naam van de tramlijn die tussen Utrecht Centraal en de Universiteit Utrecht wordt aangelegd. U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de bouw van de Uithoflijn gepland, en aangepast?',
 'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
+'Dit is een oefentaak om bekend te worden met het experiment en dit resultaten uit de categorie <b>beleidsdocumenten</b>! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p><b>Beleidsdocumenten</b><p>Het beleidsproces van de Gemeenteraad is openbaar. Hierin staat eerstehands hoe en waarom besluiten genomen worden. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Toolbar</b><p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
 'U bent als student aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vindt dat studenten betaalbaar kunnen wonen. Werkt de Gemeente aan beleid dat invloed kan hebben op uw verhuisplannen?',
 'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wilde besteden?']
 var searchtaskshort = ['Bekijk een aantal documenten, markeer een pagina als informatief en begin de volgende taak!',
@@ -10,7 +11,13 @@ var searchtaskshort = ['Bekijk een aantal documenten, markeer een pagina als inf
 'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
 'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
 ]
-numsearchtasks = 5
+var numsearchtasks = 6
+var PRESTUDY = -1
+var POSTSTUDY = numsearchtasks
+var PRETASK = 0
+var TASKTASK = 1
+var POSTTASK = 2
+var TASKBLOCKSIZE = 3
 
 //verbose logging for debugging/reference. panel.js logs url on updated tabs
 function logURL(requestDetails) {
@@ -316,15 +323,15 @@ function loadNextPhase(task){
 			//clear alarms previously set
 			//browser.alarms.clearAll();
 				
-			//if this was the first stage in the poststudy, go to last stage of a task
+			//if this was the first stage in a task/the poststudy, go to last stage of a task
 			if(task.curStage < 0){
-				if(task.curTask == 1){
-					task.curStage = 2
+				//if it was the first stage in the first task, go to last stage of prestudy
+				if(task.curTask == 0){
+					task.curStage = 1
 					task.curTask -= 1
 				}
-				//if it was the first stage in the first task, go to last stage of prestudy
-				else if(task.curTask == 0){
-					task.curStage = 1
+				else {//if(task.curTask == 1){
+					task.curStage = POSTTASK
 					task.curTask -= 1
 				}
 			}
@@ -367,15 +374,15 @@ function loadNextPhase(task){
 			//clear alarms previously set
 			//browser.alarms.clearAll();
 			
-			//if this was the final stage of the prestudy, next task
-			if(task.curTask == -1 && task.curStage > 1){
+			//if this was the final stage of the prestudy, next task  (it is shorter)
+			if(task.curTask == PRESTUDY && task.curStage > TASKTASK){
 				task.curTask += 1
-				task.curStage = 0
+				task.curStage = PRETASK
 			}
 			//if the final stage of a search task, next task
-			else if(task.curStage > 2){
+			else if(task.curStage > POSTTASK){
 				task.curTask += 1
-				task.curStage = 0
+				task.curStage = PRETASK
 			}
 			task.type = "load"
 			//console.log(task.type)
@@ -384,7 +391,6 @@ function loadNextPhase(task){
 		}
 	}
 	if(task.type == "load"){
-		console.log('TRYING TO LOAD')
 		//focus on window with the questions
 		closeOtherTabs();
 		
@@ -403,36 +409,45 @@ function loadNextPhase(task){
 		storeLogs();
 		
 		//load prestudy
-		if(task.curTask == -1){
-			if(task.curStage == 0){
+		if(task.curTask == PRESTUDY){
+			if(task.curStage == PRETASK){
 				console.log('loading intro')
 				browser.tabs.update({url: "./questionforms/intro.html"});
 			}
-			else if(task.curStage == 1){
+			else if(task.curStage == TASKTASK){
 				console.log('loading prestudy')
 				browser.tabs.update({url: "./questionforms/prestudy.html"});
 			}
 			else{ alert('unknown state') }
 		}
-		//test if done
+		//test if last task was performed
 		else if(task.curTask == numsearchtasks){
 			console.log('start post study')
 			browser.tabs.update({url: "./questionforms/poststudy.html"});
 		}
-		else if(task.curStage == 0){
-			//TODO check if there are more tasks left to do
-			console.log('start pre task')
-			browser.tabs.update({url: "./questionforms/pretask.html"});
-			//todo tell the task to the toolbar rather than via post
-		//last is optional
+		//else it's a regular task
+		else if(task.curStage == PRETASK){
+			//If this is a posttaskblock -> if so insert SUS.
+			//TODO integrate better
+			/*if(task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1){
+				console.log('we should show the SUS')
+				browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+			}*/
+			//else {
+				//TODO check if there are more tasks left to do
+				console.log('start pre task')
+				browser.tabs.update({url: "./questionforms/pretask.html"});
+				//todo tell the task to the toolbar rather than via post
+			//last is optional
+			//}
 		}
-		else if(task.curStage == 1){
+		else if(task.curStage == TASKTASK){
 			console.log('start task')
 			browser.tabs.update({url: "http://uu.nl/"});
 			restartAlarm("./questionforms/posttask.html");
 		}
-		//menu navigation can get here instead of by the alarm
-		else if(task.curStage == 2){
+		//menu navigation can get here (instead of by the alarm)
+		else if(task.curStage == POSTTASK){
 			console.log('post task')
 			browser.tabs.update({url: "./questionforms/posttask.html"});
 		}
