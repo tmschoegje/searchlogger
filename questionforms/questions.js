@@ -6,6 +6,8 @@ function validateInput(input, type){
 		return 0
 	else if (type == "number" && input.value.length > 0 && !isNaN(input.value))
 		return 0
+	else if (type == "year" && input.value.length == 4 && !isNaN(input.value))
+		return 0
 	else if (type == "check" && input.checked == true)
 		return 0
 	else if (type == "selection" && input.value != "")
@@ -20,7 +22,7 @@ function inputChecker (){
 	errorcount += validateInput(document.forms[0].elements.consent, "check");
 	
 	errorcount += validateInput(document.forms[0].elements.sex, "selection");
-	errorcount += validateInput(document.forms[0].elements.age, "number");
+	errorcount += validateInput(document.forms[0].elements.age, "year");
 	errorcount += validateInput(document.forms[0].elements.citizentime, "number");
 	errorcount += validateInput(document.forms[0].elements.nieuws, "selection");
 	errorcount += validateInput(document.forms[0].elements.betrokken, "selection");
@@ -63,11 +65,11 @@ function loadAnswers() {
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
 			document.forms[0].elements.hoogte.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte;
-			document.forms[0].elements.userantwoord.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord;
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
 			document.forms[0].elements.tevreden.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden;
 			 document.forms[0].elements.seq.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq;
+			 document.forms[0].elements.userantwoord.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord;
 		}
 	})
 }
@@ -94,11 +96,11 @@ function storeAnswers() {
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte = document.forms[0].elements.hoogte.value;
-			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord = document.forms[0].elements.userantwoord.value;
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden = document.forms[0].elements.tevreden.value;
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq = document.forms[0].elements.seq.value;
+			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord = document.forms[0].elements.userantwoord.value;
 		}
 		//store the logs
 		let contentToStore = {};

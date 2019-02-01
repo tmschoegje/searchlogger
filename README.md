@@ -6,6 +6,8 @@ Backlog
 * something like a progress bar
 * log keypresses (in particular for when the user searches a document with (ctrl + f)). could also log mouse hovers and scrolling?
 * automatic task order presentation (will instead be done through web server, probably)
+* if browser was closed/repoened during a task stage, the timer shouldn't restart
+* in test task, check if user bookmarked at least one page
 
 
 Installation  

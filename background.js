@@ -1,12 +1,12 @@
 //first one is the training task, keep this in mind when doing the randomisation
-var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. Gebruik de toolbar om terug te gaan naar de zoekmachine als dat nodig is. Als u een fout heeft gemaakt in uw antwoorden kan u deze gebruiken om een stap in het experiment opnieuw te doen (gebruikt als u een vraag wilt corrigeren), of aangeven dat u klaar bent voor de volgende zoektaak. Gebruik de toolbar hiernaast om aan te geven dat een pagina of document informatief was voor uw doel.',
-'U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
-'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen politiek gezien aangekaart, en wat is hier de status van?',
-'U bent als zijnde student op aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vind dat studenten betaalbaar kunnen wonen. Heeft de Gemeente recent besluiten genomen die invloed kunnen hebben op wanneer u verhuist?',
-'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam permanent te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wil besteden?']
-var searchtaskshort = ['Markeer een pagina als informatief en begin de volgende taak!',
+var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment en dit type resultaten! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
+'De Uithoflijn is de naam van de tramlijn die tussen Utrecht Centraal en de Universiteit Utrecht wordt aangelegd. U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de bouw van de Uithoflijn gepland, en aangepast?',
+'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
+'U bent als student aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vindt dat studenten betaalbaar kunnen wonen. Werkt de Gemeente aan beleid dat invloed kan hebben op uw verhuisplannen?',
+'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wilde besteden?']
+var searchtaskshort = ['Bekijk een aantal documenten, markeer een pagina als informatief en begin de volgende taak!',
 'Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
-'Hoe wordt er gelobbyd voor een grotere supermarkt op de Uithof?',
+'Hoe wordt er gelobby\'d voor een grotere supermarkt op de Uithof?',
 'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
 'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
 ]

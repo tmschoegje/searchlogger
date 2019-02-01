@@ -26,7 +26,7 @@ var POSTSTUDY = numsearchtasks
 var PRETASK = 0
 var TASKTASK = 1
 var POSTTASK = 2
-var DELAY = 0.1
+var DELAY = 10
 
 firsttime = true
 
@@ -41,11 +41,13 @@ function greyOutButton(){
 		//If prestudy or poststudy
 		if(session.curTask == PRESTUDY || session.curTask == POSTSTUDY){
 			document.getElementById("nextButton").disabled = true;
+			document.getElementById("homeButton").disabled = true;
 	//		document.getElementById("clock").visibility = "hidden"
 		}
 		//if pretask or posttask, disable teh button. also, stop the timer.
 		else if(session.curStage == PRETASK || session.curStage == POSTTASK){
 			document.getElementById("nextButton").disabled = true;
+			document.getElementById("homeButton").disabled = true;
 	//		console.log('HIDING')
 			document.getElementById("clock").innerHTML = ""
 //			console.log(document.getElementById("clock"))
@@ -56,6 +58,7 @@ function greyOutButton(){
 		else{
 			console.log('showing')
 			document.getElementById("nextButton").disabled = false;
+			document.getElementById("homeButton").disabled = false;
 			
 			//if in task, and this is the first time we get there, start the clock
 			if(firsttime == true)
@@ -156,7 +159,7 @@ function prev(e){
 	var confirmbutton = document.getElementById("confirmbutton")
 	confirmbutton.style.visibility = "visible"
 	var confirmtext = document.getElementById("confirmtext")
-	confirmtext.innerHTML = "Weet u zeker dat u terug wilt gaan?"
+	confirmtext.innerHTML = "Weet u zeker dat u de huidige taak wilt afbreken?"
 	var confirmtext = document.getElementById("confirmform")
 	confirmtext.setAttribute("onclick", "confirmPrev(event)")
 
@@ -203,7 +206,7 @@ function setClock(task) {
 	//var clock = 
 	remaining = DELAY
 	document.getElementById("clock").innerHTML = remaining + " minutes remaining"
-	timer = setInterval(reduceTimer, 1000);
+	timer = setInterval(reduceTimer, 10000);
 	//}
 	//in other cases, hide the timer
 	//else if(task.type == "load"){
@@ -232,10 +235,10 @@ function next(e){
 	var confirmbutton = document.getElementById("confirmbutton")
 	confirmbutton.style.visibility = "visible"
 	var confirmtext = document.getElementById("confirmtext")
-	confirmtext.innerHTML = "Weet u zeker dat u door wilt gaan?"
+	confirmtext.innerHTML = "Weet u zeker dat u de huidige taak wilt afronden?"
 	var confirmtext = document.getElementById("confirmform")
-	confirmtext.setAttribute("onsubmit", "confirmNext(event)")
-	
+	confirmtext.setAttribute("onclick", "confirmNext(event)")
+		
 /*	if(confirm("Weet u zeker dat u klaar bent om door te gaan?") == true) {
 		browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "next", "content": ""})
 		console.log('next in toolbar')
