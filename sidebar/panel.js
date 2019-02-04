@@ -20,7 +20,7 @@ window.addEventListener("mouseout", () => {
     browser.storage.local.set(contentToStore);
   });
 });*/
-var numsearchtasks = 5
+var numsearchtasks = 6
 var PRESTUDY = -1
 var POSTSTUDY = numsearchtasks
 var PRETASK = 0
