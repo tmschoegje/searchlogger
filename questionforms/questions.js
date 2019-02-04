@@ -19,6 +19,8 @@ function validateInput(input, type){
 function inputChecker (){
 	errorcount = 0;
 	//console.log(document.forms[0].elements);
+	
+	//should refactor so we can just register new inputs, instead of manually adding them at 3 places...
 	errorcount += validateInput(document.forms[0].elements.consent, "check");
 	
 	errorcount += validateInput(document.forms[0].elements.sex, "selection");
@@ -31,10 +33,21 @@ function inputChecker (){
 	errorcount += validateInput(document.forms[0].elements.userantwoord, "text");
 	errorcount += validateInput(document.forms[0].elements.tevreden, "selection");
 	errorcount += validateInput(document.forms[0].elements.seq, "selection");
+
+	errorcount += validateInput(document.forms[0].elements.sus1, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus2, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus3, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus4, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus5, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus6, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus7, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus8, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus9, "selection");
+	errorcount += validateInput(document.forms[0].elements.sus10, "selection");
 	
 	console.log(errorcount)
 		
-	return errorcount;
+	return 0;//errorcount;
 }
 
 var numsearchtasks = 5
@@ -64,6 +77,7 @@ function loadAnswers() {
 			document.forms[0].elements.betrokken.value = questions.sessions[logs.curSession].betrokken;
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
+			//THIS NOW INCLUDES END OF TASKBLOCK
 			document.forms[0].elements.hoogte.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte;
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
@@ -157,7 +171,10 @@ function loadNextTaskless(e, phase){
 	else{
 		//storeAnswers({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
 		storeAnswers();
-		browser.runtime.sendMessage({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
+		content = ""
+		if(phase == 0)
+			content = "sus"
+		browser.runtime.sendMessage({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": content})
 		//console.log('other submit')
 		
 	}

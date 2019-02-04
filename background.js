@@ -1,5 +1,5 @@
 //first one is the training task, keep this in mind when doing the randomisation
-var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment en dit resultaten uit de categorie <b>algemeen</b>! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p><b>Algemene documenten</b><p>Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via algemene bronnen, zoals het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Toolbar</b><p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
+var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment en de documenten uit de categorie <b>algemeen</b>! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p><b>Algemene documenten</b><p>Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via algemene bronnen, zoals het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Toolbar</b><p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
 'De Uithoflijn is de naam van de tramlijn die tussen Utrecht Centraal en de Universiteit Utrecht wordt aangelegd. U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Hoe is de bouw van de Uithoflijn gepland, en aangepast?',
 'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
 'Dit is een oefentaak om bekend te worden met het experiment en dit resultaten uit de categorie <b>beleidsdocumenten</b>! U wordt zo verwezen naar de zoekmachine waarmee u een oefentaak moet oplossen. <p><b>Beleidsdocumenten</b><p>Het beleidsproces van de Gemeenteraad is openbaar. Hierin staat eerstehands hoe en waarom besluiten genomen worden. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Toolbar</b><p>Met de toolbar kunt u de volgende dingen:<ul><li> Navigeren naar de zoekmachine </li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden </li><li> Een stap in het experiment opnieuw uitvoeren </li><li> De zoektaak afronden indien u eerder klaar bent dan het tijdslimiet </li><li> Een stap in het experiment terug gaan indien u een fout gemaakt heeft</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en door gaan met het experiment. <p> Open voor deze oefentaak een paar documenten, en markeer minimaal een pagina aan als informatief.',
@@ -8,6 +8,7 @@ var searchtasks = ['Dit is een oefentaak om bekend te worden met het experiment 
 var searchtaskshort = ['Bekijk een aantal documenten, markeer een pagina als informatief en begin de volgende taak!',
 'Hoe is de planning van het bouwen van de Uithoflijn verlopen, en aangepast?',
 'Hoe wordt er gelobby\'d voor een grotere supermarkt op de Uithof?',
+'Bekijk een aantal documenten, markeer een pagina als informatief en begin de volgende taak!',
 'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
 'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
 ]
@@ -17,6 +18,7 @@ var POSTSTUDY = numsearchtasks
 var PRETASK = 0
 var TASKTASK = 1
 var POSTTASK = 2
+POSTTASKBLOCK = 3
 var TASKBLOCKSIZE = 3
 
 //verbose logging for debugging/reference. panel.js logs url on updated tabs
@@ -30,7 +32,7 @@ browser.webRequest.onBeforeRequest.addListener(
 );
 
 //parameters for 
-var DELAY = 0.1; //in minutes
+var DELAY = 0.10; //time for each task in minutes
 var CATGIFS = "./questionforms/prestudy.html"//http://chilloutandwatchsomecatgifs.com/";
 
 
@@ -323,10 +325,17 @@ function loadNextPhase(task){
 			//clear alarms previously set
 			//browser.alarms.clearAll();
 				
-			//if this was the first stage in a task/the poststudy, go to last stage of a task
+			//if this was the first stage in a task/the poststudy, go to last stage of a task or to the SUS if applicable
 			if(task.curStage < 0){
+				//if prestudy and a SUS comes next
+				if(task.curTask == TASKBLOCKSIZE || task.curTask == TASKBLOCKSIZE * 2){
+					console.log('loadsus1')
+					task.content = "loadsus"
+					task.curStage = POSTTASKBLOCK
+					task.curTask -= 1
+				}
 				//if it was the first stage in the first task, go to last stage of prestudy
-				if(task.curTask == 0){
+				else if(task.curTask == 0){
 					task.curStage = 1
 					task.curTask -= 1
 				}
@@ -365,6 +374,7 @@ function loadNextPhase(task){
 		//console.log(task.type)
 		//console.log(logs.sessions[logs.curSession].curTask)
 		//console.log(logs.sessions[logs.curSession].curStage)
+		
 		//if not the final page
 		if(!(logs.sessions[logs.curSession].curTask >= numsearchtasks)){
 			//increase the search stage
@@ -374,15 +384,27 @@ function loadNextPhase(task){
 			//clear alarms previously set
 			//browser.alarms.clearAll();
 			
+			
 			//if this was the final stage of the prestudy, next task  (it is shorter)
 			if(task.curTask == PRESTUDY && task.curStage > TASKTASK){
 				task.curTask += 1
 				task.curStage = PRETASK
 			}
-			//if the final stage of a search task, next task
+			//if the final stage of a search task (i.e. posttask or posttaskblock), next task
 			else if(task.curStage > POSTTASK){
-				task.curTask += 1
-				task.curStage = PRETASK
+				
+				//if posttask and a SUS comes next
+				if(task.curStage == POSTTASK + 1 && 
+				(task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1)){
+					console.log(task)
+					console.log('loadsus2')
+					task.content = "loadsus"
+					task.curStage = POSTTASKBLOCK
+				}
+				else{
+					task.curTask += 1
+					task.curStage = PRETASK
+				}
 			}
 			task.type = "load"
 			//console.log(task.type)
@@ -391,6 +413,8 @@ function loadNextPhase(task){
 		}
 	}
 	if(task.type == "load"){
+//		console.log('load')
+//		console.log(task)
 		//focus on window with the questions
 		closeOtherTabs();
 		
@@ -405,6 +429,16 @@ function loadNextPhase(task){
 		
 		logs.sessions[logs.curSession].curStage = task.curStage
 		logs.sessions[logs.curSession].curTask = task.curTask
+		
+		//if already indicated to load the sus, or if we come from a stage where we might load a sus + we're in the right task, load the sus
+		if(task.content == "loadsus" ||
+		((task.curStage == POSTTASKBLOCK) && (task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1))){
+			console.log(task)
+			console.log('SUS IN LOAD')
+			task.curStage = POSTTASKBLOCK
+			task.content = "loadsus"
+			console.log('this is why3')
+		}
 		logs.sessions[logs.curSession].loglines.push(Date.now() + " Task " + task.curTask + " Stage " + task.curStage)
 		storeLogs();
 		
@@ -425,20 +459,40 @@ function loadNextPhase(task){
 			console.log('start post study')
 			browser.tabs.update({url: "./questionforms/poststudy.html"});
 		}
+		// post task block/show the SUS?
+		else if(task.content == "loadsus"){
+			console.log('starting post task block')
+			browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+		}
 		//else it's a regular task
 		else if(task.curStage == PRETASK){
 			//If this is a posttaskblock -> if so insert SUS.
-			//TODO integrate better
-			/*if(task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1){
-				console.log('we should show the SUS')
-				browser.tabs.update({url: "./questionforms/posttaskblock.html"});
-			}*/
-			//else {
+			
+			//We can get here in two cases: prev/next toolbar (we can handle this in task.type = prev or next, by setting content as 'loadsus' if the below if statement)
+			//we can get here from.. a posttak by 
+			
+			//if it's time for a posttaskblock SUS questionnaire, intercede the pre-task with 
+			//if(task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1){
+
+			//GO TO TASKBLOCK IF: first time at pre-task     use content=?
+			
+		/*		console.log('should do the thing')
+				
+				let gett = browser.storage.local.get();
+				gett.then((results) => {
+
+					if(typeof results.questions.sessions[results.logs.curSession].sus[0] === ""){
+						console.log('we should show the SUS')
+						browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+					}
+					})
+			}
+			else {*/
 				//TODO check if there are more tasks left to do
 				console.log('start pre task')
 				browser.tabs.update({url: "./questionforms/pretask.html"});
 				//todo tell the task to the toolbar rather than via post
-			//last is optional
+				//last is optional
 			//}
 		}
 		else if(task.curStage == TASKTASK){
@@ -570,10 +624,33 @@ function onInstalledNotification(details) {
 						"userantwoord": "",
 						"tevreden":"",
 						"seq":""
+					}],
+					"sus":[{
+						"sus1":"",
+						"sus2":"",
+						"sus3":"",
+						"sus4":"",
+						"sus5":"",
+						"sus6":"",
+						"sus7":"",
+						"sus8":"",
+						"sus9":"",
+						"sus10":""
+					},
+					{
+						"sus1":"",
+						"sus2":"",
+						"sus3":"",
+						"sus4":"",
+						"sus5":"",
+						"sus6":"",
+						"sus7":"",
+						"sus8":"",
+						"sus9":"",
+						"sus10":""
 					}]
 				}]
 			}
-			
 		//	console.log('okay')
 		//	console.log(questions)
 		//	console.log(questions.sessions[0])

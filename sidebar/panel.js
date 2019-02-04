@@ -44,8 +44,8 @@ function greyOutButton(){
 			document.getElementById("homeButton").disabled = true;
 	//		document.getElementById("clock").visibility = "hidden"
 		}
-		//if pretask or posttask, disable teh button. also, stop the timer.
-		else if(session.curStage == PRETASK || session.curStage == POSTTASK){
+		//if pretask or posttask or posttaskblock, disable teh button. also, stop the timer.
+		else if(session.curStage == PRETASK || session.curStage >= POSTTASK){
 			document.getElementById("nextButton").disabled = true;
 			document.getElementById("homeButton").disabled = true;
 	//		console.log('HIDING')
@@ -125,7 +125,7 @@ function updateContent() {
 
 function loadNext(e, taskId, phase){
 	e.preventDefault();
-	browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": ""})
+	browser.runtime.sendMessage({"curTask":taskId, "curStage":phase, "type": "load", "content": "nexttoolbar"})
 	console.log('other submit')
 	//set toolbar stuffs	
 }
@@ -138,12 +138,16 @@ function loadNext(e, taskId, phase){
 	}
 }*/
 
+
+
+
+
 function confirmPrev(e){
 	e.preventDefault()
 	var confirmbutton = document.getElementById("confirmbutton")
 	confirmbutton.style.visibility = "hidden"
 	
-	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "prev", "content": ""})
+	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "prev", "content": "prevtoolbar"})
 	console.log('back in toolbar')
 }
 
@@ -175,7 +179,7 @@ function confirmNext(e){
 	var confirmbutton = document.getElementById("confirmbutton")
 	confirmbutton.style.visibility = "hidden"
 	
-	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "next", "content": ""})
+	browser.runtime.sendMessage({"curTask":-3, "curStage":-3, "type": "next", "content": "nexttoolbar"})
 		console.log('next in toolbar')
 }
 

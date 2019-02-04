@@ -8,7 +8,7 @@ Backlog
 * automatic task order presentation (will instead be done through web server, probably)
 * if browser was closed/repoened during a task stage, the timer shouldn't restart
 * in test task, check if user bookmarked at least one page
-* refactor task block code
+* further refactor for re-usability after experiment (e.g. task blocks as variables, clean up short-term solutions. navigation flow should be a linkedlist instead of curTask/curStage combination)
 
 
 Installation  
