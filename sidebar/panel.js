@@ -29,6 +29,7 @@ var POSTTASK = 2
 var DELAY = 10
 
 firsttime = true
+curUrl = "google.nl"
 
 //if user has to fill in questions, ask them to fill out questions instead
 //also, show and start the clock if it's the first time we notice that a task is going on
@@ -41,13 +42,15 @@ function greyOutButton(){
 		//If prestudy or poststudy
 		if(session.curTask == PRESTUDY || session.curTask == POSTSTUDY){
 			document.getElementById("nextButton").disabled = true;
-			document.getElementById("homeButton").disabled = true;
+			document.getElementById("homeButton").value = "Vragenlijst";
+			//document.getElementById("homeButton").disabled = true;
 	//		document.getElementById("clock").visibility = "hidden"
 		}
 		//if pretask or posttask or posttaskblock, disable teh button. also, stop the timer.
 		else if(session.curStage == PRETASK || session.curStage >= POSTTASK){
 			document.getElementById("nextButton").disabled = true;
-			document.getElementById("homeButton").disabled = true;
+			document.getElementById("homeButton").value = "Vragenlijst";
+//			document.getElementById("homeButton").disabled = true;
 	//		console.log('HIDING')
 			document.getElementById("clock").innerHTML = ""
 //			console.log(document.getElementById("clock"))
@@ -58,7 +61,8 @@ function greyOutButton(){
 		else{
 			console.log('showing')
 			document.getElementById("nextButton").disabled = false;
-			document.getElementById("homeButton").disabled = false;
+			document.getElementById("homeButton").value = "Zoekmachine";
+//			document.getElementById("homeButton").disabled = false;
 			
 			//if in task, and this is the first time we get there, start the clock
 			if(firsttime == true)
@@ -230,8 +234,14 @@ function setClock(task) {
 //set a starttime for the task?
 
 function home(e){
+
 	e.preventDefault();
-	browser.tabs.update({url: "http://www.uu.nl"});
+	//if in task:
+	let retrieveLogs = browser.storage.local.get().then((results) => {
+		//todo: in greyout, set curUrl?
+		curUrl = results.curPage
+		browser.tabs.update({url: curUrl});
+	})
 }
 
 function next(e){

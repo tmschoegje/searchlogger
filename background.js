@@ -12,6 +12,14 @@ var searchtaskshort = ['Bekijk een aantal documenten, markeer een pagina als inf
 'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
 'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
 ]
+
+var searchengine = ['https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
+'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
+'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
+'https://zoek.openraadsinformatie.nl/#/g/utrecht',
+'https://zoek.openraadsinformatie.nl/#/g/utrecht',
+'https://zoek.openraadsinformatie.nl/#/g/utrecht']
+
 var numsearchtasks = 6
 var PRESTUDY = -1
 var POSTSTUDY = numsearchtasks
@@ -34,7 +42,6 @@ browser.webRequest.onBeforeRequest.addListener(
 //parameters for 
 var DELAY = 0.10; //time for each task in minutes
 var CATGIFS = "./questionforms/prestudy.html"//http://chilloutandwatchsomecatgifs.com/";
-
 
 
 //start bookmark code
@@ -186,6 +193,7 @@ browser.alarms.onAlarm.addListener((alarm) => {
 		logs.sessions[logs.curSession].curStage = logs.sessions[logs.curSession].curStage + 1
 		setTask(logs.sessions[logs.curSession].curTask);
 		browser.tabs.update({url: alarm.name});
+		updateCurPage(alarm.name);
 	})
   }
 //  if(logs.sessions[0].curStage > 2)
@@ -228,7 +236,8 @@ function setSuccessfull(tabs) {
 		{
 			"type": "setTask", 
 			"searchtask": logs.sessions[logs.curSession].curTaskFull, 
-			"searchtaskshort": logs.sessions[logs.curSession].curTaskShort
+			"searchtaskshort": logs.sessions[logs.curSession].curTaskShort,
+			"searchengine": logs.sessions[logs.curSession].curEngine
 		})/*.then(response => {
 		console.log("Message from the content script:");
 		console.log(response.response);
@@ -246,10 +255,12 @@ function setTask(taskid){
 //	console.log('setting task!!!!!')
 	stask = ""
 	staskshort = ""
+	sengine = ""
 	//If we are currently in a task, set the contents
 	if(taskid >= 0 && taskid < numsearchtasks){
 		stask = searchtasks[taskid]
 		staskshort = searchtaskshort[taskid]
+		sengine = searchengine[taskid]
 	}
 /*	console.log(stask)
 	console.log(staskshort)
@@ -263,6 +274,7 @@ function setTask(taskid){
 	//currently uses localstorage to avoid racing errors with message, also better for resuming session..
 	logs.sessions[logs.curSession].curTaskFull = stask
 	logs.sessions[logs.curSession].curTaskShort = staskshort
+	logs.sessions[logs.curSession].curEngine = sengine
 	
 /*	let contentToStore = {};
     contentToStore["searchtask"] = stask;
@@ -446,23 +458,27 @@ function loadNextPhase(task){
 		if(task.curTask == PRESTUDY){
 			if(task.curStage == PRETASK){
 				console.log('loading intro')
-				browser.tabs.update({url: "./questionforms/intro.html"});
+				browser.tabs.update({url: "../questionforms/intro.html"});
+				updateCurPage("../questionforms/intro.html");
 			}
 			else if(task.curStage == TASKTASK){
 				console.log('loading prestudy')
-				browser.tabs.update({url: "./questionforms/prestudy.html"});
+				browser.tabs.update({url: "../questionforms/prestudy.html"});
+				updateCurPage("../questionforms/prestudy.html");
 			}
 			else{ alert('unknown state') }
 		}
 		//test if last task was performed
 		else if(task.curTask == numsearchtasks){
 			console.log('start post study')
-			browser.tabs.update({url: "./questionforms/poststudy.html"});
+			browser.tabs.update({url: "../questionforms/poststudy.html"});
+			updateCurPage("../questionforms/poststudy.html");
 		}
 		// post task block/show the SUS?
 		else if(task.content == "loadsus"){
 			console.log('starting post task block')
 			browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+			updateCurPage("../questionforms/posttaskblock.html");
 		}
 		//else it's a regular task
 		else if(task.curStage == PRETASK){
@@ -491,19 +507,25 @@ function loadNextPhase(task){
 				//TODO check if there are more tasks left to do
 				console.log('start pre task')
 				browser.tabs.update({url: "./questionforms/pretask.html"});
+				updateCurPage("../questionforms/pretask.html");
 				//todo tell the task to the toolbar rather than via post
 				//last is optional
 			//}
 		}
 		else if(task.curStage == TASKTASK){
 			console.log('start task')
-			browser.tabs.update({url: "http://uu.nl/"});
-			restartAlarm("./questionforms/posttask.html");
+			let retrieveLogs = browser.storage.local.get().then((results) => {
+				curUrl = results.logs.sessions[results.logs.curSession].curEngine
+				browser.tabs.update({url: curUrl});
+				restartAlarm("../questionforms/posttask.html");
+				updateCurPage(curUrl);
+			})
 		}
 		//menu navigation can get here (instead of by the alarm)
 		else if(task.curStage == POSTTASK){
 			console.log('post task')
-			browser.tabs.update({url: "./questionforms/posttask.html"});
+			browser.tabs.update({url: "../questionforms/posttask.html"});
+			updateCurPage("../questionforms/posttask.html");
 		}
 			
 		
@@ -608,8 +630,10 @@ function onInstalledNotification(details) {
 				"searchtasks": searchtasks,
 				"searchtaskshort": searchtaskshort,
 				"curTaskFull": "",
+				"curEngine":"",
 				"curTaskShort": ""
 			}
+			curPage = ""
 			
 			questions = {
 				"sessions": [{
@@ -666,6 +690,7 @@ function onInstalledNotification(details) {
 		//	console.log(questions)
 			storeQuestions(questions);
 			storeLogs();
+			updateCurPage("");
 		}
 		else{
 			logs = results.logs
@@ -704,6 +729,12 @@ function updateLogs(){
 		//console.log('onChange')
 		//console.log(questions)
 	})
+}
+
+function updateCurPage(newUrl){
+	let contentToStore = {};
+    contentToStore["curPage"] = newUrl;
+    browser.storage.local.set(contentToStore);
 }
 
 
