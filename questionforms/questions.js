@@ -47,10 +47,10 @@ function inputChecker (){
 	
 	console.log(errorcount)
 		
-	return 0;//errorcount;
+	return errorcount;
 }
 
-var numsearchtasks = 5
+var numsearchtasks = 6
 var PRESTUDY = -1
 var POSTSTUDY = numsearchtasks
 var PRETASK = 0
@@ -155,7 +155,7 @@ function loadNext(e, taskId, phase){
 	e.preventDefault();
 	//pass for now..
 	if(inputChecker() > 0)
-		alert('Een van de invoeren is onduidelijk! Voer aub alle veld in, waarbij uw leeftijd en woontijd in Utrecht een getal moeten zijn.')
+		alert('Een van de invoeren is onduidelijk! Voer aub alle velden in.')
 	else{
 		//storeAnswers({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
 		storeAnswers();
