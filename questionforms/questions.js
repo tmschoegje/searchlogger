@@ -155,7 +155,7 @@ function loadNext(e, taskId, phase){
 	e.preventDefault();
 	//pass for now..
 	if(inputChecker() > 0)
-		alert('Een van de invoeren is onduidelijk! Voer aub alle velden in.')
+		alert('Een van de invoeren is onduidelijk! Voer aub alle velden in, en gebruik cijfers waar dat van toepassing is.')
 	else{
 		//storeAnswers({"curTask":taskId, "curStage":phase, "type": "load", "content": "unknowntask"})
 		storeAnswers();
