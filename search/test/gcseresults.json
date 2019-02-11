@@ -1,0 +1,601 @@
+{
+ "kind": "customsearch#search",
+ "url": {
+  "type": "application/json",
+  "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+ },
+ "queries": {
+  "request": [
+   {
+    "title": "Google Custom Search - querytext",
+    "totalResults": "1570000",
+    "searchTerms": "querytext",
+    "count": 10,
+    "startIndex": 1,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "002312860193215934518:dcojxiqiv44"
+   }
+  ],
+  "nextPage": [
+   {
+    "title": "Google Custom Search - querytext",
+    "totalResults": "1570000",
+    "searchTerms": "querytext",
+    "count": 10,
+    "startIndex": 11,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "002312860193215934518:dcojxiqiv44"
+   }
+  ]
+ },
+ "context": {
+  "title": "Google"
+ },
+ "searchInformation": {
+  "searchTime": 0.501446,
+  "formattedSearchTime": "0.50",
+  "totalResults": "1570000",
+  "formattedTotalResults": "1,570,000"
+ },
+ "items": [
+  {
+   "kind": "customsearch#result",
+   "title": "$text — MongoDB Manual",
+   "htmlTitle": "$text — MongoDB Manual",
+   "link": "https://docs.mongodb.com/manual/reference/operator/query/text",
+   "displayLink": "docs.mongodb.com",
+   "snippet": "Field, Type, Description. $search, string, A string of terms that MongoDB parses \nand uses to query the text index. MongoDB performs a logical OR search of the ...",
+   "htmlSnippet": "Field, Type, Description. $search, string, A string of terms that MongoDB parses \u003cbr\u003e\nand uses to query the text index. MongoDB performs a logical OR search of the&nbsp;...",
+   "cacheId": "5kWDtcqtlG4J",
+   "formattedUrl": "https://docs.mongodb.com/manual/reference/operator/query/text",
+   "htmlFormattedUrl": "https://docs.mongodb.com/manual/reference/operator/\u003cb\u003equery/text\u003c/b\u003e",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "318",
+      "height": "159",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFVCNt1suRCoy1mPX0H8qehDKV3liM5f93jM3Gq1_24A0rgUFw9PmbbtE"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width, initial-scale=1.0",
+      "release": "4.0.6",
+      "version": "4.0",
+      "dc.source": "https://github.com/mongodb/docs/blob/v4.0/source/reference/operator/query/text.txt",
+      "og:image": "http://s3.amazonaws.com/info-mongodb-com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png",
+      "og:image:secure_url": "https://webassets.mongodb.com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png"
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "http://s3.amazonaws.com/info-mongodb-com/_com_assets/cms/mongodb-for-giant-ideas-bbab5c3cf8.png"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "QueryPropertyNames.QueryText Field (Microsoft.SharePoint.Client ...",
+   "htmlTitle": "QueryPropertyNames.\u003cb\u003eQueryText\u003c/b\u003e Field (Microsoft.SharePoint.Client ...",
+   "link": "https://docs.microsoft.com/en-us/dotnet/api/microsoft.sharepoint.client.search.query.querypropertynames.querytext",
+   "displayLink": "docs.microsoft.com",
+   "snippet": "In this article. Definition; Applies to. C#. public const string QueryText; val mutable \nQueryText : string. Public Const QueryText As String ...",
+   "htmlSnippet": "In this article. Definition; Applies to. C#. public const string \u003cb\u003eQueryText\u003c/b\u003e; val mutable \u003cbr\u003e\n\u003cb\u003eQueryText\u003c/b\u003e : string. Public Const \u003cb\u003eQueryText\u003c/b\u003e As String&nbsp;...",
+   "cacheId": "e8sRncK0Ud8J",
+   "formattedUrl": "https://docs.microsoft.com/.../microsoft.sharepoint.client.search.query. querypropertynames.querytext",
+   "htmlFormattedUrl": "https://docs.microsoft.com/.../microsoft.sharepoint.client.search.query. querypropertynames.\u003cb\u003equerytext\u003c/b\u003e",
+   "pagemap": {
+    "metatags": [
+     {
+      "viewport": "width=device-width, initial-scale=1.0",
+      "og:title": "QueryPropertyNames.QueryText Field (Microsoft.SharePoint.Client.Search.Query)",
+      "og:type": "website",
+      "og:url": "https://docs.microsoft.com/en-us/dotnet/api/microsoft.sharepoint.client.search.query.querypropertynames.querytext",
+      "twitter:card": "summary",
+      "twitter:site": "@docsmsft",
+      "monikers": "sharepoint-csom-16.1.7618.1200",
+      "original_content_git_url": "https://github.com/SharePoint/sp-dev-docs-client-spo-ref-dotnet/blob/live/docs/xml/Microsoft.SharePoint.Client.Search.Query/QueryPropertyNames.xml",
+      "original_ref_skeleton_git_url": "https://github.com/SharePoint/sp-dev-docs-client-spo-ref-dotnet/blob/live/docs/xml/Microsoft.SharePoint.Client.Search.Query/QueryPropertyNames.xml",
+      "author": "dotnet-bot",
+      "breadcrumb_path": "../breadcrumb/toc.json",
+      "apiplatform": "dotnet",
+      "search.ms_sitename": "Docs",
+      "search.ms_docsetname": "sp-dev-docs-client-spo-ref-dotnet",
+      "locale": "en-us",
+      "site_name": "Docs",
+      "search.ms_product": "MSDN",
+      "depot_name": "MSDN.sp-dev-docs-client-spo-ref-dotnet",
+      "apiname": "Microsoft.SharePoint.Client.Search.Query.QueryPropertyNames.QueryText",
+      "apilocation": "Microsoft.SharePoint.Client.Search.Portable.dll",
+      "topictype": "apiref",
+      "apitype": "Assembly",
+      "updated_at": "2019-02-01 08:52 PM",
+      "document_id": "b30cf5fe-edfb-a7ab-5acc-82b968e04afd",
+      "document_version_independent_id": "6013d0c7-08af-2141-0c52-89b6f8fa2c41",
+      "page_type": "dotnet",
+      "page_kind": "field",
+      "toc_rel": "sp-dev-docs-client-spo-ref-dotnet/_splitted/Microsoft.SharePoint.Client.Search.Query/toc.json",
+      "ms.assetid": "Microsoft.SharePoint.Client.Search.Query.QueryPropertyNames.QueryText",
+      "search.mshattr.devlang": "csharp fsharp vb"
+     }
+    ],
+    "listitem": [
+     {
+      "item": "Docs"
+     },
+     {
+      "item": ".NET"
+     },
+     {
+      "item": ".NET API Browser"
+     }
+    ],
+    "organization": [
+     {
+      "url": "Microsoft"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "GET_SEARCH_RESULTS webservice response says ivalid QueryText",
+   "htmlTitle": "GET_SEARCH_RESULTS webservice response says ivalid \u003cb\u003eQueryText\u003c/b\u003e",
+   "link": "https://stackoverflow.com/questions/50585024/get-search-results-webservice-response-says-ivalid-querytext",
+   "displayLink": "stackoverflow.com",
+   "snippet": "The \u003c and \u003e might be the issue, but there is another problem - the quotes are not \ncorrect. Replace ' (apostrophe) with ` (back tick) in the query.",
+   "htmlSnippet": "The &lt; and &gt; might be the issue, but there is another problem - the quotes are not \u003cbr\u003e\ncorrect. Replace &#39; (apostrophe) with ` (back tick) in the query.",
+   "cacheId": "OSc6kYSAOe8J",
+   "formattedUrl": "https://stackoverflow.com/.../get-search-results-webservice-response-says- ivalid-querytext",
+   "htmlFormattedUrl": "https://stackoverflow.com/.../get-search-results-webservice-response-says- ivalid-\u003cb\u003equerytext\u003c/b\u003e",
+   "pagemap": {
+    "question": [
+     {
+      "image": "https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a",
+      "upvotecount": "1",
+      "name": "GET_SEARCH_RESULTS webservice response says ivalid QueryText",
+      "text": "Used below xml request to get the details of a document in the UCM: \u003csoapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ucm=\"http://www.oracle.com/UCM\"\u003e \u003csoapenv:Heade...",
+      "answercount": "1"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"
+     }
+    ],
+    "answer": [
+     {
+      "upvotecount": "0",
+      "text": "The \u003c and \u003e might be the issue, but there is another problem - the quotes are not correct. Replace ' (apostrophe) with ` (back tick) in the query."
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "QueryBuilder (Lucene 7.3.0 API)",
+   "htmlTitle": "QueryBuilder (Lucene 7.3.0 API)",
+   "link": "https://lucene.apache.org/core/7_3_0/core/org/apache/lucene/util/QueryBuilder.html",
+   "displayLink": "lucene.apache.org",
+   "snippet": "Parameters: field - field name: queryText - text to be passed to the analyzer: \nphraseSlop - number of other words permitted between words in query phrase ...",
+   "htmlSnippet": "Parameters: field - field name: \u003cb\u003equeryText\u003c/b\u003e - text to be passed to the analyzer: \u003cbr\u003e\nphraseSlop - number of other words permitted between words in query phrase&nbsp;...",
+   "cacheId": "HumxGyU_gp8J",
+   "formattedUrl": "https://lucene.apache.org/core/7_3_0/core/.../QueryBuilder.html",
+   "htmlFormattedUrl": "https://lucene.apache.org/core/7_3_0/core/.../QueryBuilder.html",
+   "pagemap": {
+    "metatags": [
+     {
+      "date": "2018-04-04"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "SSMS hidden gem: Edit Query Text - SQL Server Fast",
+   "htmlTitle": "SSMS hidden gem: Edit \u003cb\u003eQuery Text\u003c/b\u003e - SQL Server Fast",
+   "link": "https://sqlserverfast.com/blog/hugo/2018/03/ssms-hidden-gem-edit-query-text/",
+   "displayLink": "sqlserverfast.com",
+   "snippet": "Mar 3, 2018 ... When I am tuning a query, I usually start with the query text. I execute it to retrieve \nan execution plan, and then the fun starts. However, very ...",
+   "htmlSnippet": "Mar 3, 2018 \u003cb\u003e...\u003c/b\u003e When I am tuning a query, I usually start with the \u003cb\u003equery text\u003c/b\u003e. I execute it to retrieve \u003cbr\u003e\nan execution plan, and then the fun starts. However, very&nbsp;...",
+   "cacheId": "yyw_VKkmtIMJ",
+   "formattedUrl": "https://sqlserverfast.com/blog/.../ssms-hidden-gem-edit-query-text/",
+   "htmlFormattedUrl": "https://sqlserverfast.com/blog/.../ssms-hidden-gem-edit-\u003cb\u003equery-text\u003c/b\u003e/",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "290",
+      "height": "174",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwsGw6LYo2HiwipCmb7HwBQllwOcBfQYrvoQ0G5WX5Da_89N4irL7vfRIg"
+     }
+    ],
+    "metatags": [
+     {
+      "og:locale": "en_US",
+      "og:type": "article",
+      "og:title": "SSMS hidden gem: Edit Query Text - SQL Server Fast",
+      "og:description": "When I am tuning a query, I usually start with the query text. I execute it to retrieve an execution plan, and then the fun starts. However, very often I first need to find the specific query (or queries) to tune. There are multiple ways to do this, depending on what monitoring tools and which...",
+      "og:url": "https://sqlserverfast.com/blog/hugo/2018/03/ssms-hidden-gem-edit-query-text/",
+      "og:site_name": "SQL Server Fast",
+      "article:section": "Posts",
+      "article:published_time": "2018-03-03T13:33:35+00:00",
+      "og:image": "https://sqlserverfast.com/wp-content/uploads/fig-03-03-2018_13-33-22.jpg",
+      "og:image:secure_url": "https://sqlserverfast.com/wp-content/uploads/fig-03-03-2018_13-33-22.jpg",
+      "og:image:width": "500",
+      "og:image:height": "300",
+      "twitter:card": "summary_large_image",
+      "twitter:description": "When I am tuning a query, I usually start with the query text. I execute it to retrieve an execution plan, and then the fun starts. However, very often I first need to find the specific query (or queries) to tune. There are multiple ways to do this, depending on what monitoring tools and which...",
+      "twitter:title": "SSMS hidden gem: Edit Query Text - SQL Server Fast",
+      "twitter:site": "@Hugo_Kornelis",
+      "twitter:image": "https://sqlserverfast.com/wp-content/uploads/fig-03-03-2018_13-33-22.jpg",
+      "twitter:creator": "@Hugo_Kornelis",
+      "viewport": "width=device-width, initial-scale=1",
+      "skype_toolbar": "SKYPE_TOOLBAR_PARSER_COMPATIBLE",
+      "theme-color": "#f5f5f5"
+     }
+    ],
+    "person": [
+     {
+      "name": "Hugo Kornelis"
+     }
+    ],
+    "webpage": [
+     {
+      "maincontentofpage": "SSMS hidden gem: Edit Query Text March 3, 20183 CommentsHugo Kornelis When I am tuning a query, I usually start with the query text. I execute it to retrieve an execution plan, and then the...",
+      "headline": "SSMS hidden gem: Edit Query Text",
+      "datepublished": "2018-03-03 14:33:35",
+      "text": "When I am tuning a query, I usually start with the query text. I execute it to retrieve an execution plan, and then the fun starts. However, very often I first need to find the specific query..."
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "https://sqlserverfast.com/wp-content/uploads/fig-03-03-2018_13-33-22.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Excel Magic Trick 1414: Power Query Text.PadStart Function to ...",
+   "htmlTitle": "Excel Magic Trick 1414: Power \u003cb\u003eQuery Text\u003c/b\u003e.PadStart Function to ...",
+   "link": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+   "displayLink": "www.youtube.com",
+   "snippet": "May 6, 2017 ... See how to Convert 35 & 100 to 00-035 & 00-100 using Power Query, a Custom \nColumn and the Text.PadStart Power Query Function.",
+   "htmlSnippet": "May 6, 2017 \u003cb\u003e...\u003c/b\u003e See how to Convert 35 &amp; 100 to 00-035 &amp; 00-100 using Power Query, a Custom \u003cbr\u003e\nColumn and the Text.PadStart Power Query Function.",
+   "cacheId": "NWpmq66C_9oJ",
+   "formattedUrl": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+   "htmlFormattedUrl": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "300",
+      "height": "168",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSoQ6dFqC5zMCmtqCYtOeupj1lsxBUqBHwlexTn8zLqqkSjidfV5GKfBnw"
+     }
+    ],
+    "metatags": [
+     {
+      "title": "Excel Magic Trick 1414: Power Query Text.PadStart Function to Correctly Format Account Numbers",
+      "theme-color": "#ff0000",
+      "og:site_name": "YouTube",
+      "og:url": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+      "og:title": "Excel Magic Trick 1414: Power Query Text.PadStart Function to Correctly Format Account Numbers",
+      "og:image": "https://i.ytimg.com/vi/D0ZUFLJLj58/maxresdefault.jpg",
+      "og:description": "See how to Convert 35 & 100 to 00-035 & 00-100 using Power Query, a Custom Column and the Text.PadStart Power Query Function. This trick comes thanks to Eric...",
+      "al:ios:app_store_id": "544007664",
+      "al:ios:app_name": "YouTube",
+      "al:ios:url": "vnd.youtube://www.youtube.com/watch?v=D0ZUFLJLj58&feature=applinks",
+      "al:android:url": "vnd.youtube://www.youtube.com/watch?v=D0ZUFLJLj58&feature=applinks",
+      "al:android:app_name": "YouTube",
+      "al:android:package": "com.google.android.youtube",
+      "al:web:url": "https://www.youtube.com/watch?v=D0ZUFLJLj58&feature=applinks",
+      "og:type": "video.other",
+      "og:video:url": "https://www.youtube.com/embed/D0ZUFLJLj58",
+      "og:video:secure_url": "https://www.youtube.com/embed/D0ZUFLJLj58",
+      "og:video:type": "text/html",
+      "og:video:width": "1280",
+      "og:video:height": "720",
+      "og:video:tag": "Excel",
+      "fb:app_id": "87741124305",
+      "twitter:card": "player",
+      "twitter:site": "@youtube",
+      "twitter:url": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+      "twitter:title": "Excel Magic Trick 1414: Power Query Text.PadStart Function to Correctly Format Account Numbers",
+      "twitter:description": "See how to Convert 35 & 100 to 00-035 & 00-100 using Power Query, a Custom Column and the Text.PadStart Power Query Function. This trick comes thanks to Eric...",
+      "twitter:image": "https://i.ytimg.com/vi/D0ZUFLJLj58/maxresdefault.jpg",
+      "twitter:app:name:iphone": "YouTube"
+     }
+    ],
+    "videoobject": [
+     {
+      "url": "https://www.youtube.com/watch?v=D0ZUFLJLj58",
+      "name": "Excel Magic Trick 1414: Power Query Text.PadStart Function to Correctly Format Account Numbers",
+      "description": "See how to Convert 35 & 100 to 00-035 & 00-100 using Power Query, a Custom Column and the Text.PadStart Power Query Function. This trick comes thanks to Eric...",
+      "paid": "False",
+      "channelid": "UCkndrGoNpUDV-uia6a9jwVg",
+      "videoid": "D0ZUFLJLj58",
+      "duration": "PT6M7S",
+      "unlisted": "False",
+      "thumbnailurl": "https://i.ytimg.com/vi/D0ZUFLJLj58/maxresdefault.jpg",
+      "embedurl": "https://www.youtube.com/embed/D0ZUFLJLj58",
+      "playertype": "HTML5 Flash",
+      "width": "1280",
+      "height": "720",
+      "isfamilyfriendly": "True",
+      "regionsallowed": "AD,AE,AF,AG,AI,AL,AM,AO,AQ,AR,AS,AT,AU,AW,AX,AZ,BA,BB,BD,BE,BF,BG,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BV,BW,BY,BZ,CA,CC,CD,CF,CG,CH,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CX,CY,CZ,DE,DJ,DK,DM,DO,DZ,EC,EE,EG,EH...",
+      "interactioncount": "3648",
+      "datepublished": "2017-05-06",
+      "genre": "Education"
+     }
+    ],
+    "imageobject": [
+     {
+      "url": "https://i.ytimg.com/vi/D0ZUFLJLj58/maxresdefault.jpg",
+      "width": "1280",
+      "height": "720"
+     }
+    ],
+    "person": [
+     {
+      "url": "http://www.youtube.com/user/ExcelIsFun"
+     },
+     {
+      "url": "https://plus.google.com/112944563619867816664"
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "https://i.ytimg.com/vi/D0ZUFLJLj58/maxresdefault.jpg"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "5.13 Search Services (Core Content Server)",
+   "htmlTitle": "5.13 Search Services (Core Content Server)",
+   "link": "https://docs.oracle.com/cd/E14571_01/doc.1111/e11011/c05_core013.htm",
+   "displayLink": "docs.oracle.com",
+   "snippet": "IdcService=GET_EXTERNAL_XML_HIGHLIGHT_INFO dDocName=test113 \nHighlightType=PdfHighlight QueryText=test SortField=dInDate SortOrder=Desc ...",
+   "htmlSnippet": "IdcService=GET_EXTERNAL_XML_HIGHLIGHT_INFO dDocName=test113 \u003cbr\u003e\nHighlightType=PdfHighlight \u003cb\u003eQueryText\u003c/b\u003e=test SortField=dInDate SortOrder=Desc&nbsp;...",
+   "cacheId": "3ASqC_DkphkJ",
+   "formattedUrl": "https://docs.oracle.com/cd/E14571_01/doc.../c05_core013.htm",
+   "htmlFormattedUrl": "https://docs.oracle.com/cd/E14571_01/doc.../c05_core013.htm",
+   "pagemap": {
+    "metatags": [
+     {
+      "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1",
+      "dcterms.created": "2010-04-29T10:8:10Z",
+      "dcterms.title": "Fusion Middleware Services Reference Guide for Oracle Universal Content Management",
+      "dcterms.identifier": "E11011-01",
+      "dcterms.isversionof": "CSSRG"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Query.Text",
+   "htmlTitle": "\u003cb\u003eQuery.Text\u003c/b\u003e",
+   "link": "https://developers.arcgis.com/silverlight/api-reference/ESRI.ArcGIS.Client~ESRI.ArcGIS.Client.Tasks.Query~Text.html",
+   "displayLink": "developers.arcgis.com",
+   "snippet": "The 'Display Field' is the default field in an ArcGIS Server feature service used to \nreturn attribute value for features. The Query.Text Property is acts very similar to ...",
+   "htmlSnippet": "The &#39;Display Field&#39; is the default field in an ArcGIS Server feature service used to \u003cbr\u003e\nreturn attribute value for features. The \u003cb\u003eQuery.Text\u003c/b\u003e Property is acts very similar to&nbsp;...",
+   "cacheId": "0iedq-Uqn5EJ",
+   "formattedUrl": "https://developers.arcgis.com/.../ESRI.ArcGIS.Client~ESRI.ArcGIS.Client. Tasks.Query~Text.html",
+   "htmlFormattedUrl": "https://developers.arcgis.com/.../ESRI.ArcGIS.Client~ESRI.ArcGIS.Client. Tasks.Query~Text.html",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "235",
+      "height": "214",
+      "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTtra5FQqTsKebVCLIcZ8pX5HkXO7fgWLUHGGUGTA99Auva252vzFq4msdY"
+     }
+    ],
+    "metatags": [
+     {
+      "microsoft.help.id": "ESRI.ArcGIS.Client~ESRI.ArcGIS.Client.Tasks.Query~Text",
+      "microsoft.help.tocparent": "ESRI.ArcGIS.Client~ESRI.ArcGIS.Client.Tasks.Query_properties",
+      "microsoft.help.contenttype": "Reference",
+      "microsoft.help.f1": "ESRI.ArcGIS.Client.Tasks.Query.Text",
+      "content-language": "en",
+      "product": "api-silverlight",
+      "sub_category": "Silverlight API",
+      "version": "silverlight-3.2",
+      "search-collection": "help",
+      "search-category": "help-api,help-api-guide",
+      "content_type": "API Reference",
+      "subject": "DEVELOPER"
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "https://developers.arcgis.com/silverlight/api-reference/Client.Tasks.Query_AGSServerDirectory1.png"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Sharepoint REST api search for a querytext in a site - SharePoint ...",
+   "htmlTitle": "Sharepoint REST api search for a \u003cb\u003equerytext\u003c/b\u003e in a site - SharePoint ...",
+   "link": "https://sharepoint.stackexchange.com/questions/233260/sharepoint-rest-api-search-for-a-querytext-in-a-site",
+   "displayLink": "sharepoint.stackexchange.com",
+   "snippet": "You should modify your endpoint url as below : https://cl\u200c\u200bient.sharepoint.com/_\napi/search/query? querytext=  \u200b'(vpn)+AND+(path:htt\u200c\u200bps://client.",
+   "htmlSnippet": "You should modify your endpoint url as below : https://cl\u200c\u200bient.sharepoint.com/_\u003cbr\u003e\napi/search/query? \u003cb\u003equerytext\u003c/b\u003e=  \u200b&#39;(vpn)+AND+(path:htt\u200c\u200bps://client.",
+   "cacheId": "qQ-oMBxxgGMJ",
+   "formattedUrl": "https://sharepoint.stackexchange.com/.../sharepoint-rest-api-search-for-a- querytext-in-a-site",
+   "htmlFormattedUrl": "https://sharepoint.stackexchange.com/.../sharepoint-rest-api-search-for-a- \u003cb\u003equerytext\u003c/b\u003e-in-a-site",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "225",
+      "height": "225",
+      "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS9uO4xMWsY9bHa-fNAkL4NKX4KiDHCLLsktJB1XvgiQdK-6sIIdIryvjDr"
+     }
+    ],
+    "qapage": [
+     {
+      "image": "https://cdn.sstatic.net/Sites/sharepoint/img/apple-touch-icon@2.png?v=24cd69cddbd9",
+      "primaryimageofpage": "https://cdn.sstatic.net/Sites/sharepoint/img/apple-touch-icon@2.png?v=24cd69cddbd9",
+      "name": "Sharepoint REST api search for a querytext in a site",
+      "description": "I am having issue while searching using query text in a specific site. When I use following get query, https://client.sharepoint.com/_api/search/query?querytext='vpn', I get results in the entire ..."
+     }
+    ],
+    "question": [
+     {
+      "image": "https://cdn.sstatic.net/Sites/sharepoint/img/apple-touch-icon.png?v=3ec77bafe817",
+      "name": "Sharepoint REST api search for a querytext in a site",
+      "upvotecount": "2",
+      "text": "I am having issue while searching using query text in a specific site. When I use following get query, https://client.sharepoint.com/_api/search/query?querytext='vpn', I get results in the...",
+      "url": "share",
+      "answercount": "1",
+      "datecreated": "2018-01-07T17:00:32"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0",
+      "og:type": "website",
+      "og:url": "https://sharepoint.stackexchange.com/questions/233260/sharepoint-rest-api-search-for-a-querytext-in-a-site",
+      "og:site_name": "SharePoint Stack Exchange",
+      "og:image": "https://cdn.sstatic.net/Sites/sharepoint/img/apple-touch-icon@2.png?v=24cd69cddbd9",
+      "twitter:card": "summary",
+      "twitter:domain": "sharepoint.stackexchange.com",
+      "twitter:site": "@StackSharePoint",
+      "twitter:creator": "@StackSharePoint",
+      "twitter:title": "Sharepoint REST api search for a querytext in a site",
+      "twitter:description": "I am having issue while searching using query text in a specific site. When I use following get query,\nhttps://client.sharepoint.com/_api/search/query?querytext='vpn',  I get results in the entire ...",
+      "twitter:app:country": "US",
+      "twitter:app:name:iphone": "Stack Exchange iOS",
+      "twitter:app:id:iphone": "871299723",
+      "twitter:app:url:iphone": "se-zaphod://sharepoint.stackexchange.com/questions/233260/sharepoint-rest-api-search-for-a-querytext-in-a-site",
+      "twitter:app:name:ipad": "Stack Exchange iOS",
+      "twitter:app:id:ipad": "871299723",
+      "twitter:app:url:ipad": "se-zaphod://sharepoint.stackexchange.com/questions/233260/sharepoint-rest-api-search-for-a-querytext-in-a-site",
+      "twitter:app:name:googleplay": "Stack Exchange Android",
+      "twitter:app:url:googleplay": "http://sharepoint.stackexchange.com/questions/233260/sharepoint-rest-api-search-for-a-querytext-in-a-site",
+      "twitter:app:id:googleplay": "com.stackexchange.marvin"
+     }
+    ],
+    "answer": [
+     {
+      "upvotecount": "0",
+      "text": "You should modify your endpoint url as below : https://cl\u200c\u200bient.sharepoint.com/_api/search/query? querytext=\u200c\u200b'(vpn)+AND+(path:htt\u200c\u200bps://client.sharepoi\u200c\u200bnt.com/sites/SysDocs\u200c\u200b)...",
+      "datecreated": "2018-01-08T11:17:36",
+      "url": "share"
+     }
+    ],
+    "person": [
+     {
+      "name": "user72980"
+     },
+     {
+      "name": "Gautam Sheth"
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "https://cdn.sstatic.net/Sites/sharepoint/img/apple-touch-icon@2.png?v=24cd69cddbd9"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Data Source Configuration Wizard returns a 'Unable to parse query ...",
+   "htmlTitle": "Data Source Configuration Wizard returns a &#39;Unable to parse \u003cb\u003equery\u003c/b\u003e ...",
+   "link": "https://github.com/npgsql/npgsql/issues/1313",
+   "displayLink": "github.com",
+   "snippet": "Oct 6, 2016 ... Data Source Configuration Wizard returns a 'Unable to parse query text.' when \nattempting to add a datasource with a table selected with the ...",
+   "htmlSnippet": "Oct 6, 2016 \u003cb\u003e...\u003c/b\u003e Data Source Configuration Wizard returns a &#39;Unable to parse \u003cb\u003equery text\u003c/b\u003e.&#39; when \u003cbr\u003e\nattempting to add a datasource with a table selected with the&nbsp;...",
+   "cacheId": "gycrIBP-ik0J",
+   "formattedUrl": "https://github.com/npgsql/npgsql/issues/1313",
+   "htmlFormattedUrl": "https://github.com/npgsql/npgsql/issues/1313",
+   "pagemap": {
+    "cse_thumbnail": [
+     {
+      "width": "225",
+      "height": "225",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTlwlVNUd7QLznHCcyoM4okNU6zB_AGzeY34d4YScSowHo_V4HfR1b-Q8E"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width",
+      "fb:app_id": "1401488693436528",
+      "og:image": "https://avatars2.githubusercontent.com/u/19942084?s=400&v=4",
+      "og:site_name": "GitHub",
+      "og:type": "object",
+      "og:title": "Data Source Configuration Wizard returns a 'Unable to parse query text.' when attempting to add a datasource with a table selected with the NpgsqlDdexProvider 3.1 (npgsql 3.1.8) - VS2015 · Issue #1313 · npgsql/npgsql",
+      "og:url": "https://github.com/npgsql/npgsql/issues/1313",
+      "og:description": "Steps to reproduce Install Npgsql.dll, NpgsqlDdexProvider 3.1 &amp; EntityFramework6.Npgsql on VS2015 Pro Update 3 as detailed in #1299 Now in the Data Sources window, open the Data Source Configur...",
+      "pjax-timeout": "1000",
+      "request-id": "B61E:2E21:1D16531:3161288:5C59537F",
+      "hovercard-subject-tag": "issue:181303052",
+      "octolytics-host": "collector.githubapp.com",
+      "octolytics-app-id": "github",
+      "octolytics-event-url": "https://collector.githubapp.com/github-external/browser_event",
+      "octolytics-dimension-request_id": "B61E:2E21:1D16531:3161288:5C59537F",
+      "octolytics-dimension-region_edge": "iad",
+      "octolytics-dimension-region_render": "iad",
+      "analytics-location": "/\u003cuser-name\u003e/\u003crepo-name\u003e/issues/show",
+      "google-analytics": "UA-3769691-2",
+      "dimension1": "Logged Out",
+      "hostname": "github.com",
+      "expected-hostname": "github.com",
+      "js-proxy-site-detection-payload": "NTA0Y2QyNjUzZWJjNTRlZjU1ZjljMmNmODdmMTM4NTUyZmRlZGM0YmQ4YmYyNzk0NzgwNzA0NWU1YmEwNjVlZXx7InJlbW90ZV9hZGRyZXNzIjoiNjYuMjQ5LjY0LjIyMCIsInJlcXVlc3RfaWQiOiJCNjFFOjJFMjE6MUQxNjUzMTozMTYxMjg4OjVDNTk1MzdGIiwidGltZXN0YW1wIjoxNTQ5MzU3OTU3LCJob3N0IjoiZ2l0aHViLmNvbSJ9",
+      "enabled-features": "UNIVERSE_BANNER,MARKETPLACE_PLAN_RESTRICTION_EDITOR",
+      "html-safe-nonce": "8b4c87e36e7868263d91038986e4d430accd2008",
+      "go-import": "github.com/npgsql/npgsql git https://github.com/npgsql/npgsql.git",
+      "octolytics-dimension-user_id": "5766497",
+      "octolytics-dimension-user_login": "npgsql",
+      "octolytics-dimension-repository_id": "2883574",
+      "octolytics-dimension-repository_nwo": "npgsql/npgsql",
+      "octolytics-dimension-repository_public": "true",
+      "octolytics-dimension-repository_is_fork": "false",
+      "octolytics-dimension-repository_network_root_id": "2883574",
+      "octolytics-dimension-repository_network_root_nwo": "npgsql/npgsql",
+      "octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown": "false",
+      "browser-stats-url": "https://api.github.com/_private/browser/stats",
+      "browser-errors-url": "https://api.github.com/_private/browser/errors",
+      "theme-color": "#1e2327"
+     }
+    ],
+    "listitem": [
+     {
+      "url": "Code",
+      "name": "Code",
+      "position": "1"
+     },
+     {
+      "url": "Issues 112",
+      "name": "Issues",
+      "position": "2"
+     },
+     {
+      "url": "Pull requests 22",
+      "name": "Pull requests",
+      "position": "3"
+     }
+    ],
+    "softwaresourcecode": [
+     {
+      "author": "npgsql",
+      "name": "npgsql"
+     }
+    ],
+    "cse_image": [
+     {
+      "src": "https://avatars2.githubusercontent.com/u/19942084?s=400&v=4"
+     }
+    ]
+   }
+  }
+ ]
+}

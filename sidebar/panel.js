@@ -78,13 +78,14 @@ function greyOutButton(){
 }
 
 
-/*
-Update the sidebar's content.
-1) Get the active tab in this sidebar's window.
-2) Get its stored content.
-3) Put it in the content box.
-*/
 function updateContent() {
+	//if it's twitter, we opened a new tab or tried to navigate from the top
+	//search bar. go home()
+	//alert('going')
+	//home(null);
+	//alert('done')
+	
+	//update content etc 
 	greyOutButton()
 	bookmarkUpdate();
 	
@@ -233,6 +234,8 @@ function setClock(task) {
 //if we read the proper task?
 //set a starttime for the task?
 
+
+//go to the page set as the home page
 function home(e){
 
 	e.preventDefault();
