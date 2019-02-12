@@ -167,7 +167,7 @@ function loadNext(e, taskId, phase){
 function loadNextTaskless(e, phase){
 	e.preventDefault();
 	if(inputChecker() > 0)
-		alert('Een van de uw antwoorden is onduidelijk! Voer aub alle veld in, waarbij uw leeftijd en woontijd in Utrecht een getal moeten zijn.')
+		alert('Een van de invoeren is onduidelijk! Voer aub alle velden in, en gebruik cijfers waar dat van toepassing is.')
 	else{
 		//storeAnswers({"curTask":-3, "curStage":phase, "type": "loadTaskless", "content": ""})
 		storeAnswers();

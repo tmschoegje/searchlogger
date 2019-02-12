@@ -81,9 +81,13 @@ function greyOutButton(){
 function updateContent() {
 	//if it's twitter, we opened a new tab or tried to navigate from the top
 	//search bar. go home()
+	browser.tabs.query({windowId: myWindowId, active: true})
+	.then((tabs) => {
+		if(tabs[0].url.includes("twitter"))
 	//alert('going')
-	//home(null);
+			home(null);
 	//alert('done')
+	})
 	
 	//update content etc 
 	greyOutButton()
@@ -237,10 +241,12 @@ function setClock(task) {
 
 //go to the page set as the home page
 function home(e){
-
-	e.preventDefault();
+	if(e != null){
+		e.preventDefault();
+	}
 	//if in task:
 	let retrieveLogs = browser.storage.local.get().then((results) => {
+	console.log('going instead to ' + curUrl)
 		//todo: in greyout, set curUrl?
 		curUrl = results.curPage
 		browser.tabs.update({url: curUrl});

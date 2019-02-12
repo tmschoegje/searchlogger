@@ -2,13 +2,13 @@
 var searchtasks = ['We beginnen zo met een oefentaak om bekend te worden met het experiment en de documenten uit de categorie <b>algemeen</b>! Eerst volgt een introductie van deze documenten en het experiment, en dan krijgt u een vraag om te beantwoorden met de zoekmachine op de volgende pagina.<p><p><b>Algemene documenten</b><p>Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via algemene bronnen, zoals het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Verloop experiment</b><p>U wordt op de volgende pagina verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden. Tijdens het zoeken kunt u de toolbar voor de volgende dingen gebruiken:<ul><li> Navigeren naar de huidige taak (vragenlijst of zoekmachine)</li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden (probeer het uit met deze pagina!) </li><li> De zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li> Een stap in het experiment teruggaan, en uw antwoord wijzigen</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk? <p><b>Zoektaak<b><p>De Rijksoverheid heeft besloten en vastgelegd dat huishoudelijke hulp voortaan geregeld gaat worden op Gemeente niveau. Welke voorzieningen biedt de Gemeente een burger nu aan?',
 'De Uithoflijn is de naam van de tramlijn die tussen Utrecht Centraal en de Universiteit Utrecht wordt aangelegd. U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Wanneer kunt u deze gebruiken?',
 'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
-'We beginnen zo met een oefentaak om bekend te worden met het experiment en de documenten uit de categorie <b>beleidsdocumenten</b>! Eerst volgt een introductie van deze documenten en het experiment, en dan stellen we de zoekvraag.<p><p><b>Beleidsdocumenten</b><p>Het beleidsproces van de Gemeenteraad is openbaar. Hierin staat hoe en waarom besluiten genomen zijn. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Verloop experiment</b><p>U wordt op de volgende pagina verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden. Tijdens het zoeken kunt u de toolbar voor de volgende dingen gebruiken:<ul><li> Navigeren naar de huidige taak (vragenlijst of zoekmachine)</li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden (probeer het uit met deze pagina!) </li><li> De zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li> Een stap in het experiment teruggaan, en uw antwoord wijzigen</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk? <p><b>Zoektaak<b><p>Hoe zijn de problemen met het Geluidslek aangepakt en opgelost?',
+'We beginnen zo met een oefentaak om bekend te worden met het experiment en de documenten uit de categorie <b>beleidsdocumenten</b>! Eerst volgt een introductie van deze documenten en het experiment, en dan stellen we de zoekvraag.<p><p><b>Beleidsdocumenten</b><p>Het beleidsproces van de Gemeenteraad is openbaar. Hierin staat hoe en waarom besluiten genomen zijn. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Verloop experiment</b><p>U wordt op de volgende pagina verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden. Tijdens het zoeken kunt u de toolbar voor de volgende dingen gebruiken:<ul><li> Navigeren naar de huidige taak (vragenlijst of zoekmachine)</li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden (probeer het uit met deze pagina!) </li><li> De zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li> Een stap in het experiment teruggaan, en uw antwoord wijzigen</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk? <p><b>Zoektaak<b><p>Hoe zijn de problemen met het Geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
 'U bent als student aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vindt dat studenten betaalbaar kunnen wonen. Werkt de Gemeente aan beleid dat invloed kan hebben op uw verhuisplannen?',
 'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wilde besteden?']
-var searchtaskshort = ['Hoe wordt het geluidslek bij Tivoli Vredenburg opgelost?',
+var searchtaskshort = ['Welke Huishoudelijke Hulp voorzieningen biedt de Gemeente een burger nu aan?',
 'Hoe is de planning van het bouwen van de Uithoflijn in Utrecht verlopen, en aangepast?',
 'Hoe wordt er gelobby\'d voor een grotere supermarkt op de Uithof?',
-'Hoe is bepaald tot hoeveel uur aan Huishoudelijke Hulp men recht heeft?',
+'Hoe zijn de problemen met het Geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
 'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
 'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
 ]
@@ -16,10 +16,20 @@ var searchtaskshort = ['Hoe wordt het geluidslek bij Tivoli Vredenburg opgelost?
 var searchengine = ['https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
+'https://zoek.openraadsinformatie.nl/#/g/utrecht','https://zoek.openraadsinformatie.nl/#/g/utrecht','https://zoek.openraadsinformatie.nl/#/g/utrecht']
+
+var searchengine = ['../search/google-custom-search-master/google-search.html?se=g',
+'../search/google-custom-search-master/google-search.html?se=g',
+'../search/google-custom-search-master/google-search.html?se=g',
+'../search/google-custom-search-master/google-search.html?se=o',
+'../search/google-custom-search-master/google-search.html?se=o',
+'../search/google-custom-search-master/google-search.html?se=o']
+/*'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
+'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://zoek.openraadsinformatie.nl/#/g/utrecht',
 'https://zoek.openraadsinformatie.nl/#/g/utrecht',
 'https://zoek.openraadsinformatie.nl/#/g/utrecht']
-
+*/
 var numsearchtasks = 6
 var PRESTUDY = -1
 var POSTSTUDY = numsearchtasks
@@ -252,15 +262,17 @@ function handleError(error) {
 
 //update toolbar and pre forms
 function setTask(taskid){
-//	console.log('setting task!!!!!')
+	console.log('setting task!!!!!')
 	stask = ""
 	staskshort = ""
 	sengine = ""
 	//If we are currently in a task, set the contents
 	if(taskid >= 0 && taskid < numsearchtasks){
+		console.log('setting engine')
 		stask = searchtasks[taskid]
 		staskshort = searchtaskshort[taskid]
 		sengine = searchengine[taskid]
+		console.log(sengine)
 	}
 /*	console.log(stask)
 	console.log(staskshort)
