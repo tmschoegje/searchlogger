@@ -1,86 +1,68 @@
-*verschil in zoeken en onthouden moet je operationaliseren als je deze onderzoeksvragen hebt.
-*progress bar
-*log scrolling
-*log keystrokes
-*log hovers
-*ONDERZOEKSVRAAG
+High priority
+! Dien ASAP in voor ethische toetsingscommissie
+! In ORIS versie geen textpreview
+! In ORIS versie, als je pdf opent verlies je je vorige pagina (en destijds gebruikte zoekterm). Blanco pagina en je kan niet back doen.
+
+
+Functionality
+* program randomisation
+* randomiseer tutorialtaken met elkaar
 * test logs prev/next
 * next/prev page buttons ORIS
 * document count ORIS
-* loading feedback necessary?
-* program randomisation
-* randomiseer tutorialtaken met elkaar
+* progress bar
+* Als je back via browser tijdens posttask stage lijk je een fase terug te gaan in het experiment, maar het programma denkt dat je nog steeds in de posttask zit.
+* Als je via Home button terug gaat worden je antwoorden niet ge auto filled
+* Is een minuut 100 seconden?
+* Back knop naar een form-> verwijs naar de nieuweste form (je zou verwachten dat dit soort dingen al gefixt zijn)
+* Als je terug gaat met de back button (bij google taken) vergeet hij je query
+* Randomiseer tutorialtaken met elkaar
 
-!Dien ASAP in voor ethische toetsingscommissie
-!Clean history steeds! Auto-fill is niet de bedoeling    -> autocomplete="off"   voor forms
-URL geeft weg waar je je data vandaan haalt (iBabs, Google)
-Hoe zorg je dat je zoekresultaten zo repliceerbaar/representatief mogelijk zijn, ondanks Google personalisatie 
-SUS vragen moeten nog beter
-Intro tekst
-Veel taalkundige issues (grammatica, zinnen lopen niet, woord te veel)
-Vaak wordt er gesuggereerd dat begrippen bekend moeten zijn (bv 'de toolbar') zonder dat ze goed geintroduceerd zijn. Zo ook de 'document categorien' algemeen (google) en beleid (oris/ibabs).
-'Categorie' is onduidelijk. 'dataset'?
-Zo ook 'Zijn de knoppen nu duidelijk' -> eerst beter verwijzen toolbar, en noem welke knoppen erop zijn
-Maak expliciet 'als u vragen heeft kunt u ze /nu/ stellen' (liever niet tijdens het experiment)
-Na tutorial taak expliciet maken dat er nu echte taken komen, progress update en expectation management. Ook expliciet kijken of ze nog vragen hebben, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
-Oh ik moet aangeven hoe bekend ik ben /voor/ ik ga zoeken, ik dacht dat ik nu eerst moest zoeken
-In progress
-Kan toolbar per ongeluk sluiten, of verplaatsen
-Ik verwacht misschien een zoekveld in de toolbar, maar ik vind rare andere opties (zoals bookmark)
-Beter progress aangeven (oa na oefentaken)
-Waarom is de ingekorte zoekvraag anders?
-Als je via Home button terug gaat worden je antwoorden niet ge auto filled
-Op meerdere momenten onduidelijk dat je de knop 'volgende' kan gebruiken om verder te gaan (beginnen met zoeken, afronden zoektaak)
-Back knop naar een form-> verwijs naar de nieuweste form (je zou verwachten dat dit soort dingen al gefixt zijn)
-(Na eerste zoektaak): Er lijkt iets fout te gaan, want er staat 'u had deze zoekopdracht, maar ik krijg beschrijvende tekst'
+Tekst + intro/tutorial
+* Veel taalkundige issues (grammatica, zinnen lopen niet, woord te veel)
+* Vaak wordt er gesuggereerd dat begrippen bekend moeten zijn (bv 'de toolbar') zonder dat ze goed geintroduceerd zijn. Zo ook de 'document categorien' algemeen (google) en beleid (oris/ibabs).
+* 'Categorie' is onduidelijk. 'dataset'?
+* Zo ook 'Zijn de knoppen nu duidelijk' -> eerst beter verwijzen toolbar, en noem welke knoppen erop zijn
+* Maak expliciet 'als u vragen heeft kunt u ze /nu/ stellen' (liever niet tijdens het experiment)
+* Na tutorial taak expliciet maken dat er nu echte taken komen, progress update en expectation management. Ook expliciet kijken of ze nog vragen hebben, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
+* Oh ik moet aangeven hoe bekend ik ben /voor/ ik ga zoeken, ik dacht dat ik nu eerst moest zoeken
+* Ik verwacht misschien een zoekveld in de toolbar, maar ik vind rare andere opties (zoals bookmark)
+* update on progress at milestones
+* Benadruk dat de gebruiker de zoekvraag moet beantwoorden, niet moet nadenken over zoekmachine
+* Forceer de gebruiker om de knoppen te van de toolbar
+* Tekstfout 'eerste zoektaak'
+* Tijdens eerste oefentaak verkeerde short task
+* In consent form 'door' ipv 'voor' de Gemeente iets duidelijker.
+* Waarom is de ingekorte zoekvraag anders?
+* 'geheel' ipv volledig ?@ onbekend
+* Uithoflijn vraag moet hergeformuleerd worden: leg nadruk explicieter op 'waarom is het vertraagd' of 'wanneer bruikbaar'
+* Er is nog steeds een moment van verwarring 'oh moet ik met deze zoeken'
+* Op meerdere momenten onduidelijk dat je de knop 'volgende' kan gebruiken om verder te gaan (beginnen met zoeken, afronden zoektaak)
+* (Na eerste zoektaak): Er lijkt iets fout te gaan, want er staat 'u had deze zoekopdracht, maar ik krijg beschrijvende tekst'
 Zoektaak en ingekorte zoektaak Uithof gaan niet over hetzelfde... Eigenlijk moet de korte gewoon de kernzin worden uit de langere versie.
-! In ORIS versie geen textpreview
-! In ORIS versie, als je pdf opent verlies je je vorige pagina (en destijds gebruikte zoekterm). Blanco pagina en je kan niet back doen.
 In ORIS versie, aantal zoekresultaten is een tekst 'undefined' (ook geen next/prev)
 
 
-Algemeen
+Logging
+* log scrolling
+* log keystrokes
+* log hovers
+
+
+Experimental setup
+* URL geeft weg waar je je data vandaan haalt (iBabs, Google)
+* Hoe argumenteer je dat je zoekresultaten zo repliceerbaar/representatief mogelijk zijn, ondanks Google personalisatie 
+* SUS vragen beter
+* onderzoeksvraag.. verschil in zoeken en onthouden moet je operationaliseren als je deze onderzoeksvragen hebt?
 * Als we het frontend vastzetten veranderen we nog steeds 2 variabelen tegelijk: de ranking functie en de dataset. Lastig als je het over 'zoekgedrag' wil hebben -> dan kan je beter iBabs (sort by relevancy) vs iBabs (zoals ze nu zoeken, faceted search) doen. Zelfs dan wil je misschien de filters/facets scheiden van het sorteren op datum vs relevantie.
 * Alternatieve onderzoeksvraag (december) over 'mensen onthouden met google meer diverse aspecten en met ibabs meer details over specifieke aspecten' blijft ook mogelijk. Dan beide zoekmachines gewoon op relevantie (eventueel met datum filter omdat deze in beide zit)
-* Kijk of het programmeerwerk niet sneller kan als ik de open source code van ORIS pak en de meeste functies eruit sloop
 * Denk nog even na hoeveel vragen je met Google makkelijker gaat beantwoorden, en of je vragen wil formulieren waarvoor je expliciet beleidsinformatie nodig hebt
 * Er zijn papers over hoe je tijd en relevantie beide laat mee wegen.
-* Een logische deadline om te nemen is bv workshop paper SIGIR in parijs (3 mei). Het is misschien interessant als wetenschappelijke opleiding om CHIIR bij te wonen (Glasgow ~13 maart).
 
-Verbeterpunten interface
-* Als je back via browser tijdens posttask stage lijk je een fase terug te gaan in het experiment, maar het programma denkt dat je nog steeds in de posttask zit.
-* Tijdens eerste oefentaak verkeerde short task
-* Graded relevance scale (niet binair 'nuttige pagina of niet')
+
+Low priority
+* Kan toolbar per ongeluk sluiten, of verplaatsen
+* Foutmelding tijdens invoer validatie specifiek maken
+* Do we need to update the user that we are loading?
+* Graded relevance scale (niet binair 'nuttige pagina of niet')?
 * Leidt aandacht door toolbar met kleuren, specifiek naar taak definitie wanneer een taak begint
-* In consent form 'door' ipv 'voor' de Gemeente iets duidelijker.
-* Is een minuut 100 seconden?
-
-
-Als je terug gaat met de back button (bij google taken) vergeet hij je query
-
->Tutorial moet concreter
--Benadruk dat de gebruiker de zoekvraag moet beantwoorden, niet moet nadenken over zoekmachine
--Forceer de gebruiker om de knoppen te van de toolbar
->Tekst voor de SUS (onze gestandaardiseerde UX test)
--Meer intro tekst nodig
--Twee stellingen leken onduidelijk in de context van zoekmachines en zijn hergeformuleerd.
--Open vraag: meer stellingen herformuleren richting zoekcontext?
-
-* Automatisch openen van nieuwe tab (huidige standaard gedrag) werkt verwarrend
-* Er staat 'experiment duurt 75 minuten', maar in de praktijk duren de Google taken hooguit 2
-minuten elk
-* Bold de zoektaak bij de tutorial
-* Gebruik dezelfde formulering van de oefentaken als bij de werksessie zoekgedrag raadsleden
-* Er is nog steeds een moment van verwarring 'oh moet ik met deze zoeken'
-* Uithoflijn vraag moet hergeformuleerd worden: leg nadruk explicieter op 'waarom is het vertraagd' of 'wanneer bruikbaar'
-* Zoekbalk en new tab moeten beide naar de zoekmachine verwijzen
-* Positieve en negatieve Likert-waarden staan niet consistent aan dezelfde kant
-* Tekstfout 'eerste zoektaak'
-* Randomiseer tutorialtaken met elkaar
-* Foutmelding tijdens invoer validatie herformuleren
-
-
-
-
-* add to README
-	DE OPTIE OM PDFs in firefox te openen vergeet hij steeds: zet up vanuit desktop, en dan vanuit browser 'altijd'
