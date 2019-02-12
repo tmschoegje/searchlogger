@@ -88,7 +88,7 @@ function parseiBabs(events, keywords){
 		results.push(newresult)
 //		console.log(newresult)
 	}
-	console.log(results)
+	return results
 }
 
 function SearchCompleted(response)
@@ -153,9 +153,24 @@ function SearchCompleted(response)
 		}
 	}
 	else{
-		parseiBabs(response.events, _keywords)
-
-		html = ""
+		results = parseiBabs(response.events, _keywords)
+		
+		for (var i = 0; i < results.length; i++){
+			html += "<p><b>" + results[i].title + "</b><br>"
+			for (var j = 1; j < results[i].documents.length; j++){
+				html += "&nbsp&nbsp&nbsp<a href=" + results[i].documents[j].url + ">" + results[i].documents[j].title + "</a><br>"
+			
+//			<a class='searchLink' href='" + item.link + "'> " + title + "</a><br>"
+			
+	//		var item = results[i];
+		//	var title = item.htmlTitle;
+        
+//			html += "<p><a class='searchLink' href='" + item.link + "'> " + title + "</a><br>";
+	//		html += item.snippet + "<br>";
+		//	html += item.link + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a></p><p>";
+			}
+			html += "</p><p>"
+		}
 		
 	}
 	$("#output").html(html)
