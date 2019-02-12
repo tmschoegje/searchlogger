@@ -18,6 +18,7 @@
 		<form id="searchForm" action="">
 			<div class="row">
 				<div class="col-md-10 col-sm-12">
+					<input id="engine" name="se" value="g" type="hidden"></input>
 					<input id="txtSearchTerm" name="q" class="search-page-search" placeholder="What are you looking for?" value="">
 				</div>
 				<div class="col-md-2 col-sm-12">
@@ -29,7 +30,7 @@
 		<div id="output"></div>
 		<div class="pager_controls">
 			<p>
-				<a onclick="documentTrack('#');" href="#" id="lnkPrev" title="Display previous result page" style="display:none;">Previous</a> <a onclick="documentTrack('#');" href="#" id="lnkNext" title="Display next result page" style="display:none;">Next</a>
+				<a onclick="documentTrack('#');" href="#prev" + _pageNumber id="lnkPrev" title="Display previous result page" style="display:none;">Previous</a> <a onclick="documentTrack('#');" href="#next" id="lnkNext" title="Display next result page" style="display:none;">Next</a>
 			</p>
 		</div>
 		
@@ -41,11 +42,21 @@
 		</script> 
 		<script src="search-script.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			let searchParams = new URLSearchParams(window.location.search)
+			var searchParams = new URLSearchParams(window.location.search)
+			//what search engine to call
+			se = "g"
+
+			if(searchParams.has('se')){
+				se = searchParams.get('se')
+				$("#engine").val(searchParams.get('se'))
+			}
+			//get query
 			if(searchParams.has('q')){
-				Search(searchParams.get('q'), 0)
+				Search(searchParams.get('q'), se, 0)
 				$("#txtSearchTerm").val(searchParams.get('q'))
 			}
+
+			
 			//Search($("#txtSearchTerm").val(),0);
 			//console.log('this one')
 		</script>

@@ -5,43 +5,57 @@ var _pageNumber = 1;
 
 $(function ()
 {
-    $('#btnSearch').show().click(function () { console.log('btnsearch'); Search($("#txtSearchTerm").val(),0);});
-    $('#lnkPrev').click(function () { Search($("#txtSearchTerm").val(),-1); });
-    $('#lnkNext').click(function () { Search($("#txtSearchTerm").val(),1);  });
+    $('#btnSearch').show().click(function () { console.log('btnsearch'); Search($("#txtSearchTerm").val(), $("#engine").val(), 0);});
+    $('#lnkPrev').click(function () { Search($("#txtSearchTerm").val(), $("#engine").val(), -1); });
+    $('#lnkNext').click(function () { Search($("#txtSearchTerm").val(), $("#engine").val(), 1);  });
 });
 
-function Search(term, direction)
+
+var _engine = "g"
+function Search(term, engine, direction)
 {
-    var startIndex = 1;
+	
+	var startIndex = 1;
 
-    if (direction === -1)
-    {
-        startIndex = _prevIndex; 
-        _pageNumber--;
-    }
-    if (direction === 1)
-    {
-        startIndex = _nextIndex; 
-        _pageNumber++;
-    }
-    if (direction === 0)
-    {
-        startIndex = 1; 
-        _pageNumber = 1;
-    }
-
-    var url = "https://www.googleapis.com/customsearch/v1?key="
-    + mGoogleApiKey + "&num=10&cx=" + mGoogleCustomSearchKey + "&start=" + startIndex + "&q=" + escape(term) + "&callback=?";
+	if (direction === -1)
+	{
+		startIndex = _prevIndex; 
+		_pageNumber--;
+	}
+	if (direction === 1)
+	{
+		startIndex = _nextIndex; 
+		_pageNumber++;
+	}
+	if (direction === 0)
+	{
+		startIndex = 1; 
+		_pageNumber = 1;
+	}
+	
+	//if we should use google
+	if(engine == "g"){
+		var url = "https://www.googleapis.com/customsearch/v1?key="
+		+ mGoogleApiKey + "&num=" + _resultsPerPage + "&cx=" + mGoogleCustomSearchKey + "&start=" + startIndex + "&q=" + escape(term) + "&callback=?";
 
  //   url = "http://hahndorf/ws/dummy.aspx?q=" + escape(term) + "&start=" + startIndex + "&callback=?";
-
-    $.getJSON(url, '', SearchCompleted);
+	}
+	//oris
+	else{
+		console.log('test')
+		//var url = "https://api.openraadsinformatie.nl/v0/utrecht/search?size=" + _resultsPerPage + "?query=" + escape(term) + "?from=" + startIndex
+		_engine = "o"
+		url = "http://api.openraadsinformatie.nl/v0/utrecht/motions/search?query=de?size=1"
+	}
+	console.log('test2')
+	$.getJSON(url, '', SearchCompleted);
 }
 
 function SearchCompleted(response)
 {
-	//console.log('search completed')
-	//console.log(response)
+	console.log('search completed')
+	console.log(_engine)
+	console.log(response)
     var html = "";
     $("#searchResult").html("");
 

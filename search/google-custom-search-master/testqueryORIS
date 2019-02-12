@@ -1,0 +1,12 @@
+curl -i -XPOST 'http://api.openraadsinformatie.nl/v0/utrecht/search' -d '{
+ "query": "tivoli | geluidslek | muziekpaleis | tivolivredenburg", 
+  "filters": {
+   "classification": {
+    "terms": ["Agenda", "Agendapunt"]
+   }
+  },
+  "size"=10
+}'
+
+
+https://api.openraadsinformatie.nl/v0/utrecht/search?query=2019?size=5
