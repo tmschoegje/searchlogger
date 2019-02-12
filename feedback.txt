@@ -18,20 +18,17 @@ Functionality
 * Als je terug gaat met de back button (bij google taken) vergeet hij je query
 * Randomiseer tutorialtaken met elkaar
 
+
 Tekst + intro/tutorial
 * Veel taalkundige issues (grammatica, zinnen lopen niet, woord te veel)
 * Vaak wordt er gesuggereerd dat begrippen bekend moeten zijn (bv 'de toolbar') zonder dat ze goed geintroduceerd zijn. Zo ook de 'document categorien' algemeen (google) en beleid (oris/ibabs).
 * 'Categorie' is onduidelijk. 'dataset'?
 * Zo ook 'Zijn de knoppen nu duidelijk' -> eerst beter verwijzen toolbar, en noem welke knoppen erop zijn
-* Maak expliciet 'als u vragen heeft kunt u ze /nu/ stellen' (liever niet tijdens het experiment)
 * Na tutorial taak expliciet maken dat er nu echte taken komen, progress update en expectation management. Ook expliciet kijken of ze nog vragen hebben, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
-* Oh ik moet aangeven hoe bekend ik ben /voor/ ik ga zoeken, ik dacht dat ik nu eerst moest zoeken
 * Ik verwacht misschien een zoekveld in de toolbar, maar ik vind rare andere opties (zoals bookmark)
 * update on progress at milestones
 * Benadruk dat de gebruiker de zoekvraag moet beantwoorden, niet moet nadenken over zoekmachine
 * Forceer de gebruiker om de knoppen te van de toolbar
-* Tekstfout 'eerste zoektaak'
-* Tijdens eerste oefentaak verkeerde short task
 * In consent form 'door' ipv 'voor' de Gemeente iets duidelijker.
 * Waarom is de ingekorte zoekvraag anders?
 * 'geheel' ipv volledig ?@ onbekend

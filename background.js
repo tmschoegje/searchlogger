@@ -4,13 +4,13 @@ var searchtasks = ['We beginnen zo met een oefentaak om bekend te worden met het
 'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
 'We beginnen zo met een oefentaak om bekend te worden met het experiment en de documenten uit de categorie <b>beleidsdocumenten</b>! Eerst volgt een introductie van deze documenten en het experiment, en dan stellen we de zoekvraag.<p><p><b>Beleidsdocumenten</b><p>Het beleidsproces van de Gemeenteraad is openbaar. Hierin staat hoe en waarom besluiten genomen zijn. U zal nu met dit type informatie de zoekvragen beantwoorden.<p><b>Verloop experiment</b><p>U wordt op de volgende pagina verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden. Tijdens het zoeken kunt u de toolbar voor de volgende dingen gebruiken:<ul><li> Navigeren naar de huidige taak (vragenlijst of zoekmachine)</li><li> Aangeven dat de huidige pagina u helpt om de vraag te beantwoorden (probeer het uit met deze pagina!) </li><li> De zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li> Een stap in het experiment teruggaan, en uw antwoord wijzigen</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk? <p><b>Zoektaak<b><p>Hoe zijn de problemen met het Geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
 'U bent als student aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vindt dat studenten betaalbaar kunnen wonen. Werkt de Gemeente aan beleid dat invloed kan hebben op uw verhuisplannen?',
-'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wilde besteden?']
+'De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering belangrijk genoeg dat de Gemeenteraad er tijd aan wil besteden?']
 var searchtaskshort = ['Welke Huishoudelijke Hulp voorzieningen biedt de Gemeente een burger nu aan?',
-'Hoe is de planning van het bouwen van de Uithoflijn in Utrecht verlopen, en aangepast?',
-'Hoe wordt er gelobby\'d voor een grotere supermarkt op de Uithof?',
+'Wanneer kunt u de Uithoflijn gebruiken?',
+'Wie heeft de supermarkt aan de Uithof politiek aangekaart, en wat is de status hiervan?',
 'Hoe zijn de problemen met het Geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
-'Heeft de Gemeente besluiten genomen die invloed kunnen hebben op wanneer een student verhuist?',
-'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park?'
+'Heeft de Gemeente beleid besloten dat invloed kan hebben op wanneer een student verhuist?',
+'Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park, en waarom is dit een belangrijke beslissing?'
 ]
 
 var searchengine = ['https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
