@@ -84,9 +84,12 @@ function updateContent() {
 	browser.tabs.query({windowId: myWindowId, active: true})
 	.then((tabs) => {
 		if(tabs[0].url.includes("twitter"))
-	//alert('going')
 			home(null);
-	//alert('done')
+		
+		//if it's a questionform, go home()  to make sure we're not looking at an old form
+		//if(tabs[0].url.includes("questionforms"))
+		//	home(null);
+		
 	})
 	
 	//update content etc 
@@ -219,7 +222,7 @@ function setClock(task) {
 	//var clock = 
 	remaining = DELAY
 	document.getElementById("clock").innerHTML = remaining + " minutes remaining"
-	timer = setInterval(reduceTimer, 10000);
+	timer = setInterval(reduceTimer, 6000);
 	//}
 	//in other cases, hide the timer
 	//else if(task.type == "load"){
@@ -247,7 +250,9 @@ function home(e){
 	//if in task:
 	let retrieveLogs = browser.storage.local.get().then((results) => {
 	console.log('going instead to ' + curUrl)
-		//todo: in greyout, set curUrl?
+		//if we're already at that page, ignore..
+//		browser.tabs.query({windowId: myWindowId, active: true}).then((tabs) => {
+	//		if(curPage == curUrl)
 		curUrl = results.curPage
 		browser.tabs.update({url: curUrl});
 	})

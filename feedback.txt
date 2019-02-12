@@ -5,15 +5,13 @@ High priority
 
 
 Functionality
-* program randomisation
-* randomiseer tutorialtaken met elkaar
-* test logs prev/next
+* randomisatie gebeurt nog niet algoritmisch
+* randomiseer ook de tutorialtaken met elkaar
 * next/prev page buttons ORIS
 * document count ORIS
 * progress bar
 * Als je back via browser tijdens posttask stage lijk je een fase terug te gaan in het experiment, maar het programma denkt dat je nog steeds in de posttask zit.
 * Als je via Home button terug gaat worden je antwoorden niet ge auto filled
-* Is een minuut 100 seconden?
 * Back knop naar een form-> verwijs naar de nieuweste form (je zou verwachten dat dit soort dingen al gefixt zijn)
 * Als je terug gaat met de back button (bij google taken) vergeet hij je query
 * Randomiseer tutorialtaken met elkaar
@@ -28,19 +26,12 @@ Tekst + intro/tutorial
 * Ik verwacht misschien een zoekveld in de toolbar, maar ik vind rare andere opties (zoals bookmark)
 * update on progress at milestones
 * Benadruk dat de gebruiker de zoekvraag moet beantwoorden, niet moet nadenken over zoekmachine
-* Forceer de gebruiker om de knoppen te van de toolbar
-* In consent form 'door' ipv 'voor' de Gemeente iets duidelijker.
-* Waarom is de ingekorte zoekvraag anders?
-* 'geheel' ipv volledig ?@ onbekend
-* Uithoflijn vraag moet hergeformuleerd worden: leg nadruk explicieter op 'waarom is het vertraagd' of 'wanneer bruikbaar'
-* Er is nog steeds een moment van verwarring 'oh moet ik met deze zoeken'
 * Op meerdere momenten onduidelijk dat je de knop 'volgende' kan gebruiken om verder te gaan (beginnen met zoeken, afronden zoektaak)
-* (Na eerste zoektaak): Er lijkt iets fout te gaan, want er staat 'u had deze zoekopdracht, maar ik krijg beschrijvende tekst'
-Zoektaak en ingekorte zoektaak Uithof gaan niet over hetzelfde... Eigenlijk moet de korte gewoon de kernzin worden uit de langere versie.
-In ORIS versie, aantal zoekresultaten is een tekst 'undefined' (ook geen next/prev)
+*In ORIS versie, aantal zoekresultaten is een tekst 'undefined' (ook geen next/prev)
 
 
 Logging
+* test logging prev/next search engine
 * log scrolling
 * log keystrokes
 * log hovers
@@ -60,6 +51,7 @@ Experimental setup
 Low priority
 * Kan toolbar per ongeluk sluiten, of verplaatsen
 * Foutmelding tijdens invoer validatie specifiek maken
+* Forceer de gebruiker om de knoppen te van de toolbar
 * Do we need to update the user that we are loading?
 * Graded relevance scale (niet binair 'nuttige pagina of niet')?
 * Leidt aandacht door toolbar met kleuren, specifiek naar taak definitie wanneer een taak begint
