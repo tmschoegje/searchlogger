@@ -2,6 +2,7 @@ var _prevIndex = 0;
 var _nextIndex = 0;
 var _resultsPerPage = 10;
 var _pageNumber = 1;
+var _keywords = ""
 
 $(function ()
 {
@@ -45,17 +46,40 @@ function Search(term, engine, direction)
 		console.log('test')
 		//var url = "https://api.openraadsinformatie.nl/v0/utrecht/search?size=" + _resultsPerPage + "?query=" + escape(term) + "?from=" + startIndex
 		_engine = "o"
-		url = "http://api.openraadsinformatie.nl/v0/utrecht/motions/search?query=de?size=1"
+		url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=de?size=1"
 	}
 	console.log('test2')
+	_keywords = term.split(" ")
 	$.getJSON(url, '', SearchCompleted);
 }
 
-function SearchCompleted(response)
+function getPreview(str, keywords){
+	var regKey = keywords[0]
+	for(i = 1; i < keywords.length; i++)
+		regKey += "|" + keywords[i]
+//	var regKey = "hello"
+//	var str = "Hello, how is it going. This is the bus we have to take!";
+	
+	var chunks = str.split(/[.?!]/).filter(function(n) {
+		var re = new RegExp(regKey,"i");		
+		return re.test(n);// /hello/i.test(n);
+	});
+	console.log(regKey)
+	console.log('preview');
+	console.log(chunks);
+}
+
+function SearchCompleted(response, keywords)
 {
+	getPreview("Hello, how is it going. This is the bus we have to take!", _keywords);
 	console.log('search completed')
 	console.log(_engine)
 	console.log(response)
+	
+	
+	result1 = response.events[0].classification + " " + response.events[0].name
+	console.log(result1)
+	
     var html = "";
     $("#searchResult").html("");
 
