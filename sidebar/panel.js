@@ -464,6 +464,10 @@ function toggleBookmark(){
 }
 
 
+$(window).on('popstate', function(event) {
+ alert("user went back?");
+});
+
 
 /*
 When the sidebar loads, get the ID of its window,

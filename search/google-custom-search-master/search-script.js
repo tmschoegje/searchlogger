@@ -44,10 +44,10 @@ function Search(term, engine, direction)
 	}
 	//oris
 	else{
-		console.log('test')
-		//var url = "https://api.openraadsinformatie.nl/v0/utrecht/search?size=" + _resultsPerPage + "?query=" + escape(term) + "?from=" + startIndex
+		console.log('Before ORIS call')
+		var url = "https://api.openraadsinformatie.nl/v0/utrecht/search" + "?query=" + escape(term) + "?size=" + _resultsPerPage + "?from=" + startIndex
 		_engine = "o"
-		url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=de?size=1"
+		//url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=de?size=1"
 	}
 	console.log('test2')
 	_keywords = term.split(" ")
@@ -55,6 +55,7 @@ function Search(term, engine, direction)
 }
 
 function getPreview(str, keywords){
+	str = str.substring(0,500)
 	var regKey = keywords[0]
 	for(i = 1; i < keywords.length; i++)
 		regKey += "|" + keywords[i]
@@ -62,12 +63,40 @@ function getPreview(str, keywords){
 //	var str = "Hello, how is it going. This is the bus we have to take!";
 	
 	var chunks = str.split(/[.?!]/).filter(function(n) {
-		var re = new RegExp(regKey,"i");		
+		var re = new RegExp(regKey,"i");
 		return re.test(n);// /hello/i.test(n);
 	});
 	console.log(regKey)
 	console.log('preview');
 	console.log(chunks);
+}
+
+function simplePreview(str, keywords){
+	console.log('one')
+	//only consider the words in the fisrt 500 letters
+	fulltext = str.replace('\n'," ").split(" ")
+//	console.log(fulltext)
+	//find the first occurrence of a keyword, and show 10 words before and 10 words after
+	for(ii=0;ii < fulltext.length; ii++){
+		for(z = 0; z < keywords.length; z++){
+			if(fulltext[ii] === keywords[z]){
+				sentence = ""
+				//go 10 words before and after the keyword
+				for(jj=ii-10; jj < ii+10; jj++){
+					if(jj < 0)
+						jj = 0
+					if(jj == ii)
+						sentence += "<b>"
+					sentence += fulltext[jj] + " "
+					if(jj == ii)
+						sentence += "</b>"
+				}
+				return '.. ' + sentence + ' ..'
+			}
+		}
+	}
+	//none found, return first sentence
+	return fulltext.slice(0,20).join(" ") + ' ..'
 }
 
 function parseiBabs(events, keywords){
@@ -81,8 +110,9 @@ function parseiBabs(events, keywords){
 		for(j = 0; j < events[i].sources.length; j++){
 			newresult.documents.push({
 				"title": events[i].sources[j].note,
-				//"preview": getPreview(events[i].sources[j].description, keywords),
-				"url": events[i].sources[j].url
+				"url": events[i].sources[j].url,
+				"preview": simplePreview(events[i].sources[j].description, keywords)
+				//"preview": "unavailable"//getPreview(events[i].sources[j].description, keywords),
 			})
 		}
 		results.push(newresult)
@@ -97,6 +127,7 @@ function SearchCompleted(response)
 	console.log('search completed')
 	console.log(_engine)
 	console.log(response)
+	
 		
 	if(_engine == "g"){
 		var html = "";
@@ -115,6 +146,10 @@ function SearchCompleted(response)
 		}
 
 		$("#searchResult").html(response.queries.request[0].totalResults + " pages found for <b>" +response.queries.request[0].searchTerms+ "</b><br><br>");
+		
+		//store the number of results 
+		logNumResults(response.queries.request[0].totalResults, 0)
+
 
 		if (response.queries.nextPage != null)
 		{
@@ -149,16 +184,65 @@ function SearchCompleted(response)
         
 			html += "<p><a class='searchLink' href='" + item.link + "'> " + title + "</a><br>";
 			html += item.snippet + "<br>";
-			html += item.link + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a></p><p>";
+			//html += item.link + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a>";
+			html += "</p><p>";
 		}
 	}
 	else{
+		console.log('te')
 		results = parseiBabs(response.events, _keywords)
+		console.log('te')
+		//clear previous resulst
+		html = ""
+		
+		if (response.events == null || response.events.length === 0)
+		{
+			$("#searchResult").html("No matching pages found");
+			return;
+		}
+		
+		//find number of documents
+		numdocs = 0
+		for(i = 0; i < response.events.length; i++){
+			numdocs += response.events[i].sources.length;
+		}
+		$("#searchResult").html(response.meta.total + " results found containing " + numdocs + " documents for <b>" + _keywords + "</b><br><br>");
+		
+		//store the number of results 
+		logNumResults(response.meta.total, numdocs)
+
+		//TODO test if we do indeed skip the first x if we do ?from=x
+		if (response.events.length > _resultsPerPage)
+		{
+			_nextIndex = startIndex + _resultsPerPage;
+			$("#lnkNext").show();
+		}
+		else
+		{
+			$("#lnkNext").hide();
+		}
+		
+		if (_pageNumber > 1)
+		{
+			_prevIndex = response.queries.previousPage[0].startIndex;
+			$("#lnkPrev").show();
+		}
+		else
+		{
+			$("#lnkPrev").hide();
+		}
+		
+		if (_pageNumber > 1){
+			$("#lblPageNumber").show().html(_pageNumber);
+		}
+		else{
+			$("#lblPageNumber").hide();
+		}
 		
 		for (var i = 0; i < results.length; i++){
-			html += "<p><b>" + results[i].title + "</b><br>"
+			html += "<p><p><p><h4><b>" + results[i].title + "</h4></b>"
 			for (var j = 1; j < results[i].documents.length; j++){
-				html += "&nbsp&nbsp&nbsp<a href=" + results[i].documents[j].url + ">" + results[i].documents[j].title + "</a><br>"
+				html += "<a class='searchLink' " + results[i].documents[j].url + ">" + results[i].documents[j].title + "</a><br>" + results[i].documents[j].preview + "<p><p>"// + results[i].documents[j].preview + "<br><br>"
 			
 //			<a class='searchLink' href='" + item.link + "'> " + title + "</a><br>"
 			
@@ -175,3 +259,41 @@ function SearchCompleted(response)
 	}
 	$("#output").html(html)
 }
+
+function logNumResults(nr,nd){
+	console.log('updating numresults')
+	//TODO get it 
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		numresults = results.numresults
+		numresults.loglines.push(Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd)
+		storeLogs();
+	})
+}
+
+function storeLogs(){
+	let contentToStore = {};
+	contentToStore['numresults'] = numresults;
+	browser.storage.local.set(contentToStore);
+}
+
+function onInstalledNotification(details) {
+	//We should store the # results in localstorage.
+		//On page start: check if logs already exist
+		//On Query(): log new query w results and date.now()
+	let gett = browser.storage.local.get();
+	gett.then((results) => {
+		if(typeof results.numresults === "undefined"){
+			console.log('initialising numresults')
+			var numresults = {
+				"loglines": [Date.now() + " Storing the number of results per query"]
+			}
+			storeLogs();
+		}
+		else
+			var numresults = results.numresults;
+	})
+	console.log('loading numresults')
+}
+
+onInstalledNotification();
