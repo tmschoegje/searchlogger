@@ -263,39 +263,42 @@ function SearchCompleted(response)
 function logNumResults(nr,nd){
 	console.log('updating numresults')
 	//TODO get it 
-	let gett = 
+//	let gett = 
 	
-	window.storage.local.get();
-	gett.then((results) => {
-		numresults = results.numresults
-		numresults.loglines.push(Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd)
-		storeLogs();
-	})
+	numresults = localStorage.getItem('numresults');
+	numresults += Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd + '\n'
+	console.log(numresults)
+	localStorage.setItem('numresults', numresults)
+//	gett.then((results) => {
+//		numresults = results.numresults
+//		numresults.loglines.push(Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd)
+//		storeLogs();
+	//})
 }
 
-function storeLogs(){
+/*function storeLogs(){
 	let contentToStore = {};
 	contentToStore['numresults'] = numresults;
-	window.storage.local.set(contentToStore);
-}
+	localStorage.set(contentToStore);
+}*/
 
 function onInstalledNotification(details) {
 	//We should store the # results in localstorage.
 		//On page start: check if logs already exist
 		//On Query(): log new query w results and date.now()
-	let gett = window.storage.local.get();
-	gett.then((results) => {
-		if(typeof results.numresults === "undefined"){
-			console.log('initialising numresults')
-			var numresults = {
-				"loglines": [Date.now() + " Storing the number of results per query"]
-			}
-			storeLogs();
-		}
-		else
-			var numresults = results.numresults;
-	})
-	console.log('loading numresults')
+	numresultsQ = localStorage.getItem('numresults');
+	var numresults = ""
+//	gett.then((results) => {
+	if(typeof numresultsQ === "undefined"){
+		console.log('initialising numresults')
+		numresults = Date.now() + " Storing the number of results per query\n"
+		localStorage.setItem('numresults', numresults)
+	}
+	else{
+		console.log('loading numresults')
+		numresults = numresultsQ;
+	}
+	//})
 }
 
 onInstalledNotification();

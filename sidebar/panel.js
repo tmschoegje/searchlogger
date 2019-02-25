@@ -164,21 +164,14 @@ function updateContent() {
 		
 		//if it's a questionform, load the form appropriate for this stage
 		if(tabs[0].url.includes("questionforms")){
-			console.log('below')
 			curl = tabs[0].url
 			let gett = browser.storage.local.get();
 			gett.then((results) => {
 				//compare last 15 chars (to avoid local vs global paths)
 				curl = curl.substring(curl.length - 15)
-				console.log(curl)
 				shouldurl = results.curPage
-				console.log(shouldurl)
 				shouldurl = shouldurl.substring(shouldurl.length - 15)
-				console.log('TESTING IF PROPER QUESTIONFORM')
-				console.log('it is: ' + curl)
-				console.log('it should be ' + shouldurl)
 				if(curl != shouldurl){
-					console.log('its differentTTTTTT')
 					home(null);
 				}
 			})
