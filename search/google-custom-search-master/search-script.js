@@ -32,22 +32,29 @@ function Search(term, engine, direction)
 	{
 		startIndex = 1; 
 		_pageNumber = 1;
-	}
-	
-	//if we should use google
-	if(engine == "g"){
+	}	
+	if(engine == "g" || engine == "g2"){
+		//THIS WAS FOR ORIS VERSION we want to query using google, but for fair comparison we first call ORIS: both for similar time delay, and to compare an even number of results
+		//url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=" + "?query=" + escape(term)
+		//numORIS = $.getJSON(url, '', getNumORIS);
+
+		searchKey = mGoogleCustomSearchKeyAll
+		if(engine == "g2")
+			searchKey = mGoogleCustomSearchKeyiBabs
 		var url = "https://www.googleapis.com/customsearch/v1?key="
-		+ mGoogleApiKey + "&num=" + _resultsPerPage + "&cx=" + mGoogleCustomSearchKey + "&start=" + startIndex + "&q=" + escape(term) + "&callback=?";
+		+ mGoogleApiKey + "&num=" + _resultsPerPage + "&cx=" + searchKey + "&start=" + startIndex + "&q=" + escape(term) + "&gl=NL&callback=?";
+		
+			
 
  //   url = "http://hahndorf/ws/dummy.aspx?q=" + escape(term) + "&start=" + startIndex + "&callback=?";
 		_engine = "g"
 	}
-	//oris
+	//deprecated: sort by relevancy using oris
 	else{
 		console.log('Before ORIS call')
-		var url = "https://api.openraadsinformatie.nl/v0/utrecht/search" + "?query=" + escape(term) + "?size=" + _resultsPerPage + "?from=" + startIndex
+		var url = "https://api.openraadsinformatie.nl/v0/utrecht/search" + "?query=" + escape(term) //+ "?size=" + _resultsPerPage + "?from=" + startIndex
 		_engine = "o"
-		//url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=de?size=1"
+//		url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=de"
 	}
 	console.log('test2')
 	_keywords = term.split(" ")
@@ -145,7 +152,7 @@ function SearchCompleted(response)
 			return;
 		}
 
-		$("#searchResult").html(response.queries.request[0].totalResults + " pages found for <b>" +response.queries.request[0].searchTerms+ "</b><br><br>");
+		$("#searchResult").html("Around " + response.queries.request[0].totalResults + " pages found for <b>" +response.queries.request[0].searchTerms+ "</b><br><br>");
 		
 		//store the number of results 
 		logNumResults(response.queries.request[0].totalResults, 0)
@@ -206,7 +213,7 @@ function SearchCompleted(response)
 		for(i = 0; i < response.events.length; i++){
 			numdocs += response.events[i].sources.length;
 		}
-		$("#searchResult").html(response.meta.total + " results found containing " + numdocs + " documents for <b>" + _keywords + "</b><br><br>");
+		$("#searchResult").html("Around " + response.meta.total + " results found containing " + numdocs + " documents for <b>" + _keywords + "</b><br><br>");
 		
 		//store the number of results 
 		logNumResults(response.meta.total, numdocs)

@@ -21,9 +21,9 @@ var searchengine = ['https://cse.google.com/cse?cx=002312860193215934518:dcojxiq
 var searchengine = ['../search/google-custom-search-master/google-search.html?se=g',
 '../search/google-custom-search-master/google-search.html?se=g',
 '../search/google-custom-search-master/google-search.html?se=g',
-'../search/google-custom-search-master/google-search.html?se=o',
-'../search/google-custom-search-master/google-search.html?se=o',
-'../search/google-custom-search-master/google-search.html?se=o']
+'../search/google-custom-search-master/google-search.html?se=g2',
+'../search/google-custom-search-master/google-search.html?se=g2',
+'../search/google-custom-search-master/google-search.html?se=g2']
 /*'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://zoek.openraadsinformatie.nl/#/g/utrecht',
