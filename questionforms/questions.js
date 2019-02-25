@@ -66,10 +66,13 @@ function loadAnswers() {
 		//console.log(results.questions.sessions[0].consent)
 		logs = results.logs
 		questions = results.questions
+		console.log(questions)
 		
+		//informed consent
+		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == PRETASK)
+			document.forms[0].elements.consent.value = questions.sessions[logs.curSession].consent;
 		//prestudy
 		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == TASKTASK){
-			document.forms[0].elements.consent.value = questions.sessions[logs.curSession].consent;
 			document.forms[0].elements.sex.value = questions.sessions[logs.curSession].sex;
 			document.forms[0].elements.age.value = questions.sessions[logs.curSession].age;
 			document.forms[0].elements.citizentime.value = questions.sessions[logs.curSession].citizentime;
@@ -97,16 +100,20 @@ function storeAnswers() {
 	gett.then((results) => {
 		logs = results.logs
 		questions = results.questions
-		console.log('storing ansewrs')
-		
+		console.log('storing answers')
+
+		//informed consent
+		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == PRETASK)
+			questions.sessions[logs.curSession].consent = document.forms[0].elements.consent.value;
 		//prestudy
 		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == TASKTASK){
-			questions.sessions[logs.curSession].consent = document.forms[0].elements.consent.value;
+			console.log('1')
 			questions.sessions[logs.curSession].sex = document.forms[0].elements.sex.value;
 			questions.sessions[logs.curSession].age = document.forms[0].elements.age.value;
 			questions.sessions[logs.curSession].citizentime = document.forms[0].elements.citizentime.value;
 			questions.sessions[logs.curSession].nieuws = document.forms[0].elements.nieuws.value;
 			questions.sessions[logs.curSession].betrokken = document.forms[0].elements.betrokken.value;
+			console.log('2')
 		}
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte = document.forms[0].elements.hoogte.value;
@@ -121,6 +128,7 @@ function storeAnswers() {
 		contentToStore['questions'] = questions;
 		browser.storage.local.set(contentToStore);
 		
+		console.log('stored the following')
 		console.log(questions.sessions[0])
 
 		

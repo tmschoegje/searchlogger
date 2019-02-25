@@ -171,6 +171,7 @@ function storeQuestions(questions){
 	let contentToStore = {};
 	contentToStore['questions'] = questions;
 	browser.storage.local.set(contentToStore);
+	console.log(questions)
 }
 
 //Cases: starting the app, time limit task is over

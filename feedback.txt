@@ -1,26 +1,10 @@
-
-High priority
-! Onderzoeksvraag
-! Dien ASAP in voor ethische toetsingscommissie
-! In ORIS versie geen textpreview
-! In ORIS versie, als je pdf opent verlies je je vorige pagina (en destijds gebruikte zoekterm). Blanco pagina en je kan niet back doen.
-
-
 Functionality
 * randomisatie gebeurt nog niet algoritmisch
 * randomiseer ook de tutorialtaken met elkaar
-* next/prev page buttons ORIS
-* document count ORIS
 * progress bar
-* Als je back via browser tijdens posttask stage lijk je een fase terug te gaan in het experiment, maar het programma denkt dat je nog steeds in de posttask zit.
 * Als je via Home button terug gaat worden je antwoorden niet ge auto filled
-* Back knop naar een form-> verwijs naar de nieuweste form (je zou verwachten dat dit soort dingen al gefixt zijn)
-* Als je terug gaat met de back button (bij google taken) vergeet hij je query
-* Randomiseer tutorialtaken met elkaar
-
 
 Tekst + intro/tutorial
-* Veel taalkundige issues (grammatica, zinnen lopen niet, woord te veel)
 * Vaak wordt er gesuggereerd dat begrippen bekend moeten zijn (bv 'de toolbar') zonder dat ze goed geintroduceerd zijn. Zo ook de 'document categorien' algemeen (google) en beleid (oris/ibabs).
 * 'Categorie' is onduidelijk. 'dataset'?
 * Zo ook 'Zijn de knoppen nu duidelijk' -> eerst beter verwijzen toolbar, en noem welke knoppen erop zijn
@@ -33,21 +17,16 @@ Tekst + intro/tutorial
 
 
 Logging
-* test logging prev/next search engine
+* test logging
 * log scrolling
 * log keystrokes
 * log hovers
 
 
 Experimental setup
-* URL geeft weg waar je je data vandaan haalt (iBabs, Google)
 * Hoe argumenteer je dat je zoekresultaten zo repliceerbaar/representatief mogelijk zijn, ondanks Google personalisatie 
 * SUS vragen beter
-* onderzoeksvraag.. verschil in zoeken en onthouden moet je operationaliseren als je deze onderzoeksvragen hebt?
-* Als we het frontend vastzetten veranderen we nog steeds 2 variabelen tegelijk: de ranking functie en de dataset. Lastig als je het over 'zoekgedrag' wil hebben -> dan kan je beter iBabs (sort by relevancy) vs iBabs (zoals ze nu zoeken, faceted search) doen. Zelfs dan wil je misschien de filters/facets scheiden van het sorteren op datum vs relevantie.
-* Alternatieve onderzoeksvraag (december) over 'mensen onthouden met google meer diverse aspecten en met ibabs meer details over specifieke aspecten' blijft ook mogelijk. Dan beide zoekmachines gewoon op relevantie (eventueel met datum filter omdat deze in beide zit)
 * Denk nog even na hoeveel vragen je met Google makkelijker gaat beantwoorden, en of je vragen wil formulieren waarvoor je expliciet beleidsinformatie nodig hebt
-* Er zijn papers over hoe je tijd en relevantie beide laat mee wegen.
 
 
 Low priority
