@@ -263,7 +263,9 @@ function SearchCompleted(response)
 function logNumResults(nr,nd){
 	console.log('updating numresults')
 	//TODO get it 
-	let gett = browser.storage.local.get();
+	let gett = 
+	
+	window.storage.local.get();
 	gett.then((results) => {
 		numresults = results.numresults
 		numresults.loglines.push(Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd)
@@ -274,14 +276,14 @@ function logNumResults(nr,nd){
 function storeLogs(){
 	let contentToStore = {};
 	contentToStore['numresults'] = numresults;
-	browser.storage.local.set(contentToStore);
+	window.storage.local.set(contentToStore);
 }
 
 function onInstalledNotification(details) {
 	//We should store the # results in localstorage.
 		//On page start: check if logs already exist
 		//On Query(): log new query w results and date.now()
-	let gett = browser.storage.local.get();
+	let gett = window.storage.local.get();
 	gett.then((results) => {
 		if(typeof results.numresults === "undefined"){
 			console.log('initialising numresults')

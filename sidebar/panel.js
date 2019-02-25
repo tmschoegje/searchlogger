@@ -77,6 +77,82 @@ function greyOutButton(){
 	})
 }
 
+//deprecated.. given a task and stage, what form should be loaded
+function properUrl(curT, curS){
+	if(task.curTask == PRESTUDY){
+		if(task.curStage == PRETASK){
+			console.log('loading intro')
+			browser.tabs.update({url: "../questionforms/intro.html"});
+			updateCurPage("../questionforms/intro.html");
+		}
+		else if(task.curStage == TASKTASK){
+			console.log('loading prestudy')
+			browser.tabs.update({url: "../questionforms/prestudy.html"});
+			updateCurPage("../questionforms/prestudy.html");
+		}
+		else{ alert('unknown state') }
+	}
+	//test if last task was performed
+	else if(task.curTask == numsearchtasks){
+		console.log('start post study')
+		browser.tabs.update({url: "../questionforms/poststudy.html"});
+		updateCurPage("../questionforms/poststudy.html");
+	}
+	// post task block/show the SUS?
+	else if(task.content == "loadsus"){
+		console.log('starting post task block')
+		browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+		updateCurPage("../questionforms/posttaskblock.html");
+	}
+	//else it's a regular task
+	else if(task.curStage == PRETASK){
+		//If this is a posttaskblock -> if so insert SUS.
+		
+		//We can get here in two cases: prev/next toolbar (we can handle this in task.type = prev or next, by setting content as 'loadsus' if the below if statement)
+		//we can get here from.. a posttak by 
+		
+		//if it's time for a posttaskblock SUS questionnaire, intercede the pre-task with 
+		//if(task.curTask == TASKBLOCKSIZE - 1 || task.curTask == TASKBLOCKSIZE * 2 - 1){
+
+		//GO TO TASKBLOCK IF: first time at pre-task     use content=?
+		
+	/*		console.log('should do the thing')
+			
+			let gett = browser.storage.local.get();
+			gett.then((results) => {
+
+				if(typeof results.questions.sessions[results.logs.curSession].sus[0] === ""){
+					console.log('we should show the SUS')
+					browser.tabs.update({url: "./questionforms/posttaskblock.html"});
+				}
+				})
+		}
+		else {*/
+			//TODO check if there are more tasks left to do
+			console.log('start pre task')
+			browser.tabs.update({url: "./questionforms/pretask.html"});
+			updateCurPage("../questionforms/pretask.html");
+			//todo tell the task to the toolbar rather than via post
+			//last is optional
+		//}
+	}
+	else if(task.curStage == TASKTASK){
+		console.log('start task')
+		let retrieveLogs = browser.storage.local.get().then((results) => {
+			curUrl = results.logs.sessions[results.logs.curSession].curEngine
+			browser.tabs.update({url: curUrl});
+			restartAlarm("../questionforms/posttask.html");
+			updateCurPage(curUrl);
+		})
+	}
+	//menu navigation can get here (instead of by the alarm)
+	else if(task.curStage == POSTTASK){
+		console.log('post task')
+		browser.tabs.update({url: "../questionforms/posttask.html"});
+		updateCurPage("../questionforms/posttask.html");
+	}
+}
+
 
 function updateContent() {
 	//if it's twitter, we opened a new tab or tried to navigate from the top
@@ -86,7 +162,29 @@ function updateContent() {
 		if(tabs[0].url.includes("twitter"))
 			home(null);
 		
-		//if it's a questionform, go home()  to make sure we're not looking at an old form
+		//if it's a questionform, load the form appropriate for this stage
+		if(tabs[0].url.includes("questionforms")){
+			console.log('below')
+			curl = tabs[0].url
+			let gett = browser.storage.local.get();
+			gett.then((results) => {
+				//compare last 15 chars (to avoid local vs global paths)
+				curl = curl.substring(curl.length - 15)
+				console.log(curl)
+				shouldurl = results.curPage
+				console.log(shouldurl)
+				shouldurl = shouldurl.substring(shouldurl.length - 15)
+				console.log('TESTING IF PROPER QUESTIONFORM')
+				console.log('it is: ' + curl)
+				console.log('it should be ' + shouldurl)
+				if(curl != shouldurl){
+					console.log('its differentTTTTTT')
+					home(null);
+				}
+			})
+		}
+		
+		//go home()  to make sure we're not looking at an old form
 		//if(tabs[0].url.includes("questionforms"))
 		//	home(null);
 		
@@ -464,9 +562,9 @@ function toggleBookmark(){
 }
 
 
-$(window).on('popstate', function(event) {
- alert("user went back?");
-});
+//$(window).on('popstate', function(event) {
+// alert("user went back?");
+//});
 
 
 /*
