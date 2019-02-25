@@ -194,10 +194,11 @@ function SearchCompleted(response)
         
 			html += "<p><a class='searchLink' href='" + item.link + "'> " + title + "</a><br>";
 			//if we recognise pdf/word, add a date
-			snippetdate = item.pagemap.metatags.creationdate
-			console.log(snippetdate)
-			if(typeof(snippetdate) != 'undefined')
-				html += snippetdate.substring(8, 10) + " " + snippetdate.substring(6,8) + " " + snippetdate.substring(2,6) + ' .. '
+	//		snippetdate = item.pagemap.metatags[0].creationdate
+//			console.log(snippetdate)
+		//	console.log('snip')
+		//	if(typeof(snippetdate) != 'undefined')
+		//		html += snippetdate.substring(8, 10) + " " + snippetdate.substring(6,8) + " " + snippetdate.substring(2,6) + ' .. '
 			
 			html += item.htmlSnippet + "<br>";
 			//html += item.link + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a>";
