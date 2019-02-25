@@ -33,6 +33,7 @@ function Search(term, engine, direction)
 		startIndex = 1; 
 		_pageNumber = 1;
 	}	
+	//if google.. 
 	if(engine == "g" || engine == "g2"){
 		//THIS WAS FOR ORIS VERSION we want to query using google, but for fair comparison we first call ORIS: both for similar time delay, and to compare an even number of results
 		//url = "http://api.openraadsinformatie.nl/v0/utrecht/search?query=" + "?query=" + escape(term)
@@ -136,7 +137,7 @@ function SearchCompleted(response)
 	console.log(response)
 	
 		
-	if(_engine == "g"){
+	if(_engine == "g" || _engine == "g2"){
 		var html = "";
 		$("#searchResult").html("");
 
@@ -185,12 +186,20 @@ function SearchCompleted(response)
 			$("#lblPageNumber").hide();
 		}
 
+		console.log('check me')
+		console.log(response)
 		for (var i = 0; i < response.items.length; i++){
 			var item = response.items[i];
 			var title = item.htmlTitle;
         
 			html += "<p><a class='searchLink' href='" + item.link + "'> " + title + "</a><br>";
-			html += item.snippet + "<br>";
+			//if we recognise pdf/word, add a date
+			snippetdate = item.pagemap.metatags.creationdate
+			console.log(snippetdate)
+			if(typeof(snippetdate) != 'undefined')
+				html += snippetdate.substring(8, 10) + " " + snippetdate.substring(6,8) + " " + snippetdate.substring(2,6) + ' .. '
+			
+			html += item.htmlSnippet + "<br>";
 			//html += item.link + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a>";
 			html += "</p><p>";
 		}
@@ -273,7 +282,7 @@ function logNumResults(nr,nd){
 //	let gett = 
 	
 	numresults = localStorage.getItem('numresults');
-	numresults += Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + " Numdocs " + nd + '\n'
+	numresults += Date.now() + " Query " + _keywords.join("-") + " Numresults " + nr + '\n'
 	console.log(numresults)
 	localStorage.setItem('numresults', numresults)
 //	gett.then((results) => {
