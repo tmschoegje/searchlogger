@@ -2,7 +2,6 @@ Functionality
 * randomisatie gebeurt nog niet algoritmisch
 * randomiseer ook de tutorialtaken met elkaar
 * progress bar
-* Als je via Home button terug gaat worden je antwoorden niet ge auto filled
 
 Tekst + intro/tutorial
 * Vaak wordt er gesuggereerd dat begrippen bekend moeten zijn (bv 'de toolbar') zonder dat ze goed geintroduceerd zijn. Zo ook de 'document categorien' algemeen (google) en beleid (oris/ibabs).
@@ -13,7 +12,6 @@ Tekst + intro/tutorial
 * update on progress at milestones
 * Benadruk dat de gebruiker de zoekvraag moet beantwoorden, niet moet nadenken over zoekmachine
 * Op meerdere momenten onduidelijk dat je de knop 'volgende' kan gebruiken om verder te gaan (beginnen met zoeken, afronden zoektaak)
-*In ORIS versie, aantal zoekresultaten is een tekst 'undefined' (ook geen next/prev)
 
 
 Logging
@@ -24,8 +22,7 @@ Logging
 
 
 Experimental setup
-* Hoe argumenteer je dat je zoekresultaten zo repliceerbaar/representatief mogelijk zijn, ondanks Google personalisatie 
-* SUS vragen beter
+* SUS vragen
 * Denk nog even na hoeveel vragen je met Google makkelijker gaat beantwoorden, en of je vragen wil formulieren waarvoor je expliciet beleidsinformatie nodig hebt
 
 
