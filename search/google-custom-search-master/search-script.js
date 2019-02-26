@@ -200,8 +200,8 @@ function SearchCompleted(response)
 		//	if(typeof(snippetdate) != 'undefined')
 		//		html += snippetdate.substring(8, 10) + " " + snippetdate.substring(6,8) + " " + snippetdate.substring(2,6) + ' .. '
 			
-			html += item.htmlSnippet + "<br>";
-			html += item.link + "<br>"// + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a>";
+			html += item.htmlSnippet + "<p>";
+			//html += item.link + "<br>"// + " - <a href='http://www.google.com/search?q=cache:"+	item.cacheId+":"+item.displayLink+"'>Cached</a>";
 			html += "</p><p>";
 		}
 	}
