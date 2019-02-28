@@ -1,14 +1,10 @@
 Firefox extension for performing and logging search tasks in an experimental setting.
 
-Full list @ feedback.txt
-
-Backlog (key features)
+Backlog
+* Log keypresses (e.g. voor ctrl+f searches. Could also log mouse hovers and scrolling?
+* If browser was closed/repoened during a task stage, the timer should probably resume
+* Refactor stuff to make it resuable/extendable
 * See feedback.txt for full list of items
-* Log keypresses (in particular for when the user searches a document with (ctrl + f)). could also log mouse hovers and scrolling?
-* Automatic task order presentation
-* If browser was closed/repoened during a task stage, the timer shouldn't restart
-* In test task, check if user used all features
-* Refactor stuff (e.g. clean up short-term solutions; navigation flow should be a linkedlist instead of curTask/curStage combination)
 
 Installation
 * Installation currently requires the browser to disable a security feature to work. Go to the URL about:config and double click on security.csp.enable, turning it to false.

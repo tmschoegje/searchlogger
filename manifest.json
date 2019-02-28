@@ -24,6 +24,6 @@
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["randomisation.js","background.js"]
   }
 }

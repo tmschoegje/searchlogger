@@ -1,21 +1,17 @@
 Functionality
-* randomisatie gebeurt nog niet algoritmisch
-* randomiseer ook de tutorialtaken met elkaar
-* progress bar
+* Progress bar. Ook reminders @ milestones hoe ver je bent (e.g. na tutorial taak)
+* Graded relevance scale (niet binair 'nuttige pagina of niet')?
 
-Tekst + intro/tutorial
-* Na tutorial taak expliciet maken dat er nu echte taken komen, progress update en expectation management. Ook expliciet kijken of ze nog vragen hebben, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
+Text
+* After tutorial task: explicitly ask if they still have questions, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
 * update on progress at milestones
 
 Logging
-* test logging
 * log scrolling
-* log keystrokes
+* log keystrokes (queries are already logged)
 * log hovers
 
-
 Experimental setup
-* SUS vragen
 * Denk nog even na hoeveel vragen je met Google makkelijker gaat beantwoorden, en of je vragen wil formulieren waarvoor je expliciet beleidsinformatie nodig hebt
 
 
@@ -24,5 +20,4 @@ Low priority
 * Foutmelding tijdens invoer validatie specifiek maken
 * Forceer de gebruiker om de knoppen te van de toolbar
 * Do we need to update the user that we are loading?
-* Graded relevance scale (niet binair 'nuttige pagina of niet')?
 * Leidt aandacht door toolbar met kleuren, specifiek naar taak definitie wanneer een taak begint

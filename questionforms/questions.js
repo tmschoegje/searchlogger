@@ -1,3 +1,6 @@
+var TASKBLOCKSIZE = 3
+var POSTTASKBLOCK = 3
+
 function validateInput(input, type){
 	//If this variable was not set, it cannot be wrong
 	if (typeof input === 'undefined')
@@ -78,15 +81,35 @@ function loadAnswers() {
 			document.forms[0].elements.citizentime.value = questions.sessions[logs.curSession].citizentime;
 			document.forms[0].elements.nieuws.value = questions.sessions[logs.curSession].nieuws;
 			document.forms[0].elements.betrokken.value = questions.sessions[logs.curSession].betrokken;
-		}
+		} //pretask
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
-			//THIS NOW INCLUDES END OF TASKBLOCK
+			//if regular pretask
 			document.forms[0].elements.hoogte.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte;
-		}
+		} //posttask
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
 			document.forms[0].elements.tevreden.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden;
 			 document.forms[0].elements.seq.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq;
 			 document.forms[0].elements.userantwoord.value = questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord;
+		} //posttaskblock
+		else if(typeof document.forms[0].elements.sus1 != "undefined"){
+			//are we in the first or second taskblock
+			tblock = 1
+			if(logs.sessions[logs.curSession].curTask == TASKBLOCKSIZE - 1)
+				tblock = 0
+			console.log('load')
+			console.log(document.forms[0])
+			console.log(questions.sessions[logs.curSession])
+			//store sus values
+			document.forms[0].elements.sus1.value = questions.sessions[logs.curSession].sus[tblock].sus1;
+			document.forms[0].elements.sus2.value = questions.sessions[logs.curSession].sus[tblock].sus2;
+			document.forms[0].elements.sus3.value = questions.sessions[logs.curSession].sus[tblock].sus3;
+			document.forms[0].elements.sus4.value = questions.sessions[logs.curSession].sus[tblock].sus4;
+			document.forms[0].elements.sus5.value = questions.sessions[logs.curSession].sus[tblock].sus5;
+			document.forms[0].elements.sus6.value = questions.sessions[logs.curSession].sus[tblock].sus6;
+			document.forms[0].elements.sus7.value = questions.sessions[logs.curSession].sus[tblock].sus7;
+			document.forms[0].elements.sus8.value = questions.sessions[logs.curSession].sus[tblock].sus8;
+			document.forms[0].elements.sus9.value = questions.sessions[logs.curSession].sus[tblock].sus9;
+			document.forms[0].elements.sus10.value = questions.sessions[logs.curSession].sus[tblock].sus10;
 		}
 	})
 }
@@ -101,6 +124,7 @@ function storeAnswers() {
 		logs = results.logs
 		questions = results.questions
 		console.log('storing answers')
+		console.log(logs)
 
 		//informed consent
 		if(logs.sessions[logs.curSession].curTask == PRESTUDY && logs.sessions[logs.curSession].curStage == PRETASK)
@@ -114,14 +138,37 @@ function storeAnswers() {
 			questions.sessions[logs.curSession].nieuws = document.forms[0].elements.nieuws.value;
 			questions.sessions[logs.curSession].betrokken = document.forms[0].elements.betrokken.value;
 			console.log('2')
-		}
+		} //pretask 
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == PRETASK){
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].hoogte = document.forms[0].elements.hoogte.value;
-		}
+		} //posttask
 		else if(logs.sessions[logs.curSession].curTask != POSTSTUDY && logs.sessions[logs.curSession].curStage == POSTTASK){
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].tevreden = document.forms[0].elements.tevreden.value;
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].seq = document.forms[0].elements.seq.value;
 			questions.sessions[logs.curSession].taskquestions[logs.sessions[logs.curSession].curTask].userantwoord = document.forms[0].elements.userantwoord.value;
+		} //posttaskblock
+		else if(typeof document.forms[0].elements.sus1 != "undefined"){
+			console.log('gonna store')
+			console.log(document.forms[0].elements.sus1.value)
+			console.log(logs.sessions[logs.curSession].curTask)
+			console.log(TASKBLOCKSIZE - 1)
+			console.log(questions.sessions[logs.curSession])
+			
+			//are we in the first or second taskblock
+			tblock = 1
+			if(logs.sessions[logs.curSession].curTask == TASKBLOCKSIZE - 1)
+				tblock = 0
+			//store sus values
+			questions.sessions[logs.curSession].sus[tblock].sus1 = document.forms[0].elements.sus1.value;
+			questions.sessions[logs.curSession].sus[tblock].sus2 = document.forms[0].elements.sus2.value;
+			questions.sessions[logs.curSession].sus[tblock].sus3 = document.forms[0].elements.sus3.value;
+			questions.sessions[logs.curSession].sus[tblock].sus4 = document.forms[0].elements.sus4.value;
+			questions.sessions[logs.curSession].sus[tblock].sus5 = document.forms[0].elements.sus5.value;
+			questions.sessions[logs.curSession].sus[tblock].sus6 = document.forms[0].elements.sus6.value;
+			questions.sessions[logs.curSession].sus[tblock].sus7 = document.forms[0].elements.sus7.value;
+			questions.sessions[logs.curSession].sus[tblock].sus8 = document.forms[0].elements.sus8.value;
+			questions.sessions[logs.curSession].sus[tblock].sus9 = document.forms[0].elements.sus9.value;
+			questions.sessions[logs.curSession].sus[tblock].sus10 = document.forms[0].elements.sus10.value;
 		}
 		//store the logs
 		let contentToStore = {};

@@ -16,11 +16,19 @@ var searchtaskshort = ['Hoe zijn de problemen met het Geluidslek in Tivoli Vrede
 'Heeft de Gemeente beleid besloten dat invloed kan hebben op wanneer een student verhuist?'
 ]
 
-for(cnt = 0; cnt < searchtasks.length; cnt++)
-	searchtasks[cnt] = "<font size='+2'>" + searchtasks[cnt] + "</font>"
+tutorialtasks = ['Hoe zijn de problemen met het geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
+'De Rijksoverheid heeft besloten en vastgelegd dat huishoudelijke hulp voortaan geregeld gaat worden op Gemeente niveau. Welke voorzieningen biedt de Gemeente een burger nu aan?']
+tutorialtaskshort = ['Hoe zijn de problemen met het Geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
+'Welke Huishoudelijke Hulp voorzieningen biedt de Gemeente een burger nu aan?']
+generictasks = ['U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?', 
+'U bent als student aan het nadenken over een nieuwe woning en heeft gehoord dat de Gemeenteraad van Utrecht het belangrijk vindt dat studenten betaalbaar kunnen wonen. Werkt de Gemeente aan beleid dat invloed kan hebben op uw verhuisplannen?']
+generictaskshort = ['Wie heeft de supermarkt aan de Uithof politiek aangekaart, en wat is de status hiervan?',
+'Heeft de Gemeente beleid besloten dat invloed kan hebben op wanneer een student verhuist?']
+specifictasks = ['De Uithof wordt ook wel eens Science Park genoemd, en de Gemeente zit erover te denken om de naam officieel te veranderen. Waarom is deze verandering zo belangrijk dat de Gemeenteraad er tijd aan wil besteden?',
+'De Uithoflijn is de naam van de tramlijn die tussen Utrecht Centraal en de Universiteit Utrecht wordt aangelegd. U kijkt naar de Uithoflijn als alternatief om naar de universiteit te komen, maar u weet niet wanneer deze bruikbaar is. Wanneer kunt u deze gebruiken?']
+specifictaskshort = ['Waarom wil de Gemeente De Uithof van naam veranderen naar Science Park, en waarom is dit een belangrijke beslissing?',
+'Wanneer kunt u de Uithoflijn gebruiken?']
 
-searchtasks[0] = firsttask + googleintro + searchtasks[0]
-searchtasks[3] = ibabsintro + searchtasks[3]
 
 var searchengine = ['https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
 'https://cse.google.com/cse?cx=002312860193215934518:dcojxiqiv44',
@@ -45,7 +53,7 @@ var POSTSTUDY = numsearchtasks
 var PRETASK = 0
 var TASKTASK = 1
 var POSTTASK = 2
-POSTTASKBLOCK = 3
+var POSTTASKBLOCK = 3
 var TASKBLOCKSIZE = 3
 
 //verbose logging for debugging/reference. panel.js logs url on updated tabs
@@ -62,6 +70,105 @@ browser.webRequest.onBeforeRequest.addListener(
 var DELAY = 10; //time for each task in minutes
 var CATGIFS = "./questionforms/prestudy.html"//http://chilloutandwatchsomecatgifs.com/";
 
+
+googleURL = '../search/google-custom-search-master/google-search.html?se=g'
+iBabsURL = '../search/google-custom-search-master/google-search.html?se=g2'
+//session id/which randomisation are we using
+function randomiseTasks(seed){
+	//store the result here for future bookkeeping
+	let order = ""
+	let newSearchtasks = searchtasks
+	let newSearchtaskshort = searchtaskshort
+	
+	//first half of 16 participants do Google first
+	if(seed < 8){
+		order += 'google '
+		engine1 = googleURL
+		engine2 = iBabsURL
+	}
+	else{
+		seed -= 8
+		order += 'ibabs '
+		engine1 = iBabsURL
+		engine2 = googleURL
+	}
+	//first 3 tasks (1 tutorial + 2) are google
+	for(let i = 0; i < 3; i++){
+		searchengine[i] = engine1
+		searchengine[i+3] = engine2
+	}
+	//within each group, first half do generic first + HH tutorial
+	if(seed < 4){
+		order += 'generic '
+		tutorial1 = 1
+		tutorial2 = 0
+	}
+	else{
+		seed -= 4
+		order += 'specific '
+		tutorial1 = 0
+		tutorial2 = 1
+	}
+	newSearchtasks[0] = tutorialtasks[tutorial1]
+	newSearchtaskshort[0] = tutorialtaskshort[tutorial1]
+	newSearchtasks[3] = tutorialtasks[tutorial2]
+	newSearchtaskshort[3] = tutorialtaskshort[tutorial2]
+	
+	//randomise first set of 2 tasks
+	if(seed < 2){
+		order += 'task1 '
+		task1 = 0
+		task2 = 1
+	}
+	else{
+		seed -= 2
+		order += 'task2 '
+		task1 = 1
+		task2 = 0
+	}
+	//we have only 2 seeds left
+	if(seed == 0){
+		order += 'task1'
+		task3 = 0
+		task4 = 1
+	}
+	else{
+		order += 'task2'
+		task3 = 1
+		task4 = 0
+	}
+	//remember if we are going generic first
+	if(tutorial1 == 1){
+		newSearchtasks[1] = generictasks[task1]
+		newSearchtaskshort[1] = generictaskshort[task1]
+		newSearchtasks[2] = generictasks[task2]
+		newSearchtaskshort[2] = generictaskshort[task2]
+		newSearchtasks[4] = specifictasks[task3]
+		newSearchtaskshort[4] = specifictasks[task3]
+		newSearchtasks[5] = specifictasks[task4]
+		newSearchtaskshort[5] = specifictasks[task4]
+	}
+	else{
+		newSearchtasks[1] = specifictasks[task1]
+		newSearchtaskshort[1] = specifictasks[task1]
+		newSearchtasks[2] = specifictasks[task2]
+		newSearchtaskshort[2] = specifictasks[task2]
+		newSearchtasks[4] = generictasks[task3]
+		newSearchtaskshort[4] = generictasks[task3]
+		newSearchtasks[5] = generictasks[task4]
+		newSearchtaskshort[5] = generictasks[task4]
+	}
+	searchtasks = newSearchtasks
+	searchtaskshort = newSearchtaskshort
+	
+	//Start prepping search task order.. 
+	for(cnt = 0; cnt < searchtasks.length; cnt++)
+		searchtasks[cnt] = "<font size='+2'>" + searchtasks[cnt] + "</font>"
+
+	searchtasks[0] = firsttask + googleintro + searchtasks[0]
+	searchtasks[3] = ibabsintro + searchtasks[3]
+	return order
+}
 
 //start bookmark code
 /*
@@ -174,6 +281,8 @@ function storeLogs(){
 	let contentToStore = {};
 	contentToStore['logs'] = logs;
 	browser.storage.local.set(contentToStore);
+	console.log('storing logs')
+	console.log(logs)
 }
 
 function storeQuestions(questions){
@@ -446,6 +555,66 @@ function loadNextPhase(task){
 			//console.log(task.curStage)
 		}
 	}
+	if(task.type == "nextsession"){
+		logs.curSession += 1;
+		//create this new session
+		logs.sessions.push({
+			"participantid": logs.curSession,
+			"curTask": -1,
+			"curStage": 0,
+			"loglines": [Date.now() + " Logs for session 0 with participant 0"],
+			"bookmarks": {},
+			"order": randomiseTasks(logs.curSession)
+			})
+		let gett = browser.storage.local.get()
+		gett.then((results) => {
+			results.questions.sessions.push({
+					"consent":"",
+					"sex":"",
+					"age":"",
+					"citizentime":"",
+					"nieuws":"",
+					"betrokken":"",
+					"taskquestions":[{
+						"hoogte": "",
+						"userantwoord": "",
+						"tevreden":"",
+						"seq":""
+					}],
+					"sus":[{
+						"sus1":"",
+						"sus2":"",
+						"sus3":"",
+						"sus4":"",
+						"sus5":"",
+						"sus6":"",
+						"sus7":"",
+						"sus8":"",
+						"sus9":"",
+						"sus10":""
+					},
+					{
+						"sus1":"",
+						"sus2":"",
+						"sus3":"",
+						"sus4":"",
+						"sus5":"",
+						"sus6":"",
+						"sus7":"",
+						"sus8":"",
+						"sus9":"",
+						"sus10":""
+					}]
+			})
+			let contentToStore = {};
+			contentToStore["questions"] = results.questions;
+			browser.storage.local.set(contentToStore);
+		})
+		//so load the proper stage
+		task.type = "load"
+		task.curTask = -1
+		task.curStage = 0
+	}
 	if(task.type == "load"){
 //		console.log('load')
 //		console.log(task)
@@ -556,8 +725,11 @@ function loadNextPhase(task){
 		
 	}
 	else if(task.type == "log"){
-		//Multiple http requests with the same URL, only log the first
+		//Multiple http requests with the same URL?, only log the first
+		alert(task.content.split(" ", 4)[3])
+		alert(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3])
 		if(task.content.split(" ", 4)[3] != logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3]){
+			alert('same')
 /*			console.log('current')
 			console.log(task.content)
 			console.log('previous')
@@ -567,7 +739,7 @@ function loadNextPhase(task){
 			logs.sessions[logs.curSession].loglines.push(task.content)
 			//console.log(logs)
 			//update stored logs
-			let contentToStore = {};
+			//let contentToStore = {};
 			storeLogs();
 			
 			//example of retrieving logs
@@ -578,20 +750,6 @@ function loadNextPhase(task){
 			////console.log(browser.storage.local.get('logs'))
 			
 		}
-	}
-	else if(task.type == "nextsession"){
-		logs.curSession += 1;
-		//create this new session
-		logs.sessions.push({
-			"participantid": logs.curSession,
-			"curTask": -1,
-			"curStage": 0,
-			"loglines": [Date.now() + " Logs for session 0 with participant 0"],
-			"bookmarks": {'dummy2':'test2'}
-			})
-		//not currently used/properly implemented
-//		logs.curParticipant = task.curParticipant; 
-		//TODO add warning that cursession is at invalid value
 	}
 	
 		
@@ -633,6 +791,8 @@ function searchtask1(e){
 	browser.tabs.update({url: "http://uu.nl/"});
 }*/
 
+
+//Called when installed, and when starting a new session
 function onInstalledNotification(details) {
 	//TODO see if it already exists
 	console.log('checking if there are already logs stored')
@@ -646,7 +806,8 @@ function onInstalledNotification(details) {
 					"curTask": -1,
 					"curStage": 0,
 					"loglines": [Date.now() + " Logs for session 0 with participant 0"],
-					"bookmarks": {}
+					"bookmarks": {},
+					"order": randomiseTasks(0)
 				}],
 				"curSession": 0,
 				"searchtasks": searchtasks,
