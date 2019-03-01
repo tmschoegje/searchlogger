@@ -1,10 +1,5 @@
 Functionality
-* Progress bar. Ook reminders @ milestones hoe ver je bent (e.g. na tutorial taak)
 * Graded relevance scale (niet binair 'nuttige pagina of niet')?
-
-Text
-* After tutorial task: explicitly ask if they still have questions, en evt aanmoedigen zelfs dat je 'klaar met taak' gebruiken als ze klaar zijn
-* update on progress at milestones
 
 Logging
 * log scrolling

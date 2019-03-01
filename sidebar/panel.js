@@ -30,6 +30,7 @@ var DELAY = 10
 
 firsttime = true
 curUrl = "google.nl"
+curTask = 0
 
 //if user has to fill in questions, ask them to fill out questions instead
 //also, show and start the clock if it's the first time we notice that a task is going on
@@ -38,6 +39,12 @@ function greyOutButton(){
 	browser.storage.local.get().then((results) => {
 		logs = results.logs
 		session = logs.sessions[logs.curSession]
+		curTask = session.curTask
+		
+		//while we're here, the progress bar
+		var elem = document.getElementById("myBar"); 
+		console.log('anchor ' + (100 / 7.0) * (curTask + 1))
+		elem.style.width = (100 / 7.0) * (curTask + 1) + '%'
 		
 		//If prestudy or poststudy
 		if(session.curTask == PRESTUDY || session.curTask == POSTSTUDY){
@@ -74,8 +81,11 @@ function greyOutButton(){
 			}
 			//ctrl f 
 		}
+		
 	})
 }
+
+
 
 //deprecated.. given a task and stage, what form should be loaded
 function properUrl(curT, curS){

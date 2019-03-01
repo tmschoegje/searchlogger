@@ -1,6 +1,7 @@
-var firsttask = "In dit experiment wordt u gevraagd om het antwoord te vinden op 6 zoekvragen die te maken hebben met het beleid van de Gemeente Utrecht. Dit experiment duurt tussen 45 en 75 minuten. Voor de helft van de taken gebruikt u een zoekmachine dat uw resultaten probeert te vinden in de <b>beleidsdocumenten</b> van de Gemeente Utrecht, en voor de andere helft gebruikt u een zoekmachine dat uw resultaten probeert te vinden in <b>online documenten</b>. Zodra u een pagina vindt die helpt om de vraag te beantwoorden geeft u dit aan met de toolbar aan de linkerzijde. <p><b>Verloop experiment</b><p>U wordt straks verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden, waarbij u de toolbar aan de linkerzijde kunt gebruiken. Hierin heeft u de volgende functies:<ul><li>Een knop om te navigeren naar uw huidige opdracht (vragenlijst of zoekmachine)</li><li> Een ster die u kunt aanklikken om aan te geven dat de huidige pagina u helpt om de vraag te beantwoorden</li><li>Een knop om de zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li>Een knop om een stap in het experiment terug tegaan, indien u een antwoord wil wijzigen</ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk?<p><p>"
-var ibabsintro = "U gaat nu 3 zoektaken uitvoeren met een zoekmachine die naar antwoorden zoekt binnen de beleidsdocumenten. Dit zijn de documenten die gebruikt worden in het openbare beleidsvormingsproces van de Gemeente Utrecht. Hierin staat hoe en waarom besluiten genomen zijn. U krijgt nu een oefentaak om bekend te worden met het zoeken in deze informatie<p><b>Zoektaak</b><p>"
-var googleintro = "U gaat nu 3 zoektaken uitvoeren met een zoekmachine die naar antwoorden zoekt binnen online bronnen. Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden. U krijgt nu een oefentaak om bekend te worden met het zoeken in deze informatie:<p><b>Zoektaak</b><p>"
+var firsttask = "In dit experiment wordt u gevraagd om het antwoord te vinden op 6 zoekvragen die te maken hebben met het beleid van de Gemeente Utrecht. Dit experiment duurt tussen 45 en 75 minuten. Voor de helft van de taken gebruikt u een zoekmachine dat uw resultaten probeert te vinden in de <b>beleidsdocumenten</b> van de Gemeente Utrecht, en voor de andere helft gebruikt u een zoekmachine dat uw resultaten probeert te vinden in <b>online documenten</b>. Zodra u een pagina vindt die helpt om de vraag te beantwoorden geeft u dit aan met de toolbar aan de linkerzijde. <p><b>Verloop experiment</b><p>U wordt straks verwezen naar een zoekmachine om een zoekvraag mee te beantwoorden, waarbij u de toolbar aan de linkerzijde kunt gebruiken. Hierin heeft u de volgende functies:<ul><li>Een knop om te navigeren naar uw huidige opdracht (vragenlijst of zoekmachine)</li><li> Een ster die u kunt aanklikken om aan te geven dat de huidige pagina u helpt om de vraag te beantwoorden</li><li>Een knop om de zoektaak afronden indien u eerder klaar bent dan de tijdslimiet </li><li>Een knop om een stap in het experiment terug tegaan, indien u een antwoord wil wijzigen</li><li>Een balk waarin u kan zien hoe ver u in het experiment bent.</li></ul><p>Als u de browser per ongeluk sluit kunt u deze opnieuw starten en doorgaan met het experiment. Ga voor uzelf na: zijn alle knoppen hiernaast nu duidelijk?<p><p>"
+var ibabsintro = "U gaat nu 3 (van de 6) zoektaken uitvoeren met een zoekmachine die naar antwoorden zoekt binnen de beleidsdocumenten. Dit zijn de documenten die gebruikt worden in het openbare beleidsvormingsproces van de Gemeente Utrecht. Hierin staat hoe en waarom besluiten genomen zijn. U krijgt nu een oefentaak om bekend te worden met het zoeken in deze informatie<p><b>Zoektaak</b><p>"
+var googleintro = "U gaat nu 3 (van de 6) zoektaken uitvoeren met een zoekmachine die naar antwoorden zoekt binnen online bronnen. Veel mensen blijven vooral op de hoogte van nieuw beleid van de Gemeente via het nieuws en andere webpagina\'s. U zal nu met dit type informatie de zoekvragen beantwoorden. U krijgt nu een oefentaak om bekend te worden met het zoeken in deze informatie:<p><b>Zoektaak</b><p>"
+var posttutorial = "<p>Dit is geen oefentaak meer. Als u nog vragen heeft over het experiment kunt u ze nu stellen."
 //first one is the training task, keep this in mind when doing the randomisation
 var searchtasks = ['Hoe zijn de problemen met het geluidslek in Tivoli Vredenburg aangepakt en opgelost?',
 'U heeft gehoord dat er misschien een nieuwe supermarkt op de Uithof komt. Wie heeft deze plannen aan de politiek voorgelegd, en wat is hier nu de status van?',
@@ -166,7 +167,9 @@ function randomiseTasks(seed){
 		searchtasks[cnt] = "<font size='+2'>" + searchtasks[cnt] + "</font>"
 
 	searchtasks[0] = firsttask + googleintro + searchtasks[0]
+	searchtasks[1] = searchtasks[1] + posttutorial
 	searchtasks[3] = ibabsintro + searchtasks[3]
+	searchtasks[4] = searchtasks[4] + posttutorial
 	return order
 }
 
@@ -726,10 +729,10 @@ function loadNextPhase(task){
 	}
 	else if(task.type == "log"){
 		//Multiple http requests with the same URL?, only log the first
-		alert(task.content.split(" ", 4)[3])
-		alert(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3])
+		//alert(task.content.split(" ", 4)[3])
+		//alert(logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3])
 		if(task.content.split(" ", 4)[3] != logs.sessions[logs.curSession].loglines[logs.sessions[logs.curSession].loglines.length - 1].split(" ", 4)[3]){
-			alert('same')
+			//alert('same')
 /*			console.log('current')
 			console.log(task.content)
 			console.log('previous')

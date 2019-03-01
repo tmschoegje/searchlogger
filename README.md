@@ -1,8 +1,8 @@
 Firefox extension for performing and logging search tasks in an experimental setting.
 
 Backlog
-* Log keypresses (e.g. voor ctrl+f searches. Could also log mouse hovers and scrolling?
-* If browser was closed/repoened during a task stage, the timer should probably resume
+* Log keypresses (ctrl+f searches). Could also log mouse hovers and scrolling?
+* If browser was closed/reopened during a task stage, the timer should probably resume
 * Refactor stuff to make it resuable/extendable
 * See feedback.txt for full list of items
 
